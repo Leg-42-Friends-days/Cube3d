@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/20 15:22:22 by mickzhan         ###   ########.fr       */
+/*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
+/*   Updated: 2026/04/20 15:25:42 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdio.h"
+#ifndef CUB3D_H
+# define CUB3D_H
 
-int main(int ac, char **av)
-{
-    int i;
+# include "parsing/parsing.h"
 
-    
-    return (0);
-}
+#endif
