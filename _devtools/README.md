@@ -1,0 +1,10 @@
+https://hackmd.io/@nszl/H1LXByIE2#introduction
+https://medium.com/@elmehdielgarouaz/from-flat-to-fantastic-how-cub3ds-ray-casting-engine-transforms-2d-into-3d-647ff2f7fd4f
+https://www.youtube.com/watch?v=eOCQfxRQ2pY
+https://nathaan.me/projects/cub3d
+https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
+https://github.com/iciamyplant/Cub3d-Linux
+https://lodev.org/cgtutor/raycasting.html
+https://www.youtube.com/watch?v=gID_FKfncZI
+https://mintlify.wiki/ibon-ira/Cub3d/reference/architecture
+http://zupi.free.fr/PTuto/index.php?ch=ptuto&p=ray#0
