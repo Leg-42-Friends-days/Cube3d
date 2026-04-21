@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/20 16:48:41 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/21 12:04:57 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,20 @@ int	error_gestion(int ac, char **av)
 	return (0);
 }
 
+bool	read_map(t_map *map)
+{
+	int i;
+
+	i = 0;
+}
+
 int	main(int ac, char **av)
 {
+	t_map	*map;
+
 	if (error_gestion(ac, av) == 1)
 		return (1);
+	map = malloc(sizeof(t_map));
+	read_map(&map);
 	return (0);
 }
