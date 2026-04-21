@@ -8,3 +8,8 @@ https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=gID_FKfncZI
 https://mintlify.wiki/ibon-ira/Cub3d/reference/architecture
 http://zupi.free.fr/PTuto/index.php?ch=ptuto&p=ray#0
+https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/
+https://wynnliam.github.io/raycaster/news/tutorial/2019/03/23/raycaster-part-01.html
+https://www.geeksforgeeks.org/computer-graphics/dda-line-generation-algorithm-computer-graphics/
+
+

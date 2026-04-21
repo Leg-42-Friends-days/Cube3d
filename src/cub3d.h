@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/20 16:37:03 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/21 11:31:43 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_global
+{
+	t_textures	*t_textures;
+	t_colors	*colors;
+	t_map		map;
+}				t_global;
 
 #endif
