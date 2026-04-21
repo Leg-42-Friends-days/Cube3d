@@ -6,39 +6,79 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/21 16:18:11 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:19:01 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	map_cub(char *str)
+char	*is_space(char *str)
 {
-	int		i;
-	int		j;
-	char	*cub;
+	int	i;
 
 	i = 0;
-	j = 0;
-	cub = ".cub";
+	if (!str)
+		return (NULL);
 	while (str[i])
-		i++;
-	i -= 4;
-	while (str[i] == cub[j])
 	{
+		if (str[i] == ' ')
+			i++;
+		else
+			return (str + i);
+	}
+	return (str);
+}
+
+char	*texture_map(char *str)
+{
+	int		i;
+	char	*cpy;
+
+	i = 0;
+	while (str[i] == ' ')
 		i++;
-		j++;
-	}
-	if (j == 5)
+	cpy = ft_strdup(str + i);
+	return (cpy);
+}
+
+void	convert_line(t_global *global, char *line)
+{
+	if (ft_strncmp(is_space(line), "NO", 2) == 0)
+		global->t_textures->north = texture_map(is_space(line) + 2);
+	if (ft_strncmp(is_space(line), "WE", 2) == 0)
+		global->t_textures->west = texture_map(is_space(line) + 2);
+	if (ft_strncmp(is_space(line), "SO", 2) == 0)
+		global->t_textures->south = texture_map(is_space(line) + 2);
+	if (ft_strncmp(is_space(line), "EA", 2) == 0)
+		global->t_textures->east = texture_map(is_space(line) + 2);
+	if (ft_strncmp(is_space(line), "F", 1) == 0)
+		global->t_textures->floor = texture_map(is_space(line) + 1);
+	if (ft_strncmp(is_space(line), "C", 1) == 0)
+		global->t_textures->ceiling = texture_map(is_space(line) + 1);
+}
+
+void	read_map(t_global *global, char *map_content)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(map_content, O_RDONLY);
+	if (!fd)
+		return (printf("Error\n"), exit(1));
+	line = get_next_line(fd);
+	while (line)
 	{
-		j = open(str, O_RDONLY);
-		close(j);
-		if (j < 0)
-			return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
+		convert_line(global, line);
+		free(line);
+		line = get_next_line(fd);
 	}
-	else
-		return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
-	return (0);
+	close(fd);
+	printf("NORTH :%s", global->t_textures->north);
+	printf("SOUTH : %s", global->t_textures->south);
+	printf("FLOOR: %s", global->t_textures->floor);
+	printf("CEILI : %s", global->t_textures->ceiling);
+	printf("WEAST : %s", global->t_textures->west);
+	printf("EAST : %s", global->t_textures->east);
 }
 
 int	error_gestion(int ac, char **av)
@@ -50,65 +90,27 @@ int	error_gestion(int ac, char **av)
 	return (0);
 }
 
-int	map_len(char *map_content)
+void	free_all(t_global *global)
 {
-	int		fd;
-	int		len;
-	char	*line;
-
-	len = 0;
-	fd = open(map_content, O_RDONLY);
-	if (fd == -1)
-		return (printf("Error fd"), exit(1), 1);
-	line = get_next_line(fd);
-	if (!line)
-		return (printf("Error\n Map"), exit(1), 1);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-		len++;
-	}
-	close(fd);
-	return (len);
-}
-
-char	**read_map(char *map_content)
-{
-	int		fd;
-	int		len;
-	char	*line;
-	char	**content;
-	int		i;
-
-	i = 0;
-	len = map_len(map_content);
-	content = malloc(sizeof(char *) * (len + 1));
-	if (!content)
-		return (printf("Error\nMalloc"), exit(1), NULL);
-	fd = open(map_content, O_RDONLY);
-	if (!fd)
-		return (printf("Error\n"), exit(1), NULL);
-	line = get_next_line(fd);
-	while (line)
-	{
-		content[i] = ft_strdup(line);
-		free(line);
-		line = get_next_line(fd);
-		printf("%s", content[i]);
-		i++;
-	}
-	content[i] = NULL;
-	return (content);
+	free(global->t_textures->ceiling);
+	free(global->t_textures->east);
+	free(global->t_textures->floor);
+	free(global->t_textures->north);
+	free(global->t_textures->south);
+	free(global->t_textures->west);
+	free(global->t_textures);
+	free(global);
 }
 
 int	main(int ac, char **av)
 {
-	t_map	*map;
+	t_global	*global;
 
 	if (error_gestion(ac, av) == 1)
 		return (1);
-	map = malloc(sizeof(t_map));
-	map->map = read_map(av[1]);
+	global = malloc(sizeof(t_global));
+	global->t_textures = malloc(sizeof(t_textures));
+	read_map(global, av[1]);
+	free_all(global);
 	return (0);
 }
