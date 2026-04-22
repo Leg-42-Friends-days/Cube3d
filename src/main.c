@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/21 19:19:01 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/22 15:45:55 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int	main(int ac, char **av)
 		return (1);
 	global = malloc(sizeof(t_global));
 	global->t_textures = malloc(sizeof(t_textures));
-	read_map(global, av[1]);
-	free_all(global);
+	create_map(global->map, av[1]);
+	//read_map(global, av[1]);
+	//free_all(global);
 	return (0);
 }
