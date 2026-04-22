@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/21 18:21:15 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/22 15:06:36 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct s_global
 {
-	t_textures	*t_textures;
+	t_textures	*textures;
 	t_map		map;
 }				t_global;
 
