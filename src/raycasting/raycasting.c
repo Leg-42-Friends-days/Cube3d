@@ -6,55 +6,39 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/04/23 12:16:24 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/04/23 19:06:33 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub3d.h"
 
-void	init_player(t_global *global)
+void	go_though_all_rays(t_raycast_data *data)
 {
-	char	**map;
-	int	i;
-	int	j;
+	int 	x;
+	int		w;
+	double	camerax;
 
-	i = 0;
-	j = 0;
-	map = global->map.mapy;
-	while(map[i][j] != '\n')
+	x = 0;
+	w = data->screen_width;
+	while(x < w)
 	{
-		while (map[i][j] != '\n')
-		{
-			if (map[i][j] == '0')
-			{
-				global->raycast_data.player.y = i + 0.5;
-				global->raycast_data.player.x = j + 0.5;
-				return ;
-			}
-			j++;
-		}
-		j = 0;
-		i++;
+		camerax = 2 * x / (double)w - 1;
+		printf("%d : camera x = %f      ", x, camerax);
+		data->ray_dir.x = data->dir.x + data->plane.x * camerax;
+		data->ray_dir.y = data->dir.y + data->plane.y * camerax;
+		printf("x = %f et y = %f\n", data->ray_dir.x, data->ray_dir.y);
+		x ++;
 	}
-}
-
-void	raycast_init_data(t_raycast_data *data)
-{
-	data->screen_height = 480;
-	data->screen_width = 640;
-	data->unit_size = 64;
-	data->player_height = 32;
-	data->dir.x = -1;
-	data->dir.y = 0;
-	data->plane.x = 0;
-	data->plane.y = 0.66;
+	data->delta_dist.x = sqrt(1 + (data->ray_dir.y * data->ray_dir.y) / (data->ray_dir.x * data->ray_dir.x))
+	data->delta_dist.y = sqrt(1 + (data->ray_dir.x * data->ray_dir.x) / (data->ray_dir.y * data->ray_dir.y))
 }
 
 int	raycasting(t_global *global)
 {
 	raycast_init_data(&(global->raycast_data));
 	init_player(global);
-	printf("%f\n", global->raycast_data.plane.x);
-	printf("%f\n", global->raycast_data.plane.y);
+	go_though_all_rays(&(global->raycast_data));
+	//printf("%f\n", global->raycast_data.plane.x);
+	//printf("%f\n", global->raycast_data.plane.y);
 	return (0);
 }
