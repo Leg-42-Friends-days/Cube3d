@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/23 13:01:44 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/23 13:19:09 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_textures
 typedef struct s_map
 {
 	char				**mapy;
+	char				**true_map;
 	int					width;
 	int					height;
 }						t_map;

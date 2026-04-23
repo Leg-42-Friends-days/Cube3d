@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/23 13:10:11 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/23 13:18:56 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,20 @@ void	map_index(t_global *global, char *map_content)
 	close(fd);
 }
 
+void	map_check(t_global *global)
+{
+	
+}
+
 void	start_map(t_global *global, char *map_content)
 {
 	int	map_len;
 
 	map_len = map_start(global, map_content);
-	printf("start line : %d\n", map_len);
 	global->map.mapy = malloc(sizeof(char *) * (map_len + 1));
 	map_index(global, map_content);
-
+	map_check(global);
+	// map_cpy(global);
 }
 
 int	main(int ac, char **av)
@@ -94,13 +99,13 @@ int	main(int ac, char **av)
 	read_map(global, av[1]);
 	// printf("map start point : %d", global->textures->start);
 	start_map(global, av[1]);
-	int i;
-	i = 0;
-	while (global->map.mapy[i])
-	{
-		printf("Map : %s", global->map.mapy[i]);
-		i++;
-	}
+	// int i;
+	// i = 0;
+	// while (global->map.mapy[i])
+	// {
+	// 	printf("Map : %s", global->map.mapy[i]);
+	// 	i++;
+	// }
 	// free_all(global);
 	return (0);
 }
