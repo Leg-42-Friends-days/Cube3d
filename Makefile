@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
+#    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/04/21 17:58:27 by mickzhan         ###   ########.fr        #
+#    Updated: 2026/04/22 17:06:45 by ibrouin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ CFLAGS = -Wall -Werror -Wextra -I./includes -I./libft -g3
 SRC_DIR = src/
 SRC =	main.c \
 		parsing/map_reader.c \
+		test_create_map.c \
+		raycasting/raycasting.c
 		
 		
 OBJ_DIR = obj/

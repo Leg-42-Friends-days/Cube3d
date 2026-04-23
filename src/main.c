@@ -6,13 +6,13 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/22 15:45:55 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/04/23 09:42:22 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*is_space(char *str)
+/* char	*is_space(char *str)
 {
 	int	i;
 
@@ -29,32 +29,98 @@ char	*is_space(char *str)
 	return (str);
 }
 
-char	*texture_map(char *str)
+char	*copy_enter(char *str)
 {
 	int		i;
 	char	*cpy;
 
 	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			break ;
+		i++;
+	}
+	cpy = malloc(sizeof(char) * (i + 1));
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			break ;
+		cpy[i] = str[i];
+		i++;
+	}
+	cpy[i] = '\0';
+	return (cpy);
+}
+
+char	*texture_map(char *str)
+{
+	int		i;
+	int		fd;
+	char	*cpy;
+
+	i = 0;
 	while (str[i] == ' ')
 		i++;
-	cpy = ft_strdup(str + i);
+	cpy = copy_enter(str + i);
+	if (!cpy)
+		return (NULL);
+	printf("%s\n", cpy);
+	fd = open(cpy, O_RDONLY);
+	printf("%d\n", fd);
+	if (fd == -1)
+		return (free(cpy), printf("Error\nFD"), exit(1), NULL);
+	close(fd);
 	return (cpy);
+}
+
+bool	nothing_slash(char *line)
+{
+
+}
+
+void	convert_line2(t_global *global, char *line)
+{
+	if (ft_strncmp(is_space(line), "SO", 2) == 0)
+	{
+		if (global->textures->stock[2] == 1)
+			return (printf("Error\nTo much SO"), exit(1));
+		global->textures->stock[2] = 1;
+		global->textures->south = texture_map(is_space(line) + 2);
+	}
+	else if (ft_strncmp(is_space(line), "EA", 2) == 0)
+	{
+		if (global->textures->stock[3] == 1)
+			return (printf("Error\nTo much EA"), exit(1));
+		global->textures->east = texture_map(is_space(line) + 2);
+		global->textures->stock[3] = 1;
+	}
+	else
+	{
+		if (nothing_slash(line) == 1)
+		
+	}
 }
 
 void	convert_line(t_global *global, char *line)
 {
 	if (ft_strncmp(is_space(line), "NO", 2) == 0)
-		global->t_textures->north = texture_map(is_space(line) + 2);
-	if (ft_strncmp(is_space(line), "WE", 2) == 0)
-		global->t_textures->west = texture_map(is_space(line) + 2);
-	if (ft_strncmp(is_space(line), "SO", 2) == 0)
-		global->t_textures->south = texture_map(is_space(line) + 2);
-	if (ft_strncmp(is_space(line), "EA", 2) == 0)
-		global->t_textures->east = texture_map(is_space(line) + 2);
-	if (ft_strncmp(is_space(line), "F", 1) == 0)
-		global->t_textures->floor = texture_map(is_space(line) + 1);
-	if (ft_strncmp(is_space(line), "C", 1) == 0)
-		global->t_textures->ceiling = texture_map(is_space(line) + 1);
+	{
+		if (global->textures->stock[0] == 1)
+			return (printf("Error\nTo much NO"), exit(1));
+		global->textures->stock[0] = 1;
+		global->textures->north = texture_map(is_space(line) + 2);
+	}
+	else if (ft_strncmp(is_space(line), "WE", 2) == 0)
+	{
+		if (global->textures->stock[1] == 1)
+			return (printf("Error\nTo much WE"), exit(1));
+		global->textures->stock[1] = 1;
+		global->textures->west = texture_map(is_space(line) + 2);
+	}
+	else
+		convert_line2(global, line);
 }
 
 void	read_map(t_global *global, char *map_content)
@@ -73,12 +139,12 @@ void	read_map(t_global *global, char *map_content)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	printf("NORTH :%s", global->t_textures->north);
-	printf("SOUTH : %s", global->t_textures->south);
-	printf("FLOOR: %s", global->t_textures->floor);
-	printf("CEILI : %s", global->t_textures->ceiling);
-	printf("WEAST : %s", global->t_textures->west);
-	printf("EAST : %s", global->t_textures->east);
+	printf("NORTH :%s\n", global->textures->north);
+	printf("SOUTH : %s\n", global->textures->south);
+	printf("WEST : %s\n", global->textures->west);
+	printf("EAST : %s\n", global->textures->east);
+	// printf("FLOOR: %s\n", global->textures->floor);
+	// printf("CEILI : %s\n", global->textures->ceiling);
 }
 
 int	error_gestion(int ac, char **av)
@@ -92,25 +158,27 @@ int	error_gestion(int ac, char **av)
 
 void	free_all(t_global *global)
 {
-	free(global->t_textures->ceiling);
-	free(global->t_textures->east);
-	free(global->t_textures->floor);
-	free(global->t_textures->north);
-	free(global->t_textures->south);
-	free(global->t_textures->west);
-	free(global->t_textures);
+	// free(global->t_textures->ceiling);
+	// free(global->t_textures->floor);
+	free(global->textures->north);
+	free(global->textures->south);
+	free(global->textures->west);
+	free(global->textures->east);
+	free(global->textures);
 	free(global);
-}
+} */
 
 int	main(int ac, char **av)
 {
 	t_global	*global;
 
-	if (error_gestion(ac, av) == 1)
-		return (1);
+	(void)ac;
+	//if (error_gestion(ac, av) == 1)
+	//	return (1);
 	global = malloc(sizeof(t_global));
-	global->t_textures = malloc(sizeof(t_textures));
-	create_map(global->map, av[1]);
+	//global->t_textures = malloc(sizeof(t_textures));
+	create_map(&(global->map), av[1]);
+	raycasting(global);
 	//read_map(global, av[1]);
 	//free_all(global);
 	return (0);
