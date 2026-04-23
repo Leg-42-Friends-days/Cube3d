@@ -1,8 +1,8 @@
-
-  
                                 NO                 ./texture/test.xpm
 
-WE                                           ./texture/test.xpm
+  
+
+                                                                                    WE                                           ./texture/test.xpm
       
                         EA                                              ./texture/test.xpm
   
@@ -13,8 +13,7 @@ WE                                           ./texture/test.xpm
 SO                       ./texture/test.xpm
 
 
-F 220,100,0
-
+F 220, 100,                     0
 
 
 C 225,30,0

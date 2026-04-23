@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/21 17:58:10 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/23 13:09:07 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,9 @@ int	error_gestion(int ac, char **av)
 
 void	free_all(t_global *global)
 {
+	int i;
+	i = 0;
+	
 	free(global->textures->ceiling);
 	free(global->textures->floor);
 	free(global->textures->north);
@@ -262,5 +265,12 @@ void	free_all(t_global *global)
 	free(global->textures->west);
 	free(global->textures->east);
 	free(global->textures);
+	while (global->map.mapy[i])
+	{
+		// printf("Map : %s", global->map.mapy[i]);
+		free(global->map.mapy[i]);
+		i++;
+	}
+	free(global->map.mapy);
 	free(global);
 }
