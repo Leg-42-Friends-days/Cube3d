@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/23 13:38:07 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/23 15:32:51 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,47 @@ void	map_index(t_global *global, char *map_content)
 	close(fd);
 }
 
-bool	error_check(char *str)
+bool	char_check(char ch)
+{
+	if (ch == ' ' || ch == '\n' || ch == '1' || ch == '0' || ch == 'N'
+		|| ch == 'S' || ch == 'E' || ch == 'W')
+		return (true);
+	else
+		return (false);
+}
+
+bool	direction_check(char ch)
+{
+	if (ch == 'W' || ch == 'S' || ch == 'E' || ch == 'N')
+		return (true);
+	else
+		return (false);
+}
+
+bool	error_check(char **str)
 {
 	int	i;
+	int	j;
+	int	cpt;
 
+	cpt = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ' || str[i] == '\n' || str[i] == '1' || str[i] == '0'
-			|| str[i] == 'N' || str[i] == 'E' || str[i] == 'W' || str[i] == 'S')
-			i++;
-		else
-			return (true);
+		j = 0;
+		while (str[i][j])
+		{
+			if (direction_check(str[i][j]))
+				cpt++;
+			if (char_check(str[i][j]))
+				j++;
+			else
+				return (true);
+		}
+		i++;
 	}
+	if (cpt != 1)
+		return (true);
 	return (false);
 }
 
@@ -95,7 +123,7 @@ bool	map_check(t_global *global)
 	i = 0;
 	while (global->map.mapy[i])
 	{
-		if (error_check(global->map.mapy[i]) == 1)
+		if (error_check(global->map.mapy) == 1)
 		{
 			printf("HAHA NO MAP\n");
 			exit(1);
@@ -120,15 +148,14 @@ void	start_map(t_global *global, char *map_content)
 int	main(int ac, char **av)
 {
 	t_global	*global;
+	int			i;
 
 	if (error_gestion(ac, av) == 1)
 		return (1);
 	global = malloc(sizeof(t_global));
 	global->textures = malloc(sizeof(t_textures));
 	read_map(global, av[1]);
-	// printf("map start point : %d", global->textures->start);
 	start_map(global, av[1]);
-	int i;
 	i = 0;
 	while (global->map.mapy[i])
 	{
