@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/24 15:32:01 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:32:59 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,12 +302,12 @@ void	read_map(t_global *global, char *map_content)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	// printf("CEILING :%s\n", global->textures->ceiling);
-	// printf("FLOOR : %s\n", global->textures->floor);
-	// printf("START POINT : %d\n", global->textures->start);
-	// printf("NORTH : %s\n", global->textures->north);
-	// printf("SOUTH : %s\n", global->textures->south);
-	// printf("EAST : %s\n", global->textures->east);
-	// printf("WEST : %s\n", global->textures->west);
+	printf("CEILING :%s\n", global->textures->ceiling);
+	printf("FLOOR : %s\n", global->textures->floor);
+	printf("START POINT : %d\n", global->textures->start);
+	printf("NORTH : %s\n", global->textures->north);
+	printf("SOUTH : %s\n", global->textures->south);
+	printf("EAST : %s\n", global->textures->east);
+	printf("WEST : %s\n", global->textures->west);
 }
 
