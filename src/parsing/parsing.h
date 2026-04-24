@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/24 14:12:19 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:24:50 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void					convert_line2(t_global *global, char *line);
 void					convert_line(t_global *global, char *line);
 void					read_map(t_global *global, char *map_content);
 void					free_all(t_global *global);
+bool					line_check(char *str);
 
 #endif

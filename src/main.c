@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/23 15:32:51 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:11:15 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ bool	map_check(t_global *global)
 	{
 		if (error_check(global->map.mapy) == 1)
 		{
-			printf("HAHA NO MAP\n");
-			exit(1);
+			// printf("HAHA NO MAP\n");
+			// exit(1);
 			return (true);
 		}
 		i++;
@@ -148,7 +148,7 @@ void	start_map(t_global *global, char *map_content)
 int	main(int ac, char **av)
 {
 	t_global	*global;
-	int			i;
+	// int			i;
 
 	if (error_gestion(ac, av) == 1)
 		return (1);
@@ -156,12 +156,12 @@ int	main(int ac, char **av)
 	global->textures = malloc(sizeof(t_textures));
 	read_map(global, av[1]);
 	start_map(global, av[1]);
-	i = 0;
-	while (global->map.mapy[i])
-	{
-		printf("Map : %s", global->map.mapy[i]);
-		i++;
-	}
-	// free_all(global);
+	// i = 0;
+	// while (global->map.mapy[i])
+	// {
+	// 	printf("Map : %s", global->map.mapy[i]);
+	// 	i++;
+	// }
+	free_all(global);
 	return (0);
 }

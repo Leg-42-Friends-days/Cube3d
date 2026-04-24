@@ -1,5 +1,4 @@
                                 NO                 ./texture/test.xpm
-
   
                                                                                     WE                                           ./texture/test.xpm
       
@@ -7,14 +6,12 @@
   
 
 
-
 SO                       ./texture/test.xpm
-
 
 F 220, 100,                     0
 
-
 C 225,30,0
+
 
 1111111111111111111111111
 1000000000000000000000001
