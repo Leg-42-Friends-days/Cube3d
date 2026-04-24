@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/23 13:09:07 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/24 14:38:49 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*texture_map(char *str)
 		return (NULL);
 	fd = open(cpy, O_RDONLY);
 	if (fd == -1)
-		return (free(cpy), printf("Error\nFichier n'existe pas"), exit(1), NULL);
+		return (free(cpy), printf("Error\nFichier n'existe pas\n"), exit(1), NULL);
 	close(fd);
 	return (cpy);
 }
@@ -145,6 +145,20 @@ bool	stock_checker(t_global *global)
 	return (false);
 }
 
+bool	line_check(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (char_check(str[i]) == 0)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 void	convert_line3(t_global *global, char *line)
 {
 	if (ft_strncmp(is_space(line), "F", 1) == 0)
@@ -165,8 +179,10 @@ void	convert_line3(t_global *global, char *line)
 	}
 	else
 	{
+		if (line_check(line))
+			return (printf("Error\nMap invalid\n"), exit(1));
 		if (nothing_slash(line) == 1)
-			printf("Error\nMap not valid"), exit(1);
+			global->textures->end++;
 		else
 			global->textures->start++;
 	}
@@ -196,12 +212,12 @@ void	convert_line2(t_global *global, char *line)
 
 void	convert_line(t_global *global, char *line)
 {
-	if (stock_checker(global) == 1)
+	if (stock_checker(global) == 1 && global->textures->end == 1)
 		return ;
 	if (ft_strncmp(is_space(line), "NO", 2) == 0)
 	{
 		if (global->textures->stock[0] == 1)
-			return (printf("Error\nTo much NO"), exit(1));
+			return (printf("Error\nTo much NO\n"), exit(1));
 		global->textures->stock[0] = 1;
 		global->textures->north = texture_map(is_space(line) + 2);
 		global->textures->start++;
@@ -224,6 +240,7 @@ void	read_map(t_global *global, char *map_content)
 	char	*line;
 
 	global->textures->start = 0;
+	global->textures->end = 0;
 	fd = open(map_content, O_RDONLY);
 	if (!fd)
 		return (printf("Error\n"), exit(1));
@@ -249,7 +266,7 @@ int	error_gestion(int ac, char **av)
 	if (ac != 2)
 		return (printf("Bad argument"), 1);
 	if (map_cub(av[1]) == 1)
-		return (printf("Bad map"), 1);
+		return (printf("Bad map\n"), 1);
 	return (0);
 }
 
