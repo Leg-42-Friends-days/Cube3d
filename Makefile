@@ -6,7 +6,7 @@
 #    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/04/24 15:10:09 by mickzhan         ###   ########.fr        #
+#    Updated: 2026/04/24 15:32:12 by mickzhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ CFLAGS = -Wall -Werror -Wextra -I./includes -I./libft -g3
 SRC_DIR = src/
 SRC =	main.c \
 		parsing/map_reader.c \
-		parsing/texture.c \
 		
 		
 OBJ_DIR = obj/
@@ -70,8 +69,10 @@ minilibx:
 	@echo "🔧 Building $(MLX_DIR)..."
 	@$(MAKE) -C $(MLX_DIR) --no-print-directory > /dev/null 2>&1
 
-
+val:
+	valgrind --trace-children=yes --leak-check=full --track-origins=yes --track-fds=yes --show-leak-kinds=all ./$(NAME) $(ARGS) || true
+	
 libft:
 	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re minilibx val libft
