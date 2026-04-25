@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/25 15:41:07 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/25 16:07:18 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ bool	map_check(t_global *global)
 	{
 		if (error_check(global->map.mapy) == 1)
 		{
-			// printf("HAHA NO MAP\n");
-			// exit(1);
+			printf("HAHA NO MAP\n");
+			exit(1);
 			return (true);
 		}
 		i++;
@@ -191,6 +191,46 @@ bool	check_mapline(char **map)
 	return (false);
 }
 
+void	flood_fill(t_global *global, int x, int y)
+{
+	if (x < 0 || y < 0 || x >= global->map.width || y >= global->map.height)
+		return ;
+	if (global->map.mapy[y][x] == 'x' || global->map.mapy[y][x] == '1')
+		return ;
+	global->map.mapy[y][x] = 'x';
+	flood_fill(global, x - 1, y);
+	flood_fill(global, x + 1, y);
+	flood_fill(global, x, y - 1);
+	flood_fill(global, x, y + 1);
+}
+
+int	map_flood(t_global *global)
+{
+	int	row;
+	int	col;
+	int	x;
+	int	y;
+
+	y = 0;
+	row = global->map.width;
+	col = global->map.height;
+	while (y < col)
+	{
+		x = 0;
+		while (x < row)
+		{
+			if (global->map.mapy[y][x] == 'N')
+			{
+				flood_fill(global, x, y);
+				return (0);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
 bool	start_map(t_global *global, char *map_content)
 {
 	int	map_len;
@@ -200,17 +240,23 @@ bool	start_map(t_global *global, char *map_content)
 	if (!global->map.mapy)
 		return (true);
 	map_index(global, map_content);
-	// if (check_mapline(global->map.mapy) == 1)
-		// return (printf("Error\nMap to much line\n"), true);
-	// global->map.height = get_height_map(map_content) - global->textures->start;
-	// global->map.width = get_width_map(global->map.mapy);
+	if (!global->map.mapy)
+		return (printf("MAPY N'EXISTE PAS\n"), exit(1),1);
+	if (map_check(global) == 1)
+		return (1);
+	if (check_mapline(global->map.mapy) == 1)
+		return (printf("Error\nMap to much line\n"), true);
+	// if (map_flood(global) == 1)
+		// return (printf("Error\nMap incorrect"));
+	global->map.height = get_height_map(map_content) - global->textures->start;
+	global->map.width = get_width_map(global->map.mapy);
 	return (false);
 }
 
 int	main(int ac, char **av)
 {
 	t_global	*global;
-	// int			i;
+	int			i;
 
 	if (error_gestion(ac, av) == 1)
 		return (1);
@@ -223,15 +269,15 @@ int	main(int ac, char **av)
 	read_map(global, av[1]);
 	if (start_map(global, av[1]) == 1)
 		return (1);
-	// i = 0;
-	// while (global->map.mapy[i])
-	// {
-	// 	printf("Map : %s", global->map.mapy[i]);
-	// 	i++;
-	// }
-	// printf("\n");
-	// printf("height : %d\n", global->map.height);
-	// printf("width : %d\n", global->map.width);
-	// free_all(global);
+	i = 0;
+	while (global->map.mapy[i])
+	{
+		printf("Map : %s", global->map.mapy[i]);
+		i++;
+	}
+	printf("\n");
+	printf("height : %d\n", global->map.height);
+	printf("width : %d\n", global->map.width);
+	free_all(global);
 	return (0);
 }
