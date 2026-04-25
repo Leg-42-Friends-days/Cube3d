@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/24 15:32:59 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:54:01 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ char	*texture_map(char *str)
 		return (NULL);
 	fd = open(cpy, O_RDONLY);
 	if (fd == -1)
-		return (free(cpy), printf("Error\nFichier n'existe pas\n"), exit(1), NULL);
+		return (free(cpy), printf("Error\nFichier n'existe pas\n"), exit(1),
+			NULL);
 	close(fd);
 	return (cpy);
 }
@@ -147,7 +148,7 @@ bool	stock_checker(t_global *global)
 
 bool	line_check(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -158,8 +159,6 @@ bool	line_check(char *str)
 	}
 	return (false);
 }
-
-
 
 int	error_gestion(int ac, char **av)
 {
@@ -172,9 +171,9 @@ int	error_gestion(int ac, char **av)
 
 void	free_all(t_global *global)
 {
-	int i;
+	int	i;
+
 	i = 0;
-	
 	if (global->textures->ceiling)
 		free(global->textures->ceiling);
 	if (global->textures->floor)
@@ -310,4 +309,3 @@ void	read_map(t_global *global, char *map_content)
 	printf("EAST : %s\n", global->textures->east);
 	printf("WEST : %s\n", global->textures->west);
 }
-

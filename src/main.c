@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/24 15:33:17 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:51:43 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,15 +134,61 @@ bool	map_check(t_global *global)
 	return (false);
 }
 
-void	start_map(t_global *global, char *map_content)
+int	get_height_map(char *map)
+{
+	int		fd;
+	int		i;
+	char	*line;
+
+	i = 0;
+	fd = open(map, O_RDONLY);
+	if (fd == -1)
+		return (ft_putendl_fd("Error\nMauvais fichier", 2), exit(1), 1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		i++;
+	}
+	close(fd);
+	return (i);
+}
+
+int	get_width_map(char **mapy)
+{
+	int	i;
+	int	j;
+	int	max;
+
+	i = 0;
+	max = 0;
+	while (mapy[i])
+	{
+		j = 0;
+		while (mapy[i][j] && mapy[i][j] != '\n')
+		{
+			j++;
+			if (max < j)
+				max = j;
+		}
+		i++;
+	}
+	return (max);
+}
+
+bool	start_map(t_global *global, char *map_content)
 {
 	int	map_len;
 
 	map_len = map_start(global, map_content);
 	global->map.mapy = malloc(sizeof(char *) * (map_len + 1));
+	if (!global->map.mapy)
+		return (true);
 	map_index(global, map_content);
-	map_check(global);
-	// map_cpy(global);
+	global->map.height = get_height_map(map_content) - global->textures->start;
+	global->map.width = get_width_map(global->map.mapy);
+	return (false);
 }
 
 int	main(int ac, char **av)
@@ -153,15 +199,23 @@ int	main(int ac, char **av)
 	if (error_gestion(ac, av) == 1)
 		return (1);
 	global = malloc(sizeof(t_global));
+	if (!global)
+		return (1);
 	global->textures = malloc(sizeof(t_textures));
+	if (!global->textures)
+		return (1);
 	read_map(global, av[1]);
-	start_map(global, av[1]);
+	if (start_map(global, av[1]) == 1)
+		return (1);
 	i = 0;
 	while (global->map.mapy[i])
 	{
 		printf("Map : %s", global->map.mapy[i]);
 		i++;
 	}
+	printf("\n");
+	printf("height : %d\n", global->map.height);
+	printf("width : %d\n", global->map.width);
 	free_all(global);
 	return (0);
 }
