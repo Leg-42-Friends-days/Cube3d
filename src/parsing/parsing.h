@@ -53,7 +53,6 @@ void				initiate_stock(t_global *global);
 void				read_map(t_global *global, char *map_content);
 void				free_all(t_global *global);
 void			error_exit(t_global *global);
-void			error_exit_fd(t_global *global, int fd);
 bool				line_check(char *str);
 
 #endif

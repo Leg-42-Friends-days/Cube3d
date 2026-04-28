@@ -210,34 +210,27 @@ void	error_exit(t_global *global)
 	exit(1);
 }
 
-void	error_exit_fd(t_global *global, int fd)
-{
-	if (fd >= 0)
-		close(fd);
-	error_exit(global);
-}
-
 void	convert_line3(t_global *global, char *line, int fd)
 {
 	if (ft_strncmp(is_space(line), "F", 1) == 0)
 	{
 		if (global->textures->stock[4] == 1)
 			return (printf("Error\nTo much F"), free(line),
-				error_exit_fd(global, fd));
+				close(fd), error_exit(global));
 		global->textures->stock[4] = 1;
 		global->textures->floor = rgb_map(is_space(line) + 1);
 		if (!global->textures->floor)
-			return (free(line), error_exit_fd(global, fd));
+			return (free(line), close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "C", 1) == 0)
 	{
 		if (global->textures->stock[5] == 1)
 			return (printf("Error\nTo much C"), free(line),
-				error_exit_fd(global, fd));
+				close(fd), error_exit(global));
 		global->textures->ceiling = rgb_map(is_space(line) + 1);
 		if (!global->textures->ceiling)
-			return (free(line), error_exit_fd(global, fd));
+			return (free(line), close(fd), error_exit(global));
 		global->textures->stock[5] = 1;
 		global->textures->start++;
 	}
@@ -245,7 +238,7 @@ void	convert_line3(t_global *global, char *line, int fd)
 	{
 		if (line_check(line))
 			return (printf("Error\nMap invalid\n"), free(line),
-				error_exit_fd(global, fd));
+				close(fd), error_exit(global));
 		if (nothing_slash(line) == 1)
 			global->textures->end++;
 		else
@@ -259,21 +252,21 @@ void	convert_line2(t_global *global, char *line, int fd)
 	{
 		if (global->textures->stock[2] == 1)
 			return (printf("Error\nTo much SO"), free(line),
-				error_exit_fd(global, fd));
+				close(fd), error_exit(global));
 		global->textures->stock[2] = 1;
 		global->textures->south = texture_map(is_space(line) + 2);
 		if (!global->textures->south)
-			return (free(line), error_exit_fd(global, fd));
+			return (free(line), close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "EA", 2) == 0)
 	{
 		if (global->textures->stock[3] == 1)
 			return (printf("Error\nTo much EA"), free(line),
-				error_exit_fd(global, fd));
+				close(fd), error_exit(global));
 		global->textures->east = texture_map(is_space(line) + 2);
 		if (!global->textures->east)
-			return (free(line), error_exit_fd(global, fd));
+			return (free(line), close(fd), error_exit(global));
 		global->textures->stock[3] = 1;
 		global->textures->start++;
 	}
@@ -289,22 +282,22 @@ void	convert_line(t_global *global, char *line, int fd)
 	{
 		if (global->textures->stock[0] == 1)
 			return (printf("Error\nTo much NO\n"), free(line),
-				error_exit_fd(global, fd));
+				close(fd), error_exit(global));
 		global->textures->stock[0] = 1;
 		global->textures->north = texture_map(is_space(line) + 2);
 		if (!global->textures->north)
-			return (free(line), error_exit_fd(global, fd));
+			return (free(line), close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "WE", 2) == 0)
 	{
 		if (global->textures->stock[1] == 1)
 			return (printf("Error\nTo much WE"), free(line),
-				error_exit_fd(global, fd));
+				close(fd), error_exit(global));
 		global->textures->stock[1] = 1;
 		global->textures->west = texture_map(is_space(line) + 2);
 		if (!global->textures->west)
-			return (free(line), error_exit_fd(global, fd));
+			return (free(line), close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else
