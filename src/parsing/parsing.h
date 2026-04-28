@@ -45,12 +45,15 @@ char					*texture_map(char *str);
 char					*rgb_map(char *str);
 bool					nothing_slash(char *line);
 int						error_gestion(int ac, char **av);
-bool					stock_checker(t_global *global);
-void					convert_line3(t_global *global, char *line);
-void					convert_line2(t_global *global, char *line);
-void					convert_line(t_global *global, char *line);
-void					read_map(t_global *global, char *map_content);
-void					free_all(t_global *global);
-bool					line_check(char *str);
+bool				stock_checker(t_global *global);
+void				convert_line3(t_global *global, char *line, int fd);
+void				convert_line2(t_global *global, char *line, int fd);
+void				convert_line(t_global *global, char *line, int fd);
+void				initiate_stock(t_global *global);
+void				read_map(t_global *global, char *map_content);
+void				free_all(t_global *global);
+void			error_exit(t_global *global);
+void			error_exit_fd(t_global *global, int fd);
+bool				line_check(char *str);
 
 #endif

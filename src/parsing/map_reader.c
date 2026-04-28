@@ -97,8 +97,7 @@ char	*texture_map(char *str)
 		return (NULL);
 	fd = open(cpy, O_RDONLY);
 	if (fd == -1)
-		return (free(cpy), printf("Error\nFichier n'existe pas\n"), exit(1),
-			NULL);
+		return (free(cpy), printf("Error\nFichier n'existe pas\n"), NULL);
 	close(fd);
 	return (cpy);
 }
@@ -174,51 +173,79 @@ void	free_all(t_global *global)
 	int	i;
 
 	i = 0;
-	if (global->textures->ceiling)
-		free(global->textures->ceiling);
-	if (global->textures->floor)
-		free(global->textures->floor);
-	if (global->textures->north)
-		free(global->textures->north);
-	if (global->textures->south)
-		free(global->textures->south);
-	if (global->textures->west)
-		free(global->textures->west);
-	if (global->textures->east)
-		free(global->textures->east);
+	if (!global)
+		return ;
 	if (global->textures)
-		free(global->textures);
-	while (global->map.mapy[i])
 	{
-		free(global->map.mapy[i]);
-		i++;
+		if (global->textures->ceiling)
+			free(global->textures->ceiling);
+		if (global->textures->floor)
+			free(global->textures->floor);
+		if (global->textures->north)
+			free(global->textures->north);
+		if (global->textures->south)
+			free(global->textures->south);
+		if (global->textures->west)
+			free(global->textures->west);
+		if (global->textures->east)
+			free(global->textures->east);
+		free(global->textures);
 	}
-	free(global->map.mapy);
+	if (global->map.mapy)
+	{
+		while (global->map.mapy[i])
+		{
+			free(global->map.mapy[i]);
+			i++;
+		}
+		free(global->map.mapy);
+	}
 	free(global);
 }
 
-void	convert_line3(t_global *global, char *line)
+void	error_exit(t_global *global)
+{
+	get_next_line(-1);
+	free_all(global);
+	exit(1);
+}
+
+void	error_exit_fd(t_global *global, int fd)
+{
+	if (fd >= 0)
+		close(fd);
+	error_exit(global);
+}
+
+void	convert_line3(t_global *global, char *line, int fd)
 {
 	if (ft_strncmp(is_space(line), "F", 1) == 0)
 	{
 		if (global->textures->stock[4] == 1)
-			return (printf("Error\nTo much F"), exit(1));
+			return (printf("Error\nTo much F"), free(line),
+				error_exit_fd(global, fd));
 		global->textures->stock[4] = 1;
 		global->textures->floor = rgb_map(is_space(line) + 1);
+		if (!global->textures->floor)
+			return (free(line), error_exit_fd(global, fd));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "C", 1) == 0)
 	{
 		if (global->textures->stock[5] == 1)
-			return (printf("Error\nTo much C"), exit(1));
+			return (printf("Error\nTo much C"), free(line),
+				error_exit_fd(global, fd));
 		global->textures->ceiling = rgb_map(is_space(line) + 1);
+		if (!global->textures->ceiling)
+			return (free(line), error_exit_fd(global, fd));
 		global->textures->stock[5] = 1;
 		global->textures->start++;
 	}
 	else
 	{
 		if (line_check(line))
-			return (printf("Error\nMap invalid\n"), exit(1));
+			return (printf("Error\nMap invalid\n"), free(line),
+				error_exit_fd(global, fd));
 		if (nothing_slash(line) == 1)
 			global->textures->end++;
 		else
@@ -226,50 +253,62 @@ void	convert_line3(t_global *global, char *line)
 	}
 }
 
-void	convert_line2(t_global *global, char *line)
+void	convert_line2(t_global *global, char *line, int fd)
 {
 	if (ft_strncmp(is_space(line), "SO", 2) == 0)
 	{
 		if (global->textures->stock[2] == 1)
-			return (printf("Error\nTo much SO"), exit(1));
+			return (printf("Error\nTo much SO"), free(line),
+				error_exit_fd(global, fd));
 		global->textures->stock[2] = 1;
 		global->textures->south = texture_map(is_space(line) + 2);
+		if (!global->textures->south)
+			return (free(line), error_exit_fd(global, fd));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "EA", 2) == 0)
 	{
 		if (global->textures->stock[3] == 1)
-			return (printf("Error\nTo much EA"), exit(1));
+			return (printf("Error\nTo much EA"), free(line),
+				error_exit_fd(global, fd));
 		global->textures->east = texture_map(is_space(line) + 2);
+		if (!global->textures->east)
+			return (free(line), error_exit_fd(global, fd));
 		global->textures->stock[3] = 1;
 		global->textures->start++;
 	}
 	else
-		convert_line3(global, line);
+		convert_line3(global, line, fd);
 }
 
-void	convert_line(t_global *global, char *line)
+void	convert_line(t_global *global, char *line, int fd)
 {
 	if (stock_checker(global) == 1 && global->textures->end == 1)
 		return ;
 	if (ft_strncmp(is_space(line), "NO", 2) == 0)
 	{
 		if (global->textures->stock[0] == 1)
-			return (printf("Error\nTo much NO\n"), exit(1));
+			return (printf("Error\nTo much NO\n"), free(line),
+				error_exit_fd(global, fd));
 		global->textures->stock[0] = 1;
 		global->textures->north = texture_map(is_space(line) + 2);
+		if (!global->textures->north)
+			return (free(line), error_exit_fd(global, fd));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "WE", 2) == 0)
 	{
 		if (global->textures->stock[1] == 1)
-			return (printf("Error\nTo much WE"), exit(1));
+			return (printf("Error\nTo much WE"), free(line),
+				error_exit_fd(global, fd));
 		global->textures->stock[1] = 1;
 		global->textures->west = texture_map(is_space(line) + 2);
+		if (!global->textures->west)
+			return (free(line), error_exit_fd(global, fd));
 		global->textures->start++;
 	}
 	else
-		convert_line2(global, line);
+		convert_line2(global, line, fd);
 }
 
 void	initiate_stock(t_global *global)
@@ -281,7 +320,6 @@ void	initiate_stock(t_global *global)
 	global->textures->stock[4] = 0;
 	global->textures->stock[5] = 0;
 }
-
 void	read_map(t_global *global, char *map_content)
 {
 	int		fd;
@@ -291,21 +329,21 @@ void	read_map(t_global *global, char *map_content)
 	global->textures->end = 0;
 	initiate_stock(global);
 	fd = open(map_content, O_RDONLY);
-	if (!fd)
-		return (printf("Error\n"), exit(1));
+	if (fd == -1)
+		return (printf("Error\n"), error_exit(global));
 	line = get_next_line(fd);
 	while (line)
 	{
-		convert_line(global, line);
+		convert_line(global, line, fd);
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	printf("CEILING :%s\n", global->textures->ceiling);
-	printf("FLOOR : %s\n", global->textures->floor);
-	printf("START POINT : %d\n", global->textures->start);
-	printf("NORTH : %s\n", global->textures->north);
-	printf("SOUTH : %s\n", global->textures->south);
-	printf("EAST : %s\n", global->textures->east);
-	printf("WEST : %s\n", global->textures->west);
+	// printf("CEILING :%s\n", global->textures->ceiling);
+	// printf("FLOOR : %s\n", global->textures->floor);
+	// printf("START POINT : %d\n", global->textures->start);
+	// printf("NORTH : %s\n", global->textures->north);
+	// printf("SOUTH : %s\n", global->textures->south);
+	// printf("EAST : %s\n", global->textures->east);
+	// printf("WEST : %s\n", global->textures->west);
 }

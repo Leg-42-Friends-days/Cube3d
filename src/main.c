@@ -22,6 +22,8 @@ int	map_start(t_global *global, char *map_content)
 	i = 0;
 	len = 0;
 	fd = open(map_content, O_RDONLY);
+	if (fd == -1)
+		return (error_exit(global), 0);
 	while (len < global->textures->start)
 	{
 		line = get_next_line(fd);
@@ -55,6 +57,8 @@ void	map_index(t_global *global, char *map_content)
 	i = 0;
 	len = 0;
 	fd = open(map_content, O_RDONLY);
+	if (fd == -1)
+		return (error_exit(global));
 	while (len < global->textures->start)
 	{
 		line = get_next_line(fd);
@@ -65,6 +69,8 @@ void	map_index(t_global *global, char *map_content)
 	while (line)
 	{
 		add_map(global, line, i);
+		if (!global->map.mapy[i])
+			return (free(line), close(fd), error_exit(global));
 		free(line);
 		line = get_next_line(fd);
 		i++;
@@ -126,7 +132,6 @@ bool	map_check(t_global *global)
 		if (error_check(global->map.mapy) == 1)
 		{
 			printf("HAHA NO MAP\n");
-			exit(1);
 			return (true);
 		}
 		i++;
@@ -143,7 +148,7 @@ int	get_height_map(char *map)
 	i = 0;
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
-		return (ft_putendl_fd("Error\nMauvais fichier", 2), exit(1), 1);
+		return (ft_putendl_fd("Error\nMauvais fichier", 2), -1);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -241,14 +246,17 @@ bool	start_map(t_global *global, char *map_content)
 		return (true);
 	map_index(global, map_content);
 	if (!global->map.mapy)
-		return (printf("MAPY N'EXISTE PAS\n"), exit(1),1);
+		return (printf("MAPY N'EXISTE PAS\n"), error_exit(global), true);
 	if (map_check(global) == 1)
-		return (1);
+		return (error_exit(global), true);
 	if (check_mapline(global->map.mapy) == 1)
-		return (printf("Error\nMap to much line\n"), true);
+		return (printf("Error\nMap to much line\n"), error_exit(global), true);
 	// if (map_flood(global) == 1)
 		// return (printf("Error\nMap incorrect"));
-	global->map.height = get_height_map(map_content) - global->textures->start;
+	global->map.height = get_height_map(map_content);
+	if (global->map.height < 0)
+		return (error_exit(global), true);
+	global->map.height -= global->textures->start;
 	global->map.width = get_width_map(global->map.mapy);
 	return (false);
 }
@@ -256,28 +264,30 @@ bool	start_map(t_global *global, char *map_content)
 int	main(int ac, char **av)
 {
 	t_global	*global;
-	int			i;
+	// int			i;
 
 	if (error_gestion(ac, av) == 1)
 		return (1);
 	global = malloc(sizeof(t_global));
 	if (!global)
 		return (1);
+	ft_bzero(global, sizeof(t_global));
 	global->textures = malloc(sizeof(t_textures));
 	if (!global->textures)
-		return (1);
+		return (free(global), 1);
+	ft_bzero(global->textures, sizeof(t_textures));
 	read_map(global, av[1]);
 	if (start_map(global, av[1]) == 1)
-		return (1);
-	i = 0;
-	while (global->map.mapy[i])
-	{
-		printf("Map : %s", global->map.mapy[i]);
-		i++;
-	}
-	printf("\n");
-	printf("height : %d\n", global->map.height);
-	printf("width : %d\n", global->map.width);
+		return (free_all(global), 1);
+	// i = 0;
+	// while (global->map.mapy[i])
+	// {
+	// 	printf("Map : %s", global->map.mapy[i]);
+	// 	i++;
+	// }
+	// printf("\n");
+	// printf("height : %d\n", global->map.height);
+	// printf("width : %d\n", global->map.width);
 	free_all(global);
 	return (0);
 }
