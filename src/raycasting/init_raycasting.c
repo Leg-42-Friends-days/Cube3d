@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:20:18 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/04/23 15:20:37 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:38:40 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	init_player(t_global *global)
 
 	i = 0;
 	j = 0;
-	map = global->map.mapy;
-	while(map[i][j] != '\n')
+	map = global->map.mapou;
+	while(i < global->map.height)
 	{
-		while (map[i][j] != '\n')
+		while (j < global->map.width)
 		{
-			if (map[i][j] == '0')
+			if (map[i][j] == 'N')
 			{
 				global->raycast_data.player.y = i + 0.5;
 				global->raycast_data.player.x = j + 0.5;
@@ -36,6 +36,8 @@ void	init_player(t_global *global)
 		j = 0;
 		i++;
 	}
+	global->raycast_data.mapx = global->raycast_data.player.x;
+	global->raycast_data.mapy = global->raycast_data.player.y;
 }
 
 void	raycast_init_data(t_raycast_data *data)
@@ -48,4 +50,32 @@ void	raycast_init_data(t_raycast_data *data)
 	data->dir.y = 0;
 	data->plane.x = 0;
 	data->plane.y = 0.66;
+	data->hit = 0;
+}
+
+void	init_raycasting(t_raycast_data *data)
+{
+	data->mapx = data->player.x;
+	data->mapy = data->player.y;
+	data->hit = 0;
+	if (data->ray_dir.x < 0)
+	{
+		data->step.x = -1;
+		data->side_dist.x = (data->player.x - data->mapx) * data->delta_dist.x;
+	}
+	else
+	{
+		data->step.x = 1;
+		data->side_dist.x = (data->mapx + 1 - data->player.x) * data->delta_dist.x;
+	}
+	if (data->ray_dir.y < 0)
+	{
+		data->step.y = -1;
+		data->side_dist.y = (data->player.y - data->mapy) * data->delta_dist.y;
+	}
+	else
+	{
+		data->step.y = 1;
+		data->side_dist.y = (data->mapy + 1 - data->player.y) * data->delta_dist.y;
+	}
 }

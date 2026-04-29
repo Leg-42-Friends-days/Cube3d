@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/23 09:42:22 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/04/29 11:53:20 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	free_all(t_global *global)
 int	main(int ac, char **av)
 {
 	t_global	*global;
-
+	
 	(void)ac;
 	//if (error_gestion(ac, av) == 1)
 	//	return (1);
