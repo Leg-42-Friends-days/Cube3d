@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/25 16:07:18 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/29 09:09:18 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ bool	start_map(t_global *global, char *map_content)
 	if (check_mapline(global->map.mapy) == 1)
 		return (printf("Error\nMap to much line\n"), error_exit(global), true);
 	// if (map_flood(global) == 1)
-		// return (printf("Error\nMap incorrect"));
+	// return (printf("Error\nMap incorrect"));
 	global->map.height = get_height_map(map_content);
 	if (global->map.height < 0)
 		return (error_exit(global), true);
@@ -261,33 +261,41 @@ bool	start_map(t_global *global, char *map_content)
 	return (false);
 }
 
-int	main(int ac, char **av)
+t_global	*init_malloc(void)
 {
 	t_global	*global;
-	// int			i;
 
-	if (error_gestion(ac, av) == 1)
-		return (1);
 	global = malloc(sizeof(t_global));
 	if (!global)
-		return (1);
+		return (exit(1), NULL);
 	ft_bzero(global, sizeof(t_global));
 	global->textures = malloc(sizeof(t_textures));
 	if (!global->textures)
-		return (free(global), 1);
+		return (free(global), exit(1), NULL);
 	ft_bzero(global->textures, sizeof(t_textures));
+	return (global);
+}
+
+int	main(int ac, char **av)
+{
+	t_global	*global;
+	int			i;
+
+	if (error_gestion(ac, av) == 1)
+		return (1);
+	global = init_malloc();
 	read_map(global, av[1]);
 	if (start_map(global, av[1]) == 1)
 		return (free_all(global), 1);
-	// i = 0;
-	// while (global->map.mapy[i])
-	// {
-	// 	printf("Map : %s", global->map.mapy[i]);
-	// 	i++;
-	// }
-	// printf("\n");
-	// printf("height : %d\n", global->map.height);
-	// printf("width : %d\n", global->map.width);
+	i = 0;
+	while (global->map.mapy[i])
+	{
+		printf("Map : %s", global->map.mapy[i]);
+		i++;
+	}
+	printf("\n");
+	printf("height : %d\n", global->map.height);
+	printf("width : %d\n", global->map.width);
 	free_all(global);
 	return (0);
 }
