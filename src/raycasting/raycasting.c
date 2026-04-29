@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/04/29 15:39:14 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:01:10 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	dda(t_raycast_data *data, t_map *map)
 {
-	printf("side_dist x = %f et side_dist y = %f\n", data->side_dist.x, data->side_dist.y);
 	while (data->hit == 0)
 	{
 		if (data->side_dist.x < data->side_dist.y)
@@ -22,7 +21,6 @@ void	dda(t_raycast_data *data, t_map *map)
 			data->side_dist.x += data->delta_dist.x;
 			data->mapx += data->step.x;
 			data->side = 0;
-			//printf("data->side_dist.x %f\n", data->side_dist.x);
 		}
 		else
 		{
@@ -38,7 +36,6 @@ void	dda(t_raycast_data *data, t_map *map)
         } */
 		if (map->mapou[data->mapy][data->mapx] == '1')
 		{
-			//printf("hihi\n");
 			data->hit = 1;
 		}
 	}
@@ -49,27 +46,24 @@ void	go_though_all_rays(t_raycast_data *data, t_map *map)
 	int 	x;
 	int		w;
 	double	camerax;
-
-	(void)map;
+	
 	x = 0;
 	w = data->screen_width;
 	while(x < w)
 	{
 		camerax = 2 * x / (double)w - 1;
-		//printf("%d : camera x = %f      ", x, camerax);
 		data->ray_dir.x = data->dir.x + data->plane.x * camerax;
 		data->ray_dir.y = data->dir.y + data->plane.y * camerax;
-		printf("raydir x = %f et raydir y = %f\n", data->ray_dir.x, data->ray_dir.y);
 		data->delta_dist.x = sqrt(1 + (data->ray_dir.y * data->ray_dir.y) / (data->ray_dir.x * data->ray_dir.x));
 		data->delta_dist.y = sqrt(1 + (data->ray_dir.x * data->ray_dir.x) / (data->ray_dir.y * data->ray_dir.y));
-		//printf("delta dist x = %f et delta dist y = %f\n", data->delta_dist.x, data->delta_dist.y);
 		init_raycasting(data);
-		//printf("x = %d et y = %d\n", data->mapx, data->mapy);
 		dda(data, map);
+		if (data->side == 0)
+			data->perp_wall_dist = data->side_dist.x - data->delta_dist.x;
+		else
+			data->perp_wall_dist = data->side_dist.y - data->delta_dist.y;
 		printf("x = %d et y = %d\n", data->mapx, data->mapy);
 		x ++;
-		//if (x > 5)
-		//	break;
 	}
 }
 

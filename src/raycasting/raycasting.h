@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/04/29 15:01:26 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/04/29 16:59:19 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_raycast_data
 	t_coordinates	side_dist;
 	t_coordinates	delta_dist;
 	t_coordinates	step;
-	double			wall_dist;
+	double			perp_wall_dist;
 	int				hit;
 	int				side;
 }				t_raycast_data;
