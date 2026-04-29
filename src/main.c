@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/29 17:12:12 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:14:14 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ int	main(int ac, char **av)
 	//global->t_textures = malloc(sizeof(t_textures));
 	create_map(&(global->map), av[1]);
 	raycasting(global);
-	/* global->mlx = mlx_init();
+	global->mlx = mlx_init();
 	if (!global->mlx)
 		exit(1);
 	global->win = mlx_new_window(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "42");
@@ -187,7 +187,7 @@ int	main(int ac, char **av)
 	global->img.addr = mlx_get_data_addr(global->img.img, &global->img.bits_per_pixel,
 			&global->img.line_length, &global->img.endian);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
-	mlx_loop(global->mlx); */
+	mlx_loop(global->mlx);
 	//read_map(global, av[1]);
 	//free_all(global);
 	return (0);
