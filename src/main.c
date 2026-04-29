@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/29 17:14:14 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:28:11 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ int	main(int ac, char **av)
 	global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	global->img.addr = mlx_get_data_addr(global->img.img, &global->img.bits_per_pixel,
 			&global->img.line_length, &global->img.endian);
+	//draw_tab(&vars, vars.map);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	mlx_loop(global->mlx);
 	//read_map(global, av[1]);
