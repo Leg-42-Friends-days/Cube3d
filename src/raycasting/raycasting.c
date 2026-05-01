@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/01 11:36:03 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:51:58 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ void	dda(t_raycast_data *data, t_map *map)
 	}
 }
 
+void	calculate_perp_wall_dist(t_raycast_data *data)
+{
+	if (data->side == 0)
+		data->perp_wall_dist = data->side_dist.x - data->delta_dist.x;
+	else
+		data->perp_wall_dist = data->side_dist.y - data->delta_dist.y;
+}
+
 void	go_though_all_rays(t_raycast_data *data, t_map *map, t_global *global)
 {
 	int 	x;
@@ -58,10 +66,7 @@ void	go_though_all_rays(t_raycast_data *data, t_map *map, t_global *global)
 		data->delta_dist.y = sqrt(1 + (data->ray_dir.x * data->ray_dir.x) / (data->ray_dir.y * data->ray_dir.y));
 		init_raycasting(data);
 		dda(data, map);
-		if (data->side == 0)
-			data->perp_wall_dist = data->side_dist.x - data->delta_dist.x;
-		else
-			data->perp_wall_dist = data->side_dist.y - data->delta_dist.y;
+		calculate_perp_wall_dist(data);
 		print_wall(data, global, x);
 		x ++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/01 10:56:46 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:20:35 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,8 @@ int	main(int ac, char **av)
 	//	return (1);
 	global = malloc(sizeof(t_global));
 	//global->t_textures = malloc(sizeof(t_textures));
+	//read_map(global, av[1]);
 	create_map(&(global->map), av[1]);
-	//raycasting(global);
 	global->mlx = mlx_init();
 	if (!global->mlx)
 		exit(1);
@@ -186,11 +186,11 @@ int	main(int ac, char **av)
 	global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	global->img.addr = mlx_get_data_addr(global->img.img, &global->img.bits_per_pixel,
 			&global->img.line_length, &global->img.endian);
-	//draw_tab(&vars, vars.map);
 	raycasting(global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
+	mlx_key_hook(global->win, key_hook, (void *)global);
+	//mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
 	mlx_loop(global->mlx);
-	//read_map(global, av[1]);
 	//free_all(global);
 	return (0);
 }

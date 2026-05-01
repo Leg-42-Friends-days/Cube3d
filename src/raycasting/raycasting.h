@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/01 11:09:29 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:52:19 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ typedef struct s_raycast_data
 
 typedef struct s_global	t_global;
 
-int	raycasting(t_global *global);
+// RAYCASTING.c
+int		raycasting(t_global *global);
+void	go_though_all_rays(t_raycast_data *data, t_map *map, t_global *global);
+void	calculate_perp_wall_dist(t_raycast_data *data);
 
 // INIT_RAYCASTING.C
 void	init_player(t_global *global);
@@ -54,5 +57,9 @@ void	init_raycasting(t_raycast_data *data);
 void    print_wall(t_raycast_data *data, t_global *global, int x);
 void	put_pixel(t_global *global, int x, int y, int color);
 void    print_line(t_global *global, int draw_start, int draw_end, int x);
+
+// WALK.c
+int		rotate(int keycode, t_global *global);
+int		walk(int keycode, t_global *global);
 
 #endif

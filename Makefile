@@ -6,7 +6,7 @@
 #    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/01 10:47:19 by ibrouin-         ###   ########.fr        #
+#    Updated: 2026/05/01 13:53:13 by ibrouin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,13 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -I./includes -I./libft -g3
 SRC_DIR = src/
 SRC =	main.c \
+		hook.c \
 		parsing/map_reader.c \
 		test_create_map.c \
 		raycasting/raycasting.c \
 		raycasting/init_raycasting.c \
-		raycasting/print_wall.c
+		raycasting/print_wall.c \
+		raycasting/walk.c
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/29 17:13:32 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/01 14:09:34 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,17 @@ typedef struct s_global
 
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
+# define ESC 65307
+# define LEFT 65361
+# define RIGHT 65363
+# define UP 65362
+# define DOWN 65364
 
 void    create_map(t_map *map, char *str);
+
+// HOOK.c
+int	close_window(t_global *global);
+int	key_hook(int keycode, void *param);
+int	close_window_hook(void *param);
 
 #endif
