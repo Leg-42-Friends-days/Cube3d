@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/04/29 16:59:19 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/01 11:09:29 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,14 @@ typedef struct s_global	t_global;
 
 int	raycasting(t_global *global);
 
-//INIT_RAYCASTING.C
+// INIT_RAYCASTING.C
 void	init_player(t_global *global);
 void	raycast_init_data(t_raycast_data *data);
 void	init_raycasting(t_raycast_data *data);
+
+// PRINT_WALL.c
+void    print_wall(t_raycast_data *data, t_global *global, int x);
+void	put_pixel(t_global *global, int x, int y, int color);
+void    print_line(t_global *global, int draw_start, int draw_end, int x);
 
 #endif

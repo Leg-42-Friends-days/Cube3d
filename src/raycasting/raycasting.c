@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/04/29 17:01:10 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/01 11:36:03 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	dda(t_raycast_data *data, t_map *map)
 	}
 }
 
-void	go_though_all_rays(t_raycast_data *data, t_map *map)
+void	go_though_all_rays(t_raycast_data *data, t_map *map, t_global *global)
 {
 	int 	x;
 	int		w;
@@ -62,7 +62,7 @@ void	go_though_all_rays(t_raycast_data *data, t_map *map)
 			data->perp_wall_dist = data->side_dist.x - data->delta_dist.x;
 		else
 			data->perp_wall_dist = data->side_dist.y - data->delta_dist.y;
-		printf("x = %d et y = %d\n", data->mapx, data->mapy);
+		print_wall(data, global, x);
 		x ++;
 	}
 }
@@ -71,7 +71,7 @@ int	raycasting(t_global *global)
 {
 	raycast_init_data(&(global->raycast_data));
 	init_player(global);
-	go_though_all_rays(&(global->raycast_data), &(global->map));
+	go_though_all_rays(&(global->raycast_data), &(global->map), global);
 	//printf("%f\n", global->raycast_data.plane.x);
 	//printf("%f\n", global->raycast_data.plane.y);
 	//printf("x %f\n", global->raycast_data.player.x);
