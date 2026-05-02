@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/29 08:57:41 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/29 11:28:41 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,31 @@ void	error_exit(t_global *global)
 	exit(1);
 }
 
+void	convert_line4(t_global *global, char *line, int fd)
+{
+	if (ft_strncmp(is_space(line), "WE", 2) == 0)
+	{
+		if (global->textures->stock[1] == 1)
+			return (printf("Error\nTo much WE"), free(line), close(fd),
+				error_exit(global));
+		global->textures->stock[1] = 1;
+		global->textures->west = texture_map(is_space(line) + 2);
+		if (!global->textures->west)
+			return (free(line), close(fd), error_exit(global));
+		global->textures->start++;
+	}
+	else
+	{
+		if (line_check(line))
+			return (printf("Error\nMap invalid\n"), free(line), close(fd),
+				error_exit(global));
+		if (nothing_slash(line) == 1)
+			global->textures->end++;
+		else
+			global->textures->start++;
+	}
+}
+
 void	convert_line3(t_global *global, char *line, int fd)
 {
 	if (ft_strncmp(is_space(line), "F", 1) == 0)
@@ -242,15 +267,7 @@ void	convert_line3(t_global *global, char *line, int fd)
 		global->textures->start++;
 	}
 	else
-	{
-		if (line_check(line))
-			return (printf("Error\nMap invalid\n"), free(line), close(fd),
-				error_exit(global));
-		if (nothing_slash(line) == 1)
-			global->textures->end++;
-		else
-			global->textures->start++;
-	}
+		convert_line4(global, line, fd);
 }
 
 void	convert_line2(t_global *global, char *line, int fd)
@@ -296,17 +313,6 @@ void	convert_line(t_global *global, char *line, int fd)
 			return (free(line), close(fd), error_exit(global));
 		global->textures->start++;
 	}
-	else if (ft_strncmp(is_space(line), "WE", 2) == 0)
-	{
-		if (global->textures->stock[1] == 1)
-			return (printf("Error\nTo much WE"), free(line), close(fd),
-				error_exit(global));
-		global->textures->stock[1] = 1;
-		global->textures->west = texture_map(is_space(line) + 2);
-		if (!global->textures->west)
-			return (free(line), close(fd), error_exit(global));
-		global->textures->start++;
-	}
 	else
 		convert_line2(global, line, fd);
 }
@@ -333,6 +339,8 @@ void	read_map(t_global *global, char *map_content)
 	if (fd == -1)
 		return (printf("Error\n"), error_exit(global));
 	line = get_next_line(fd);
+	if (!line)
+		return (printf("Error\nDossier vide"), close(fd) ,free_all(global) ,exit(1));
 	while (line)
 	{
 		convert_line(global, line, fd);

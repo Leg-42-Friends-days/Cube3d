@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/29 09:09:18 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/04/29 11:08:47 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ bool	map_check(t_global *global)
 	{
 		if (error_check(global->map.mapy) == 1)
 		{
-			printf("HAHA NO MAP\n");
 			return (true);
 		}
 		i++;
@@ -207,6 +206,10 @@ void	flood_fill(t_global *global, int x, int y)
 	flood_fill(global, x + 1, y);
 	flood_fill(global, x, y - 1);
 	flood_fill(global, x, y + 1);
+	flood_fill(global, x + 1, y + 1);
+	flood_fill(global, x - 1, y - 1);
+	flood_fill(global, x - 1, y + 1);
+	flood_fill(global, x + 1, y - 1);
 }
 
 int	map_flood(t_global *global)
