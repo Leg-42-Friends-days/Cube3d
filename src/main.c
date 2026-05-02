@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/04/29 11:08:47 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/02 14:54:33 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	map_index(t_global *global, char *map_content)
 		len++;
 	}
 	line = get_next_line(fd);
+	if (line == NULL)
+		return (printf("Error\nNO MAP\n"), exit(1));
 	while (line)
 	{
 		add_map(global, line, i);
