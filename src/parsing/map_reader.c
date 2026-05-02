@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/02 14:56:55 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/02 15:23:28 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,14 +198,14 @@ void	free_all(t_global *global)
 	if (!global)
 		return ;
 	free_texture(global);
-	if (global->map.mapy)
+	if (global->map.mapou)
 	{
-		while (global->map.mapy[i])
+		while (global->map.mapou[i])
 		{
-			free(global->map.mapy[i]);
+			free(global->map.mapou[i]);
 			i++;
 		}
-		free(global->map.mapy);
+		free(global->map.mapou);
 	}
 	free(global);
 }
@@ -388,8 +388,8 @@ int	map_start(t_global *global, char *map_content)
 
 void	add_map(t_global *global, char *line, int index)
 {
-	global->map.mapy[index] = ft_strdup(line);
-	global->map.mapy[index + 1] = NULL;
+	global->map.mapou[index] = ft_strdup(line);
+	global->map.mapou[index + 1] = NULL;
 }
 
 void	map_index(t_global *global, char *map_content)
@@ -416,7 +416,7 @@ void	map_index(t_global *global, char *map_content)
 	while (line)
 	{
 		add_map(global, line, i);
-		if (!global->map.mapy[i])
+		if (!global->map.mapou[i])
 			return (free(line), close(fd), error_exit(global));
 		free(line);
 		line = get_next_line(fd);
@@ -474,9 +474,9 @@ bool	map_check(t_global *global)
 	int	i;
 
 	i = 0;
-	while (global->map.mapy[i])
+	while (global->map.mapou[i])
 	{
-		if (error_check(global->map.mapy) == 1)
+		if (error_check(global->map.mapou) == 1)
 		{
 			return (true);
 		}
@@ -506,7 +506,7 @@ int	get_height_map(char *map)
 	return (i);
 }
 
-int	get_width_map(char **mapy)
+int	get_width_map(char **mapou)
 {
 	int	i;
 	int	j;
@@ -514,10 +514,10 @@ int	get_width_map(char **mapy)
 
 	i = 0;
 	max = 0;
-	while (mapy[i])
+	while (mapou[i])
 	{
 		j = 0;
-		while (mapy[i][j] && mapy[i][j] != '\n')
+		while (mapou[i][j] && mapou[i][j] != '\n')
 		{
 			j++;
 			if (max < j)
@@ -546,9 +546,9 @@ void	flood_fill(t_global *global, int x, int y)
 {
 	if (x < 0 || y < 0 || x >= global->map.width || y >= global->map.height)
 		return ;
-	if (global->map.mapy[y][x] == 'x' || global->map.mapy[y][x] == '1')
+	if (global->map.mapou[y][x] == 'x' || global->map.mapou[y][x] == '1')
 		return ;
-	global->map.mapy[y][x] = 'x';
+	global->map.mapou[y][x] = 'x';
 	flood_fill(global, x - 1, y);
 	flood_fill(global, x + 1, y);
 	flood_fill(global, x, y - 1);
@@ -574,7 +574,7 @@ int	map_flood(t_global *global)
 		x = 0;
 		while (x < row)
 		{
-			if (global->map.mapy[y][x] == 'N')
+			if (global->map.mapou[y][x] == 'N')
 			{
 				flood_fill(global, x, y);
 				return (0);
@@ -591,15 +591,15 @@ bool	start_map(t_global *global, char *map_content)
 	int	map_len;
 
 	map_len = map_start(global, map_content);
-	global->map.mapy = malloc(sizeof(char *) * (map_len + 1));
-	if (!global->map.mapy)
+	global->map.mapou = malloc(sizeof(char *) * (map_len + 1));
+	if (!global->map.mapou)
 		return (true);
 	map_index(global, map_content);
-	if (!global->map.mapy)
-		return (printf("MAPY N'EXISTE PAS\n"), error_exit(global), true);
+	if (!global->map.mapou)
+		return (printf("MAPOU N'EXISTE PAS\n"), error_exit(global), true);
 	if (map_check(global) == 1)
 		return (error_exit(global), true);
-	if (check_mapline(global->map.mapy) == 1)
+	if (check_mapline(global->map.mapou) == 1)
 		return (printf("Error\nMap to much line\n"), error_exit(global), true);
 	// if (map_flood(global) == 1)
 	// return (printf("Error\nMap incorrect"));
@@ -607,7 +607,7 @@ bool	start_map(t_global *global, char *map_content)
 	if (global->map.height < 0)
 		return (error_exit(global), true);
 	global->map.height -= global->textures->start;
-	global->map.width = get_width_map(global->map.mapy);
+	global->map.width = get_width_map(global->map.mapou);
 	return (false);
 }
 
