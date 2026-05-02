@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:20:18 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/04/29 15:38:40 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/02 17:33:29 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	init_player(t_global *global)
 
 void	raycast_init_data(t_raycast_data *data)
 {
-	data->screen_height = 480;
-	data->screen_width = 640;
+	data->screen_height = SCREEN_HEIGHT;
+	data->screen_width = SCREEN_WIDTH;
 	data->unit_size = 64;
 	data->player_height = 32;
 	data->dir.x = -1;

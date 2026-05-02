@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/01 15:51:58 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/02 17:32:06 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	dda(t_raycast_data *data, t_map *map)
 void	calculate_perp_wall_dist(t_raycast_data *data)
 {
 	if (data->side == 0)
-		data->perp_wall_dist = data->side_dist.x - data->delta_dist.x;
+		data->perp_wall_dist = (data->mapx - data->player.x + (1 - data->step.x) / 2) / data->ray_dir.x;
 	else
-		data->perp_wall_dist = data->side_dist.y - data->delta_dist.y;
+		data->perp_wall_dist = (data->mapy - data->player.y + (1 - data->step.y) / 2) / data->ray_dir.y;
 }
 
 void	go_though_all_rays(t_raycast_data *data, t_map *map, t_global *global)
