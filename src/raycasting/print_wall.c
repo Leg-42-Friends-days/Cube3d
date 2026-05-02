@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 10:45:04 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/01 11:35:17 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:23:07 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void    print_wall(t_raycast_data *data, t_global *global, int x)
 	int	draw_start;
 	int	draw_end;
 
-	(void)global;
-	(void)x;
 	line_height = SCREEN_HEIGHT / data->perp_wall_dist;
 	draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
 	if (draw_start < 0)
