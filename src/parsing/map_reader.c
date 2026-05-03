@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/03 15:30:29 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/03 15:39:56 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -544,7 +544,7 @@ bool	check_mapline(char **map)
 
 void	flood_fill(t_global *global, int x, int y)
 {
-	if (x < 0 || y < 0 || x >= global->map.width || y >= global->map.height)
+	if (x < 0 || y < 0 || x >= global->map.width || y >= global->map.height || y < (int) ft_strlen(global->map.mapou[y]))
 		return ;
 	if (global->map.mapou[y][x] == 'x' || global->map.mapou[y][x] == '1')
 		return ;
@@ -602,8 +602,8 @@ bool	start_map(t_global *global, char *map_content)
 		return (error_exit(global), true);
 	global->map.height -= global->textures->start;
 	global->map.width = get_width_map(global->map.mapou);
-		// if (map_flood(global) == 1)
-	// return (printf("Error\nMap incorrect"));
+	if (map_flood(global) == 1)
+		return (printf("Error\nMap incorrect"));
 	return (false);
 }
 
