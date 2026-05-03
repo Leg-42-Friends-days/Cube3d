@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/02 15:23:28 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/03 15:30:29 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -553,10 +553,6 @@ void	flood_fill(t_global *global, int x, int y)
 	flood_fill(global, x + 1, y);
 	flood_fill(global, x, y - 1);
 	flood_fill(global, x, y + 1);
-	flood_fill(global, x + 1, y + 1);
-	flood_fill(global, x - 1, y - 1);
-	flood_fill(global, x - 1, y + 1);
-	flood_fill(global, x + 1, y - 1);
 }
 
 int	map_flood(t_global *global)
@@ -601,13 +597,13 @@ bool	start_map(t_global *global, char *map_content)
 		return (error_exit(global), true);
 	if (check_mapline(global->map.mapou) == 1)
 		return (printf("Error\nMap to much line\n"), error_exit(global), true);
-	// if (map_flood(global) == 1)
-	// return (printf("Error\nMap incorrect"));
 	global->map.height = get_height_map(map_content);
 	if (global->map.height < 0)
 		return (error_exit(global), true);
 	global->map.height -= global->textures->start;
 	global->map.width = get_width_map(global->map.mapou);
+		// if (map_flood(global) == 1)
+	// return (printf("Error\nMap incorrect"));
 	return (false);
 }
 
