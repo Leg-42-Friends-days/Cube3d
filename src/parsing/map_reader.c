@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/04 17:34:23 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:39:53 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -695,7 +695,7 @@ bool	rgb_checker(char *str)
 	i = 0;
 	max = ft_atoi(str);
 	printf("max : %d\n", max);
-	while (str[i])
+	while (ft_isdigit(str[i]) || str[i] == ' ' || str[i] == ',')
 	{
 		if (max < 0 || max > 255)
 			return (true);
