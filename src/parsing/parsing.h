@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/02 15:24:07 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/04 15:50:33 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PARSING_H
 
 # include "../cub3d.h"
-#include <stdbool.h>
+# include <stdbool.h>
 
 typedef struct s_global	t_global;
 
@@ -37,7 +37,7 @@ typedef struct s_map
 	char				**fake_map;
 	int					width;
 	int					height;
-	int				wopen;
+	int					wopen;
 }						t_map;
 
 int						map_cub(char *str);

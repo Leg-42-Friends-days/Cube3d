@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/04 15:17:29 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/04 15:56:22 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,13 +354,13 @@ void	read_map(t_global *global, char *map_content)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	printf("CEILING :%s\n", global->textures->ceiling);
-	printf("FLOOR : %s\n", global->textures->floor);
-	printf("START POINT : %d\n", global->textures->start);
-	printf("NORTH : %s\n", global->textures->north);
-	printf("SOUTH : %s\n", global->textures->south);
-	printf("EAST : %s\n", global->textures->east);
-	printf("WEST : %s\n", global->textures->west);
+	// printf("CEILING :%s\n", global->textures->ceiling);
+	// printf("FLOOR : %s\n", global->textures->floor);
+	// printf("START POINT : %d\n", global->textures->start);
+	// printf("NORTH : %s\n", global->textures->north);
+	// printf("SOUTH : %s\n", global->textures->south);
+	// printf("EAST : %s\n", global->textures->east);
+	// printf("WEST : %s\n", global->textures->west);
 }
 
 int	map_start(t_global *global, char *map_content)
@@ -398,14 +398,32 @@ void	add_map(t_global *global, char *line, int index)
 	global->map.mapou[index + 1] = NULL;
 }
 
+void	map_index2(t_global *global, int *fd)
+{
+	char	*line;
+	int i;
+
+	i = 0;
+	line = get_next_line(*fd);
+	if (line == NULL)
+		return (printf("Error\nNO MAP\n"), exit(1));
+	while (line)
+	{
+		add_map(global, line, i);
+		if (!global->map.mapou[i])
+			return (free(line), close(*fd), error_exit(global));
+		free(line);
+		line = get_next_line(*fd);
+		i++;
+	}
+}
+
 void	map_index(t_global *global, char *map_content)
 {
-	int		i;
 	int		len;
 	int		fd;
 	char	*line;
 
-	i = 0;
 	len = 0;
 	fd = open(map_content, O_RDONLY);
 	if (fd == -1)
@@ -416,18 +434,7 @@ void	map_index(t_global *global, char *map_content)
 		free(line);
 		len++;
 	}
-	line = get_next_line(fd);
-	if (line == NULL)
-		return (printf("Error\nNO MAP\n"), exit(1));
-	while (line)
-	{
-		add_map(global, line, i);
-		if (!global->map.mapou[i])
-			return (free(line), close(fd), error_exit(global));
-		free(line);
-		line = get_next_line(fd);
-		i++;
-	}
+	map_index2(global, &fd);
 	close(fd);
 }
 
@@ -636,17 +643,17 @@ void	flood_fill(t_global *global, int x, int y)
 	flood_fill(global, x, y + 1);
 }
 
-void	affichage_map(t_global *global)
-{
-	int	i;
+// void	affichage_map(t_global *global)
+// {
+// 	int	i;
 
-	i = 0;
-	while (global->map.fake_map[i])
-	{
-		printf("%s\n", global->map.fake_map[i]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (global->map.fake_map[i])
+// 	{
+// 		printf("%s\n", global->map.fake_map[i]);
+// 		i++;
+// 	}
+// }
 
 int	map_flood(t_global *global)
 {
@@ -665,7 +672,7 @@ int	map_flood(t_global *global)
 			{
 				found = 1;
 				flood_fill(global, x, y);
-				affichage_map(global);
+				// affichage_map(global);
 				return (global->map.wopen);
 			}
 			x++;
