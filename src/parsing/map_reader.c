@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/04 17:31:14 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:34:23 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -687,9 +687,9 @@ int	map_flood(t_global *global)
 
 bool	rgb_checker(char *str)
 {
-	int i;
-	int max;
-	int vir;
+	int	i;
+	int	max;
+	int	vir;
 
 	vir = 0;
 	i = 0;
@@ -698,10 +698,7 @@ bool	rgb_checker(char *str)
 	while (str[i])
 	{
 		if (max < 0 || max > 255)
-		{
-			printf("MAX\n");
 			return (true);
-		}
 		if (str[i] == ',')
 		{
 			vir++;
