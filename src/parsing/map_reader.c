@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/04 15:56:22 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:08:08 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char	*copy_enter(char *str)
 		i++;
 	}
 	cpy = malloc(sizeof(char) * (i + 1));
+	if (!cpy)
+		return (NULL);
 	i = 0;
 	while (str[i])
 	{
@@ -345,8 +347,7 @@ void	read_map(t_global *global, char *map_content)
 		return (printf("Error\n"), error_exit(global));
 	line = get_next_line(fd);
 	if (!line)
-		return (printf("Error\nDossier vide"), close(fd), free_all(global),
-			exit(1));
+		return (printf("Error\nDossier vide"), close(fd), error_exit(global));
 	while (line)
 	{
 		convert_line(global, line, fd);
@@ -401,12 +402,12 @@ void	add_map(t_global *global, char *line, int index)
 void	map_index2(t_global *global, int *fd)
 {
 	char	*line;
-	int i;
+	int		i;
 
 	i = 0;
 	line = get_next_line(*fd);
 	if (line == NULL)
-		return (printf("Error\nNO MAP\n"), exit(1));
+		return (printf("Error\nNO MAP\n"), error_exit(global));
 	while (line)
 	{
 		add_map(global, line, i);
