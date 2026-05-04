@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/03 15:39:56 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/04 15:17:29 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int	error_gestion(int ac, char **av)
 void	free_texture(t_global *global)
 {
 	if (!global)
-		return;
+		return ;
 	if (global->textures)
 	{
 		if (global->textures->ceiling)
@@ -180,14 +180,11 @@ void	free_texture(t_global *global)
 	}
 }
 
-void	free_all(t_global *global)
+void	free_map(t_global *global)
 {
 	int	i;
 
 	i = 0;
-	if (!global)
-		return ;
-	free_texture(global);
 	if (global->map.mapou)
 	{
 		while (global->map.mapou[i])
@@ -207,6 +204,14 @@ void	free_all(t_global *global)
 		}
 		free(global->map.fake_map);
 	}
+}
+
+void	free_all(t_global *global)
+{
+	if (!global)
+		return ;
+	free_texture(global);
+	free_map(global);
 	free(global);
 }
 
@@ -340,7 +345,8 @@ void	read_map(t_global *global, char *map_content)
 		return (printf("Error\n"), error_exit(global));
 	line = get_next_line(fd);
 	if (!line)
-		return (printf("Error\nDossier vide"), close(fd) ,free_all(global) ,exit(1));
+		return (printf("Error\nDossier vide"), close(fd), free_all(global),
+			exit(1));
 	while (line)
 	{
 		convert_line(global, line, fd);
@@ -545,7 +551,7 @@ bool	check_mapline(char **map)
 char	*reformat_line(char *line, int width)
 {
 	char	*ref;
-	int	j;
+	int		j;
 
 	ref = malloc(sizeof(char) * (width + 1));
 	if (!ref)
@@ -611,8 +617,7 @@ bool	build_fake_map(t_global *global)
 
 void	flood_fill(t_global *global, int x, int y)
 {
-	if (x < 0 || y < 0 || x >= global->map.width
-		|| y >= global->map.height)
+	if (x < 0 || y < 0 || x >= global->map.width || y >= global->map.height)
 	{
 		global->map.wopen = 1;
 		return ;
@@ -622,8 +627,7 @@ void	flood_fill(t_global *global, int x, int y)
 		global->map.wopen = 1;
 		return ;
 	}
-	if (global->map.fake_map[y][x] == 'x'
-		|| global->map.fake_map[y][x] == '1')
+	if (global->map.fake_map[y][x] == 'x' || global->map.fake_map[y][x] == '1')
 		return ;
 	global->map.fake_map[y][x] = 'x';
 	flood_fill(global, x - 1, y);
@@ -634,12 +638,14 @@ void	flood_fill(t_global *global, int x, int y)
 
 void	affichage_map(t_global *global)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (global->map.fake_map[i])
 	{
 		printf("%s\n", global->map.fake_map[i]);
 		i++;
-	}	
+	}
 }
 
 int	map_flood(t_global *global)
