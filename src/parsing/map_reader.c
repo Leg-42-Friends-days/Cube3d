@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/04 16:08:08 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:31:14 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -685,6 +685,54 @@ int	map_flood(t_global *global)
 	return (global->map.wopen);
 }
 
+bool	rgb_checker(char *str)
+{
+	int i;
+	int max;
+	int vir;
+
+	vir = 0;
+	i = 0;
+	max = ft_atoi(str);
+	printf("max : %d\n", max);
+	while (str[i])
+	{
+		if (max < 0 || max > 255)
+		{
+			printf("MAX\n");
+			return (true);
+		}
+		if (str[i] == ',')
+		{
+			vir++;
+			i++;
+			max = ft_atoi(str + i);
+			printf("new : max : %d\n", max);
+		}
+		i++;
+	}
+	if (vir != 2)
+		return (true);
+	return (false);
+}
+
+bool	check_rgb(t_global *global)
+{
+	printf("RGB F : %s\n", global->textures->floor);
+	printf("RGB C : %s\n", global->textures->ceiling);
+	if (rgb_checker(global->textures->floor) == 1)
+	{
+		printf("HERE\n");
+		return (true);
+	}
+	if (rgb_checker(global->textures->ceiling))
+	{
+		printf("C HERE\n");
+		return (true);
+	}
+	return (false);
+}
+
 bool	start_map(t_global *global, char *map_content)
 {
 	int	map_len;
@@ -695,11 +743,13 @@ bool	start_map(t_global *global, char *map_content)
 		return (true);
 	map_index(global, map_content);
 	if (!global->map.mapou)
-		return (printf("MAPOU N'EXISTE PAS\n"), error_exit(global), true);
+		return (printf("Error\nMap\n"), error_exit(global), true);
+	if (check_rgb(global) == 1)
+		return (printf("Error\nRGB\n"), 1);
 	if (map_check(global) == 1)
 		return (error_exit(global), true);
 	if (check_mapline(global->map.mapou) == 1)
-		return (printf("Error\nMap to much line\n"), error_exit(global), true);
+		return (printf("Error\nMap\n"), error_exit(global), true);
 	global->map.height = get_height_map(map_content);
 	if (global->map.height < 0)
 		return (error_exit(global), true);
