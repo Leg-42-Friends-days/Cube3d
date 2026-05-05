@@ -6,11 +6,21 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:20:18 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/02 17:33:29 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:53:23 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub3d.h"
+
+int	is_dir(char cara, t_raycast_data *data)
+{
+	if(cara == 'N' || cara == 'S' || cara == 'E' || cara == 'W')
+	{
+		data->dir_player = cara;
+		return (1);
+	}	
+	return (0);
+}
 
 void	init_player(t_global *global)
 {
@@ -25,7 +35,7 @@ void	init_player(t_global *global)
 	{
 		while (j < global->map.width)
 		{
-			if (map[i][j] == 'N')
+			if (is_dir(map[i][j], &(global->raycast_data)))
 			{
 				global->raycast_data.player.y = i + 0.5;
 				global->raycast_data.player.x = j + 0.5;
@@ -40,16 +50,60 @@ void	init_player(t_global *global)
 	global->raycast_data.mapy = global->raycast_data.player.y;
 }
 
+void	init_dir(t_raycast_data *data)
+{
+	if (data->dir_player == 'N')
+	{
+		data->dir.x = 0;
+		data->dir.y = 1;
+	}
+	if (data->dir_player == 'S')
+	{
+		data->dir.x = 0;
+		data->dir.y = -1;
+	}
+	if (data->dir_player == 'E')
+	{
+		data->dir.x = 1;
+		data->dir.y = 0;
+	}
+	if (data->dir_player == 'W')
+	{
+		data->dir.x = -1;
+		data->dir.y = 0;
+	}
+}
+
+void	init_plane(t_raycast_data *data)
+{
+	if (data->dir_player == 'N')
+	{
+		data->plane.x = 0.66;
+		data->plane.y = 0;
+	}
+	if (data->dir_player == 'S')
+	{
+		data->plane.x = -0.66;
+		data->plane.y = 0;
+	}
+	if (data->dir_player == 'E')
+	{
+		data->plane.x = 0;
+		data->plane.y = -0.66;
+	}
+	if (data->dir_player == 'W')
+	{
+		data->plane.x = 0;
+		data->plane.y = 0.66;
+	}
+}
+
 void	raycast_init_data(t_raycast_data *data)
 {
 	data->screen_height = SCREEN_HEIGHT;
 	data->screen_width = SCREEN_WIDTH;
-	data->unit_size = 64;
-	data->player_height = 32;
-	data->dir.x = -1;
-	data->dir.y = 0;
-	data->plane.x = 0;
-	data->plane.y = 0.66;
+	init_dir(data);
+	init_plane(data);
 	data->hit = 0;
 }
 

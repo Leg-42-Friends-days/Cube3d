@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/02 17:36:08 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/05 14:32:34 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ void    create_map(t_map *map, char *str);
 int	close_window(t_global *global);
 int	key_hook(int keycode, void *param);
 int	close_window_hook(void *param);
+
+//LOAD_TEXTURES.C
+void    load_all_textures(t_global *global);
 
 #endif

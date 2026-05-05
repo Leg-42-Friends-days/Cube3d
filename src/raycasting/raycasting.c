@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/02 17:32:06 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:52:48 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	go_though_all_rays(t_raycast_data *data, t_map *map, t_global *global)
 
 int	raycasting(t_global *global)
 {
-	raycast_init_data(&(global->raycast_data));
 	init_player(global);
+	raycast_init_data(&(global->raycast_data));
 	go_though_all_rays(&(global->raycast_data), &(global->map), global);
 	//printf("%f\n", global->raycast_data.plane.x);
 	//printf("%f\n", global->raycast_data.plane.y);

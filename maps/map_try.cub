@@ -1,15 +1,15 @@
   
-                                NO                 ./texture/test.xpm
+                                NO                 ./texture/skibidi_tentafruits.xpm
 
-WE                                           ./texture/test.xpm
+WE                                           ./texture/skibidi_tentafruits.xpm
       
-                        EA                                              ./texture/test.xpm
+                        EA                                              ./texture/skibidi_tentafruits.xpm
   
 
 
 
 
-SO                       ./texture/test.xpm
+SO                       ./texture/skibidi_tentafruits.xpm
 
 
 F 220,100,0
@@ -21,7 +21,7 @@ C 225,30,0
 111111111          11111111111111111111
 11111111111111111111111111111
 1111100000000011000000000001
-111110110N0001110000000000001
+111110110S0001110000000000001
 11111001000000000000000000001
 11111011000001110000000000001
 10000000001100000111011111111
