@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/04 17:39:53 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/05 21:50:45 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -685,6 +685,20 @@ int	map_flood(t_global *global)
 	return (global->map.wopen);
 }
 
+bool	check_if_alpha(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'b'))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 bool	rgb_checker(char *str)
 {
 	int	i;
@@ -710,7 +724,7 @@ bool	rgb_checker(char *str)
 	}
 	if (vir != 2)
 		return (true);
-	return (false);
+	return (check_if_alpha(str));
 }
 
 bool	check_rgb(t_global *global)
