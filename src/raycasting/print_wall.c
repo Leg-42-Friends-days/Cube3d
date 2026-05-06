@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 10:45:04 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/05 16:49:22 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:03:00 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ t_xpm	which_wall(t_raycast_data *data)
 	if (data->side == 0)
 	{
 		if (data->ray_dir.x > 0)
-			return (data->north);
+			return (data->east);
         else
 			return (data->west);
 	}
     if (data->side == 1)
 	{
 		if (data->ray_dir.y < 0)
-			return (data->east);
-		else
 			return (data->south);
+		else
+			return (data->north);
 	}
 	return (data->north);
 }
@@ -75,7 +75,8 @@ void    print_line(t_global *global, t_raycast_data *data, int x)
     data->print.step = (double)wall.height / data->print.line_height;
     data->print.tex_pos = (data->print.draw_start - SCREEN_HEIGHT / 2 + data->print.line_height / 2) * data->print.step;
     current = data->print.draw_start;
-    while (current < data->print.draw_end)
+    
+	while (current < data->print.draw_end)
     {
         data->print.tex_y = (int)data->print.tex_pos % wall.height;
         data->print.tex_pos += data->print.step;
