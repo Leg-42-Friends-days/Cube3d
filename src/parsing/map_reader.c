@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/02 15:23:28 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:39:53 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,20 @@
 
 int	map_cub(char *str)
 {
-	int		i;
-	int		j;
+	int		len;
+	int		fd;
 	char	*cub;
 
-	i = 0;
-	j = 0;
 	cub = ".cub";
-	while (str[i])
-		i++;
-	i -= 4;
-	while (str[i] == cub[j])
-	{
-		i++;
-		j++;
-	}
-	if (j == 5)
-	{
-		j = open(str, O_RDONLY);
-		close(j);
-		if (j < 0)
-			return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
-	}
-	else
+	if (!str)
 		return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
+	len = ft_strlen(str);
+	if (len < 4 || ft_strncmp(str + (len - 4), cub, 4) != 0)
+		return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+		return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
+	close(fd);
 	return (0);
 }
 
@@ -71,6 +61,8 @@ char	*copy_enter(char *str)
 		i++;
 	}
 	cpy = malloc(sizeof(char) * (i + 1));
+	if (!cpy)
+		return (NULL);
 	i = 0;
 	while (str[i])
 	{
@@ -136,7 +128,7 @@ bool	stock_checker(t_global *global)
 	int	i;
 
 	i = 0;
-	while (global->textures->stock[i])
+	while (i < 6)
 	{
 		if (global->textures->stock[i] != 1)
 			return (true);
@@ -171,7 +163,7 @@ int	error_gestion(int ac, char **av)
 void	free_texture(t_global *global)
 {
 	if (!global)
-		return;
+		return ;
 	if (global->textures)
 	{
 		if (global->textures->ceiling)
@@ -190,14 +182,11 @@ void	free_texture(t_global *global)
 	}
 }
 
-void	free_all(t_global *global)
+void	free_map(t_global *global)
 {
 	int	i;
 
 	i = 0;
-	if (!global)
-		return ;
-	free_texture(global);
 	if (global->map.mapou)
 	{
 		while (global->map.mapou[i])
@@ -207,6 +196,24 @@ void	free_all(t_global *global)
 		}
 		free(global->map.mapou);
 	}
+	i = 0;
+	if (global->map.fake_map)
+	{
+		while (global->map.fake_map[i])
+		{
+			free(global->map.fake_map[i]);
+			i++;
+		}
+		free(global->map.fake_map);
+	}
+}
+
+void	free_all(t_global *global)
+{
+	if (!global)
+		return ;
+	free_texture(global);
+	free_map(global);
 	free(global);
 }
 
@@ -340,7 +347,7 @@ void	read_map(t_global *global, char *map_content)
 		return (printf("Error\n"), error_exit(global));
 	line = get_next_line(fd);
 	if (!line)
-		return (printf("Error\nDossier vide"), close(fd) ,free_all(global) ,exit(1));
+		return (printf("Error\nDossier vide"), close(fd), error_exit(global));
 	while (line)
 	{
 		convert_line(global, line, fd);
@@ -392,14 +399,32 @@ void	add_map(t_global *global, char *line, int index)
 	global->map.mapou[index + 1] = NULL;
 }
 
+void	map_index2(t_global *global, int *fd)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = get_next_line(*fd);
+	if (line == NULL)
+		return (printf("Error\nNO MAP\n"), error_exit(global));
+	while (line)
+	{
+		add_map(global, line, i);
+		if (!global->map.mapou[i])
+			return (free(line), close(*fd), error_exit(global));
+		free(line);
+		line = get_next_line(*fd);
+		i++;
+	}
+}
+
 void	map_index(t_global *global, char *map_content)
 {
-	int		i;
 	int		len;
 	int		fd;
 	char	*line;
 
-	i = 0;
 	len = 0;
 	fd = open(map_content, O_RDONLY);
 	if (fd == -1)
@@ -410,18 +435,7 @@ void	map_index(t_global *global, char *map_content)
 		free(line);
 		len++;
 	}
-	line = get_next_line(fd);
-	if (line == NULL)
-		return (printf("Error\nNO MAP\n"), exit(1));
-	while (line)
-	{
-		add_map(global, line, i);
-		if (!global->map.mapou[i])
-			return (free(line), close(fd), error_exit(global));
-		free(line);
-		line = get_next_line(fd);
-		i++;
-	}
+	map_index2(global, &fd);
 	close(fd);
 }
 
@@ -542,48 +556,178 @@ bool	check_mapline(char **map)
 	return (false);
 }
 
+char	*reformat_line(char *line, int width)
+{
+	char	*ref;
+	int		j;
+
+	ref = malloc(sizeof(char) * (width + 1));
+	if (!ref)
+		return (NULL);
+	j = 0;
+	while (j < width)
+	{
+		ref[j] = ' ';
+		j++;
+	}
+	j = 0;
+	while (line[j] && line[j] != '\n' && j < width)
+	{
+		ref[j] = line[j];
+		j++;
+	}
+	ref[width] = '\0';
+	return (ref);
+}
+
+void	free_fake_map(t_map *map)
+{
+	int	i;
+
+	if (!map || !map->fake_map)
+		return ;
+	i = 0;
+	while (map->fake_map[i])
+	{
+		free(map->fake_map[i]);
+		i++;
+	}
+	free(map->fake_map);
+	map->fake_map = NULL;
+}
+
+bool	build_fake_map(t_global *global)
+{
+	int	i;
+
+	if (!global->map.mapou)
+		return (true);
+	global->map.fake_map = malloc(sizeof(char *) * (global->map.height + 1));
+	if (!global->map.fake_map)
+		return (true);
+	i = 0;
+	while (i <= global->map.height)
+	{
+		global->map.fake_map[i] = NULL;
+		i++;
+	}
+	i = 0;
+	while (i < global->map.height)
+	{
+		global->map.fake_map[i] = reformat_line(global->map.mapou[i],
+				global->map.width);
+		if (!global->map.fake_map[i])
+			return (free_fake_map(&global->map), true);
+		i++;
+	}
+	return (false);
+}
+
 void	flood_fill(t_global *global, int x, int y)
 {
 	if (x < 0 || y < 0 || x >= global->map.width || y >= global->map.height)
+	{
+		global->map.wopen = 1;
 		return ;
-	if (global->map.mapou[y][x] == 'x' || global->map.mapou[y][x] == '1')
+	}
+	if (global->map.fake_map[y][x] == ' ')
+	{
+		global->map.wopen = 1;
 		return ;
-	global->map.mapou[y][x] = 'x';
+	}
+	if (global->map.fake_map[y][x] == 'x' || global->map.fake_map[y][x] == '1')
+		return ;
+	global->map.fake_map[y][x] = 'x';
 	flood_fill(global, x - 1, y);
 	flood_fill(global, x + 1, y);
 	flood_fill(global, x, y - 1);
 	flood_fill(global, x, y + 1);
-	flood_fill(global, x + 1, y + 1);
-	flood_fill(global, x - 1, y - 1);
-	flood_fill(global, x - 1, y + 1);
-	flood_fill(global, x + 1, y - 1);
 }
+
+// void	affichage_map(t_global *global)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (global->map.fake_map[i])
+// 	{
+// 		printf("%s\n", global->map.fake_map[i]);
+// 		i++;
+// 	}
+// }
 
 int	map_flood(t_global *global)
 {
-	int	row;
-	int	col;
 	int	x;
 	int	y;
+	int	found;
 
+	found = 0;
 	y = 0;
-	row = global->map.width;
-	col = global->map.height;
-	while (y < col)
+	while (y < global->map.height)
 	{
 		x = 0;
-		while (x < row)
+		while (x < global->map.width)
 		{
-			if (global->map.mapou[y][x] == 'N')
+			if (direction_check(global->map.fake_map[y][x]))
 			{
+				found = 1;
 				flood_fill(global, x, y);
-				return (0);
+				// affichage_map(global);
+				return (global->map.wopen);
 			}
 			x++;
 		}
 		y++;
 	}
-	return (0);
+	if (!found)
+		return (1);
+	return (global->map.wopen);
+}
+
+bool	rgb_checker(char *str)
+{
+	int	i;
+	int	max;
+	int	vir;
+
+	vir = 0;
+	i = 0;
+	max = ft_atoi(str);
+	printf("max : %d\n", max);
+	while (ft_isdigit(str[i]) || str[i] == ' ' || str[i] == ',')
+	{
+		if (max < 0 || max > 255)
+			return (true);
+		if (str[i] == ',')
+		{
+			vir++;
+			i++;
+			max = ft_atoi(str + i);
+			printf("new : max : %d\n", max);
+		}
+		i++;
+	}
+	if (vir != 2)
+		return (true);
+	return (false);
+}
+
+bool	check_rgb(t_global *global)
+{
+	printf("RGB F : %s\n", global->textures->floor);
+	printf("RGB C : %s\n", global->textures->ceiling);
+	if (rgb_checker(global->textures->floor) == 1)
+	{
+		printf("HERE\n");
+		return (true);
+	}
+	if (rgb_checker(global->textures->ceiling))
+	{
+		printf("C HERE\n");
+		return (true);
+	}
+	return (false);
 }
 
 bool	start_map(t_global *global, char *map_content)
@@ -596,18 +740,22 @@ bool	start_map(t_global *global, char *map_content)
 		return (true);
 	map_index(global, map_content);
 	if (!global->map.mapou)
-		return (printf("MAPOU N'EXISTE PAS\n"), error_exit(global), true);
+		return (printf("Error\nMap\n"), error_exit(global), true);
+	if (check_rgb(global) == 1)
+		return (printf("Error\nRGB\n"), 1);
 	if (map_check(global) == 1)
 		return (error_exit(global), true);
 	if (check_mapline(global->map.mapou) == 1)
-		return (printf("Error\nMap to much line\n"), error_exit(global), true);
-	// if (map_flood(global) == 1)
-	// return (printf("Error\nMap incorrect"));
+		return (printf("Error\nMap\n"), error_exit(global), true);
 	global->map.height = get_height_map(map_content);
 	if (global->map.height < 0)
 		return (error_exit(global), true);
 	global->map.height -= global->textures->start;
 	global->map.width = get_width_map(global->map.mapou);
+	if (build_fake_map(global))
+		return (error_exit(global), true);
+	if (map_flood(global) == 1)
+		return (printf("Error\nMap incorrect"));
 	return (false);
 }
 
@@ -623,5 +771,7 @@ t_global	*init_malloc(void)
 	if (!global->textures)
 		return (free(global), exit(1), NULL);
 	ft_bzero(global->textures, sizeof(t_textures));
+	global->map.fake_map = NULL;
+	global->map.wopen = 0;
 	return (global);
 }

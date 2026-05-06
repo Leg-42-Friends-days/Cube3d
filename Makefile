@@ -6,7 +6,7 @@
 #    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/05 14:33:17 by ibrouin-         ###   ########.fr        #
+#    Updated: 2026/05/06 15:05:06 by ibrouin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@echo "✅ $(NAME) ready !"
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ) $(OBJ_DIR)
 	@$(MAKE) -C $(LIBFT_DIR) clean
 	@echo "✅ Removed object files"
 

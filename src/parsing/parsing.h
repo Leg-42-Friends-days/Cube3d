@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/05 14:14:00 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:04:56 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include "../cub3d.h"
+# include <stdbool.h>
 
 typedef struct s_global	t_global;
 
@@ -33,8 +34,10 @@ typedef struct s_textures
 typedef struct s_map
 {
 	char				**mapou;
+	char				**fake_map;
 	int					width;
 	int					height;
+	int					wopen;
 }						t_map;
 
 int						map_cub(char *str);
@@ -52,6 +55,9 @@ bool					map_check(t_global *global);
 int						get_height_map(char *map);
 int						get_width_map(char **mapou);
 bool					check_mapline(char **map);
+char					*reformat_line(char *line, int width);
+void					free_fake_map(t_map *map);
+bool					build_fake_map(t_global *global);
 void					flood_fill(t_global *global, int x, int y);
 int						map_flood(t_global *global);
 bool					start_map(t_global *global, char *map_content);
