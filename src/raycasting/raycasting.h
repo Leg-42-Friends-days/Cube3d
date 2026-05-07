@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/01 15:52:19 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/05 16:26:34 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,43 @@
 
 # include "../cub3d.h"
 
+typedef	struct s_xpm
+{
+	void	*img_ptr;
+	char	*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}			t_xpm;
+
 typedef struct s_coordinates
 {
 	double	x;
 	double	y;
 }				t_coordinates;
 
+typedef	struct s_print
+{
+	int 	line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+	int		tex_x;
+	int     tex_y;
+	double  tex_pos;
+    double  step;
+}				t_print;
+
 typedef struct s_raycast_data
 {
 	int				screen_height;
 	double			screen_width;
-	int				unit_size;
-	int				player_height;
 	t_coordinates	dir;
 	t_coordinates	plane;
 	t_coordinates	player;
+	char			dir_player;
 	t_coordinates	ray_dir;
 	int				mapx;
 	int				mapy;
@@ -39,6 +61,11 @@ typedef struct s_raycast_data
 	double			perp_wall_dist;
 	int				hit;
 	int				side;
+	t_xpm			north;
+	t_xpm			west;
+	t_xpm			east;
+	t_xpm			south;
+	t_print			print;
 }				t_raycast_data;
 
 typedef struct s_global	t_global;
@@ -56,7 +83,7 @@ void	init_raycasting(t_raycast_data *data);
 // PRINT_WALL.c
 void    print_wall(t_raycast_data *data, t_global *global, int x);
 void	put_pixel(t_global *global, int x, int y, int color);
-void    print_line(t_global *global, int draw_start, int draw_end, int x);
+void    print_line(t_global *global, t_raycast_data *data, int x);
 
 // WALK.c
 int		rotate(int keycode, t_global *global);

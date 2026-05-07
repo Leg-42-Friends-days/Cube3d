@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/02 15:20:39 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/05 14:22:24 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 	global->mlx = mlx_init();
 	if (!global->mlx)
 		exit(1);
+	load_all_textures(global);
 	global->win = mlx_new_window(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "42");
 	global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	global->img.addr = mlx_get_data_addr(global->img.img, &global->img.bits_per_pixel,

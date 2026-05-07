@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/02 15:24:35 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/05 14:32:34 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_global
 	t_raycast_data	raycast_data;
 }				t_global;
 
-# define SCREEN_WIDTH 640
-# define SCREEN_HEIGHT 480
+# define SCREEN_WIDTH 1200
+# define SCREEN_HEIGHT 900
 # define ESC 65307
 # define LEFT 65361
 # define RIGHT 65363
@@ -58,5 +58,8 @@ void    create_map(t_map *map, char *str);
 int	close_window(t_global *global);
 int	key_hook(int keycode, void *param);
 int	close_window_hook(void *param);
+
+//LOAD_TEXTURES.C
+void    load_all_textures(t_global *global);
 
 #endif
