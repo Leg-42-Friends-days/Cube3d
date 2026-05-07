@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/05 21:50:45 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:28:54 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -787,5 +787,7 @@ t_global	*init_malloc(void)
 	ft_bzero(global->textures, sizeof(t_textures));
 	global->map.fake_map = NULL;
 	global->map.wopen = 0;
+	// global->map.game = malloc(sizeof(t_game));
+	// global->map.tile = malloc(sizeof(t_tile));
 	return (global);
 }

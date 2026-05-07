@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/06 15:04:56 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:28:38 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include <stdbool.h>
 
 typedef struct s_global	t_global;
+
+// typedef struct s_tile
+// {
+// 	int					width;
+// 	int					height;
+// }						t_tile;
 
 typedef struct s_textures
 {
@@ -31,6 +37,20 @@ typedef struct s_textures
 	int					end;
 }						t_textures;
 
+// typedef struct s_game
+// {
+// 	int					x;
+// 	int					y;
+// 	int					offset;
+
+// 	void				*img;
+// 	char				*addr;
+// 	int					bits_per_pixel;
+// 	int					line_length;
+// 	int					endian;
+// 	char				*dst;
+// }						t_game;
+
 typedef struct s_map
 {
 	char				**mapou;
@@ -38,6 +58,10 @@ typedef struct s_map
 	int					width;
 	int					height;
 	int					wopen;
+	// int					mini_x;
+	// int					mini_y;
+	// t_tile				*tile;
+	// t_game				*game;
 }						t_map;
 
 int						map_cub(char *str);
