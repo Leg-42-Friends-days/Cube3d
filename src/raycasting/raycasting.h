@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/05 16:26:34 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/07 14:50:34 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,8 @@ void    print_line(t_global *global, t_raycast_data *data, int x);
 // WALK.c
 int		rotate(int keycode, t_global *global);
 int		walk(int keycode, t_global *global);
+
+// COLLISION_DETECTION.c
+int 	collision_detection(t_raycast_data *data, t_map *map);
 
 #endif

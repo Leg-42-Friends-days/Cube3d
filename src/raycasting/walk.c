@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:48:19 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/07 11:07:48 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:06:20 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,11 @@ int	walk(int keycode, t_global *global)
 	t_raycast_data	*data;
 
 	data = &(global->raycast_data);
-	move_speed = 0.3;
+	move_speed = 0.2;
 	if (keycode == UP)
 	{
+		if (collision_detection(&(global->raycast_data), &(global->map)))
+			return (1);
 		data->player.x += data->dir.x * move_speed;
 		data->player.y += data->dir.y * move_speed;
 	}
