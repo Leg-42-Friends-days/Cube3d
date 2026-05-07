@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/07 16:28:38 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:12:11 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_map
 	int					width;
 	int					height;
 	int					wopen;
+	int					limite;
 	// int					mini_x;
 	// int					mini_y;
 	// t_tile				*tile;
