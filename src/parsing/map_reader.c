@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/07 17:10:56 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:34:36 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ bool	stock_checker(t_global *global)
 	int	i;
 
 	i = 0;
-	while (i < 6)
+	while (i < 8)
 	{
 		if (global->textures->stock[i] != 1)
 			return (true);
@@ -332,6 +332,8 @@ void	initiate_stock(t_global *global)
 	global->textures->stock[3] = 0;
 	global->textures->stock[4] = 0;
 	global->textures->stock[5] = 0;
+	global->textures->stock[6] = 1;
+	global->textures->stock[7] = 1;
 }
 
 void	read_map(t_global *global, char *map_content)
