@@ -16,3 +16,11 @@ For the textures
 https://ibon-ira-cub3d.mintlify.app/concepts/textures
 https://ismailassil.medium.com/ray-casting-c-8bfae2c2fc13
 
+couleurs
+https://blog.openreplay.com/fr/rgb-vers-hex/
+
+Sprites
+https://lodev.org/cgtutor/raycasting3.html
+
+Autre 
+https://lodev.org/cgtutor/raycasting4.html

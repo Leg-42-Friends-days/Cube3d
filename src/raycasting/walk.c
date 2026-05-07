@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:48:19 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/01 15:44:55 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:07:48 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	walk(int keycode, t_global *global)
 	t_raycast_data	*data;
 
 	data = &(global->raycast_data);
-	move_speed = 0.5;
+	move_speed = 0.3;
 	if (keycode == UP)
 	{
 		data->player.x += data->dir.x * move_speed;
