@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/04 17:39:53 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:47:54 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -715,16 +715,16 @@ bool	rgb_checker(char *str)
 
 bool	check_rgb(t_global *global)
 {
-	printf("RGB F : %s\n", global->textures->floor);
-	printf("RGB C : %s\n", global->textures->ceiling);
+	// printf("RGB F : %s\n", global->textures->floor);
+	// printf("RGB C : %s\n", global->textures->ceiling);
 	if (rgb_checker(global->textures->floor) == 1)
 	{
-		printf("HERE\n");
+		// printf("HERE\n");
 		return (true);
 	}
 	if (rgb_checker(global->textures->ceiling))
 	{
-		printf("C HERE\n");
+		// printf("C HERE\n");
 		return (true);
 	}
 	return (false);
