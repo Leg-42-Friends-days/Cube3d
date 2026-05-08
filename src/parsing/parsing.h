@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/07 17:32:59 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:06:38 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef struct s_textures
 	char				*east;
 	char				*floor;
 	char				*ceiling;
-	int					stock[8];
+	char				*door;
+	int					stock[9];
 	int					start;
 	int					end;
 }						t_textures;

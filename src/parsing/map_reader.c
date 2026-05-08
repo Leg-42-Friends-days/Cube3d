@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/07 17:34:36 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:13:13 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*texture_map(char *str)
 		return (NULL);
 	fd = open(cpy, O_RDONLY);
 	if (fd == -1)
-		return (free(cpy), printf("Error\nFichier n'existe pas\n"), NULL);
+		return (free(cpy), NULL);
 	close(fd);
 	return (cpy);
 }
@@ -128,7 +128,7 @@ bool	stock_checker(t_global *global)
 	int	i;
 
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		if (global->textures->stock[i] != 1)
 			return (true);
@@ -228,13 +228,11 @@ void	convert_line4(t_global *global, char *line, int fd)
 {
 	if (ft_strncmp(is_space(line), "WE", 2) == 0)
 	{
-		if (global->textures->stock[1] == 1)
-			return (printf("Error\nTo much WE"), free(line), close(fd),
-				error_exit(global));
 		global->textures->stock[1] = 1;
 		global->textures->west = texture_map(is_space(line) + 2);
 		if (!global->textures->west)
-			return (free(line), close(fd), error_exit(global));
+			return (printf("Error\nTexture (WE)\n"), free(line), close(fd),
+				error_exit(global));
 		global->textures->start++;
 	}
 	else
@@ -281,24 +279,20 @@ void	convert_line2(t_global *global, char *line, int fd)
 {
 	if (ft_strncmp(is_space(line), "SO", 2) == 0)
 	{
-		if (global->textures->stock[2] == 1)
-			return (printf("Error\nTo much SO"), free(line), close(fd),
-				error_exit(global));
 		global->textures->stock[2] = 1;
 		global->textures->south = texture_map(is_space(line) + 2);
 		if (!global->textures->south)
-			return (free(line), close(fd), error_exit(global));
+			return (printf("Error\nTexture (SO)\n"), free(line), close(fd),
+				error_exit(global));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "EA", 2) == 0)
 	{
-		if (global->textures->stock[3] == 1)
-			return (printf("Error\nTo much EA"), free(line), close(fd),
-				error_exit(global));
+		global->textures->stock[3] = 1;
 		global->textures->east = texture_map(is_space(line) + 2);
 		if (!global->textures->east)
-			return (free(line), close(fd), error_exit(global));
-		global->textures->stock[3] = 1;
+			return (printf("Error\nTexture (EA)\n"), free(line), close(fd),
+				error_exit(global));
 		global->textures->start++;
 	}
 	else
@@ -311,13 +305,20 @@ void	convert_line(t_global *global, char *line, int fd)
 		return ;
 	if (ft_strncmp(is_space(line), "NO", 2) == 0)
 	{
-		if (global->textures->stock[0] == 1)
-			return (printf("Error\nTo much NO\n"), free(line), close(fd),
-				error_exit(global));
 		global->textures->stock[0] = 1;
 		global->textures->north = texture_map(is_space(line) + 2);
 		if (!global->textures->north)
-			return (free(line), close(fd), error_exit(global));
+			return (printf("Error\nTexture (NO)\n"), free(line), close(fd),
+				error_exit(global));
+		global->textures->start++;
+	}
+	else if (ft_strncmp(is_space(line), "D", 1) == 0)
+	{
+		global->textures->stock[6] = 1;
+		global->textures->door = texture_map(is_space(line) + 1);
+		if (!global->textures->door)
+			return (printf("Error\nTexture (D)\n"), free(line), close(fd),
+				error_exit(global));
 		global->textures->start++;
 	}
 	else
@@ -334,6 +335,94 @@ void	initiate_stock(t_global *global)
 	global->textures->stock[5] = 0;
 	global->textures->stock[6] = 1;
 	global->textures->stock[7] = 1;
+	global->textures->stock[8] = 1;
+}
+
+int	added_name(char *line, char *str)
+{
+	int	i;
+	int	stock;
+
+	stock = 0;
+	i = ft_strlen(str);
+	if (ft_strncmp(is_space(line), str, i) == 0)
+		stock++;
+	return (stock);
+}
+
+bool	solo_reader(t_global *global, char *map_content, char *str)
+{
+	int		fd;
+	int		n;
+	char	*line;
+
+	(void)global;
+	n = 0;
+	fd = open(map_content, O_RDONLY);
+	line = get_next_line(fd);
+	if (!line)
+		return (true);
+	while (line)
+	{
+		n += added_name(line, str);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	if (n != 1)
+		return (true);
+	return (false);
+}
+
+void	add_bonus_map(t_global *global, char *str)
+{
+	if (ft_strncmp(str, "D", 1) == 0)
+		global->textures->stock[6] = 0;
+}
+
+bool	bonus_reader(t_global *global, char *map_content, char *str)
+{
+	int		fd;
+	int		n;
+	char	*line;
+
+	(void)global;
+	n = 0;
+	fd = open(map_content, O_RDONLY);
+	line = get_next_line(fd);
+	if (!line)
+		return (true);
+	while (line)
+	{
+		n += added_name(line, str);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	if (n > 1)
+		return (true);
+	if (n == 1)
+		add_bonus_map(global, str);
+	return (false);
+}
+
+bool	read_unique(t_global *global, char *map_content)
+{
+	if (solo_reader(global, map_content, "NO") == 1)
+		return (printf("Error\nInvalid map (NO)\n"), true);
+	if (solo_reader(global, map_content, "WE") == 1)
+		return (printf("Error\nInvalid map (WE)\n"), true);
+	if (solo_reader(global, map_content, "EA") == 1)
+		return (printf("Error\nInvalid map (EA)\n"), true);
+	if (solo_reader(global, map_content, "SO") == 1)
+		return (printf("Error\nInvalid map (SO)\n"), true);
+	if (solo_reader(global, map_content, "F") == 1)
+		return (printf("Error\nInvalid map (F)\n"), true);
+	if (solo_reader(global, map_content, "C") == 1)
+		return (printf("Error\nInvalid map (C)\n"), true);
+	if (bonus_reader(global, map_content, "D") == 1)
+		return (printf("Error\nInvalid map (D)\n"), true);
+	return (false);
 }
 
 void	read_map(t_global *global, char *map_content)
@@ -341,9 +430,9 @@ void	read_map(t_global *global, char *map_content)
 	int		fd;
 	char	*line;
 
-	global->textures->start = 0;
-	global->textures->end = 0;
 	initiate_stock(global);
+	if (read_unique(global, map_content))
+		return (error_exit(global));
 	fd = open(map_content, O_RDONLY);
 	if (fd == -1)
 		return (printf("Error\n"), error_exit(global));
@@ -444,7 +533,7 @@ void	map_index(t_global *global, char *map_content)
 bool	char_check(char ch)
 {
 	if (ch == ' ' || ch == '\n' || ch == '1' || ch == '0' || ch == 'N'
-		|| ch == 'S' || ch == 'E' || ch == 'W')
+		|| ch == 'S' || ch == 'E' || ch == 'W' || ch == 'D')
 		return (true);
 	else
 		return (false);
@@ -694,7 +783,8 @@ bool	check_if_alpha(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'b'))
+		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a'
+				&& str[i] <= 'b'))
 			return (true);
 		i++;
 	}
@@ -789,6 +879,8 @@ t_global	*init_malloc(void)
 	ft_bzero(global->textures, sizeof(t_textures));
 	global->map.fake_map = NULL;
 	global->map.wopen = 0;
+	global->textures->start = 0;
+	global->textures->end = 0;
 	// global->map.game = malloc(sizeof(t_game));
 	// global->map.tile = malloc(sizeof(t_tile));
 	return (global);
