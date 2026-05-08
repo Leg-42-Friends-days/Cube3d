@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 15:58:55 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/08 16:35:58 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,6 +387,9 @@ void	initiate_stock(t_global *global)
 	global->textures->stock[6] = 1;
 	global->textures->stock[7] = 1;
 	global->textures->stock[8] = 1;
+	global->textures->bonus[0] = 0;
+	global->textures->bonus[1] = 0;
+	global->textures->bonus[2] = 0;
 }
 
 int	added_name(char *line, char *str)
@@ -428,7 +431,10 @@ bool	solo_reader(t_global *global, char *map_content, char *str)
 void	add_bonus_map(t_global *global, char *str)
 {
 	if (ft_strncmp(str, "D", 1) == 0)
+	{
 		global->textures->stock[6] = 0;
+		global->textures->bonus[0] = 1;
+	}
 }
 
 bool	bonus_reader(t_global *global, char *map_content, char *str)
@@ -592,6 +598,13 @@ bool	direction_check(char ch)
 		return (false);
 }
 
+// bool	bonus_char_check(char ch, t_global *global)
+// {
+// 	if (global->textures->bonus[0] == 1 && ch == 'D')
+// 		return (true);
+// 	return (false);
+// }
+
 bool	error_check(char **str)
 {
 	int	i;
@@ -609,6 +622,8 @@ bool	error_check(char **str)
 				cpt++;
 			if (char_check(str[i][j]))
 				j++;
+			// else if (bonus_char_check(str[i][j], global))
+				// j++;
 			else
 				return (true);
 		}
@@ -627,9 +642,7 @@ bool	map_check(t_global *global)
 	while (global->map.mapou[i])
 	{
 		if (error_check(global->map.mapou) == 1)
-		{
 			return (true);
-		}
 		i++;
 	}
 	return (false);
