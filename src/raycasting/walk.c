@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:48:19 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/01 15:44:55 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/08 14:27:24 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void    left_rotation(t_raycast_data *data)
 	double	rot_speed;
 	double	old_plane_x;
 	
-	rot_speed = 0.2;
+	rot_speed = 0.05;
 	old_dir_x = data->dir.x;
 	old_plane_x = data->plane.x;
 	data->dir.x = data->dir.x * cos(rot_speed) - data->dir.y * sin(rot_speed);
@@ -63,14 +63,18 @@ int	walk(int keycode, t_global *global)
 	t_raycast_data	*data;
 
 	data = &(global->raycast_data);
-	move_speed = 0.5;
+	move_speed = 0.1;
 	if (keycode == UP)
 	{
+		if (collision_detection(&(global->raycast_data), &(global->map)))
+			return (1);
 		data->player.x += data->dir.x * move_speed;
 		data->player.y += data->dir.y * move_speed;
 	}
 	if (keycode == DOWN)
 	{
+		if (collision_detection_back(&(global->raycast_data), &(global->map)))
+			return (1);
 		data->player.x -= data->dir.x * move_speed;
 		data->player.y -= data->dir.y * move_speed;
 	}

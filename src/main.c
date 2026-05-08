@@ -6,9 +6,10 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 15:52:31 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:58:39 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 
@@ -34,7 +35,11 @@ int	main(int ac, char **av)
 	raycasting(global);
 	// dessin(global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
-	mlx_key_hook(global->win, key_hook, (void *)global);
+	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
+	mlx_hook(global->win, 3, 1L << 1, (int (*)())press_off, (void *)global);
+	//mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
+	mlx_loop_hook(global->mlx, (int (*)())key_hook, (void *)global);
+	//mlx_key_hook(global->win, key_hook, (void *)global);
 	//mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
 	mlx_loop(global->mlx);
 	free_all(global);

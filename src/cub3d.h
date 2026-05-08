@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/05 14:32:34 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/08 14:15:47 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 # include <fcntl.h>
 # include "parsing/parsing.h"
 
+typedef struct s_hook
+{
+    int     left;
+    int     right;
+    int     up;
+    int     down;
+}   t_hook;
+
 typedef struct s_img
 {
 	void	*img;
@@ -42,6 +50,7 @@ typedef struct s_global
 	t_textures		*textures;
 	t_map			map;
 	t_raycast_data	raycast_data;
+	t_hook			hook;
 }				t_global;
 
 # define SCREEN_WIDTH 1200
@@ -56,8 +65,10 @@ void    create_map(t_map *map, char *str);
 
 // HOOK.c
 int	close_window(t_global *global);
-int	key_hook(int keycode, void *param);
+int	key_hook(void *param);
 int	close_window_hook(void *param);
+int press_on(int keycode, void *param);
+int press_off(int keycode, void *param);
 
 //LOAD_TEXTURES.C
 void    load_all_textures(t_global *global);

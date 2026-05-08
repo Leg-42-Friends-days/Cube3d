@@ -6,11 +6,29 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 10:45:04 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/06 15:03:00 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:06:58 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub3d.h"
+
+int	color_in_hexa(char *color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = ft_atoi(color);
+	while(*color != ',')
+		color ++;
+	color ++;
+	g = ft_atoi(color);
+	while(*color != ',')
+		color ++;
+	color ++;
+	b = ft_atoi(color);
+	return (r << 16) | (g << 8) | b;
+}
 
 t_xpm	which_wall(t_raycast_data *data)
 {
@@ -53,7 +71,7 @@ void	calcul_image_sens(t_raycast_data *data, double *wall_x)
 
 void    print_wall(t_raycast_data *data, t_global *global, int x)
 {
-	data->print.line_height = SCREEN_HEIGHT / data->perp_wall_dist;
+	data->print.line_height = (SCREEN_HEIGHT * 1.5) / data->perp_wall_dist;
 	data->print.draw_start = -data->print.line_height / 2 + SCREEN_HEIGHT / 2;
 	if (data->print.draw_start < 0)
 		data->print.draw_start = 0;
@@ -74,8 +92,12 @@ void    print_line(t_global *global, t_raycast_data *data, int x)
 	wall = which_wall(data);
     data->print.step = (double)wall.height / data->print.line_height;
     data->print.tex_pos = (data->print.draw_start - SCREEN_HEIGHT / 2 + data->print.line_height / 2) * data->print.step;
-    current = data->print.draw_start;
-    
+    current = 0;
+	while (current < data->print.draw_start)
+	{
+		put_pixel(global, x, current, color_in_hexa(global->textures->ceiling));
+		current ++;
+	}
 	while (current < data->print.draw_end)
     {
         data->print.tex_y = (int)data->print.tex_pos % wall.height;
@@ -86,6 +108,11 @@ void    print_line(t_global *global, t_raycast_data *data, int x)
         put_pixel(global, x, current, color);
         current++;
     }
+	while (current < SCREEN_HEIGHT)
+	{
+		put_pixel(global, x, current, color_in_hexa(global->textures->floor));
+		current ++;
+	}
 }
 
 void	put_pixel(t_global *global, int x, int y, int color)
