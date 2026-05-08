@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 15:06:38 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:57:14 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 # include <stdbool.h>
 
 typedef struct s_global	t_global;
-
-// typedef struct s_tile
-// {
-// 	int					width;
-// 	int					height;
-// }						t_tile;
 
 typedef struct s_textures
 {
@@ -38,20 +32,6 @@ typedef struct s_textures
 	int					end;
 }						t_textures;
 
-// typedef struct s_game
-// {
-// 	int					x;
-// 	int					y;
-// 	int					offset;
-
-// 	void				*img;
-// 	char				*addr;
-// 	int					bits_per_pixel;
-// 	int					line_length;
-// 	int					endian;
-// 	char				*dst;
-// }						t_game;
-
 typedef struct s_map
 {
 	char				**mapou;
@@ -60,10 +40,7 @@ typedef struct s_map
 	int					height;
 	int					wopen;
 	int					limite;
-	// int					mini_x;
-	// int					mini_y;
-	// t_tile				*tile;
-	// t_game				*game;
+
 }						t_map;
 
 int						map_cub(char *str);
@@ -101,5 +78,17 @@ void					read_map(t_global *global, char *map_content);
 void					free_all(t_global *global);
 void					error_exit(t_global *global);
 bool					line_check(char *str);
+bool					check_if_alpha(char *str);
+bool					rgb_checker(char *str);
+bool					check_rgb(char *str);
+void					free_map(t_global *global);
+int						added_name(char *line, char *str);
+bool					solo_reader(t_global *global, char *map_content,
+							char *str);
+void					add_bonus_map(t_global *global, char *str);
+bool					bonus_reader(t_global *global, char *map_content,
+							char *str);
+bool					read_unique(t_global *global, char *map_content);
+void					map_index2(t_global *global, int *fd);
 
 #endif

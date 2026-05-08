@@ -6,11 +6,61 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 15:13:13 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:55:03 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+bool	check_if_alpha(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a'
+				&& str[i] <= 'b'))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+bool	rgb_checker(char *str)
+{
+	int	i;
+	int	max;
+	int	vir;
+
+	vir = 0;
+	i = 0;
+	max = ft_atoi(str);
+	while (str[i] == ' ')
+		i++;
+	while (ft_isdigit(str[i]) || str[i] == ',')
+	{
+		if (max < 0 || max > 255)
+			return (true);
+		if (str[i] == ',')
+		{
+			vir++;
+			i++;
+			max = ft_atoi(str + i);
+		}
+		i++;
+	}
+	if (vir != 2)
+		return (true);
+	return (check_if_alpha(str));
+}
+
+bool	check_rgb(char *str)
+{
+	if (rgb_checker(str) == 1)
+		return (true);
+	return (false);
+}
 
 int	map_cub(char *str)
 {
@@ -20,13 +70,13 @@ int	map_cub(char *str)
 
 	cub = ".cub";
 	if (!str)
-		return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
+		return (1);
 	len = ft_strlen(str);
 	if (len < 4 || ft_strncmp(str + (len - 4), cub, 4) != 0)
-		return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
+		return (1);
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
-		return (ft_putendl_fd("Error\nMauvais fichier", 2), 1);
+		return (1);
 	close(fd);
 	return (0);
 }
@@ -105,6 +155,8 @@ char	*rgb_map(char *str)
 	cpy = copy_enter(str + i);
 	if (!cpy)
 		return (NULL);
+	if (check_rgb(str) == 1)
+		return (free(cpy), NULL);
 	return (cpy);
 }
 
@@ -154,9 +206,10 @@ bool	line_check(char *str)
 int	error_gestion(int ac, char **av)
 {
 	if (ac != 2)
-		return (printf("Bad argument"), 1);
+		return (ft_printf(2, "Error\nPlease use a map after [./Cub3d]\n"), 1);
 	if (map_cub(av[1]) == 1)
-		return (printf("Bad map\n"), 1);
+		return (ft_printf(2, "Error\nThe map doesnt exist! or not a .cub!\n"),
+			1);
 	return (0);
 }
 
@@ -178,6 +231,8 @@ void	free_texture(t_global *global)
 			free(global->textures->west);
 		if (global->textures->east)
 			free(global->textures->east);
+		if (global->textures->door)
+			free(global->textures->door);
 		free(global->textures);
 	}
 }
@@ -231,14 +286,14 @@ void	convert_line4(t_global *global, char *line, int fd)
 		global->textures->stock[1] = 1;
 		global->textures->west = texture_map(is_space(line) + 2);
 		if (!global->textures->west)
-			return (printf("Error\nTexture (WE)\n"), free(line), close(fd),
-				error_exit(global));
+			return (ft_printf(2, "Error\nTexture (WE)\n"), free(line),
+				close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else
 	{
 		if (line_check(line))
-			return (printf("Error\nMap invalid\n"), free(line), close(fd),
+			return (ft_printf(2, "Error\nMap invalid\n"), free(line), close(fd),
 				error_exit(global));
 		if (nothing_slash(line) == 1)
 			global->textures->end++;
@@ -251,23 +306,19 @@ void	convert_line3(t_global *global, char *line, int fd)
 {
 	if (ft_strncmp(is_space(line), "F", 1) == 0)
 	{
-		if (global->textures->stock[4] == 1)
-			return (printf("Error\nTo much F"), free(line), close(fd),
-				error_exit(global));
 		global->textures->stock[4] = 1;
 		global->textures->floor = rgb_map(is_space(line) + 1);
 		if (!global->textures->floor)
-			return (free(line), close(fd), error_exit(global));
+			return (ft_printf(2, "Error\nBad arguments (F)\n"), free(line),
+				close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "C", 1) == 0)
 	{
-		if (global->textures->stock[5] == 1)
-			return (printf("Error\nTo much C"), free(line), close(fd),
-				error_exit(global));
 		global->textures->ceiling = rgb_map(is_space(line) + 1);
 		if (!global->textures->ceiling)
-			return (free(line), close(fd), error_exit(global));
+			return (ft_printf(2, "Error\nBad arguments (C)\n"), free(line),
+				close(fd), error_exit(global));
 		global->textures->stock[5] = 1;
 		global->textures->start++;
 	}
@@ -282,8 +333,8 @@ void	convert_line2(t_global *global, char *line, int fd)
 		global->textures->stock[2] = 1;
 		global->textures->south = texture_map(is_space(line) + 2);
 		if (!global->textures->south)
-			return (printf("Error\nTexture (SO)\n"), free(line), close(fd),
-				error_exit(global));
+			return (ft_printf(2, "Error\nTexture (SO)\n"), free(line),
+				close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "EA", 2) == 0)
@@ -291,8 +342,8 @@ void	convert_line2(t_global *global, char *line, int fd)
 		global->textures->stock[3] = 1;
 		global->textures->east = texture_map(is_space(line) + 2);
 		if (!global->textures->east)
-			return (printf("Error\nTexture (EA)\n"), free(line), close(fd),
-				error_exit(global));
+			return (ft_printf(2, "Error\nTexture (EA)\n"), free(line),
+				close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else
@@ -308,8 +359,8 @@ void	convert_line(t_global *global, char *line, int fd)
 		global->textures->stock[0] = 1;
 		global->textures->north = texture_map(is_space(line) + 2);
 		if (!global->textures->north)
-			return (printf("Error\nTexture (NO)\n"), free(line), close(fd),
-				error_exit(global));
+			return (ft_printf(2, "Error\nTexture (NO)\n"), free(line),
+				close(fd), error_exit(global));
 		global->textures->start++;
 	}
 	else if (ft_strncmp(is_space(line), "D", 1) == 0)
@@ -317,7 +368,7 @@ void	convert_line(t_global *global, char *line, int fd)
 		global->textures->stock[6] = 1;
 		global->textures->door = texture_map(is_space(line) + 1);
 		if (!global->textures->door)
-			return (printf("Error\nTexture (D)\n"), free(line), close(fd),
+			return (ft_printf(2, "Error\nTexture (D)\n"), free(line), close(fd),
 				error_exit(global));
 		global->textures->start++;
 	}
@@ -409,19 +460,19 @@ bool	bonus_reader(t_global *global, char *map_content, char *str)
 bool	read_unique(t_global *global, char *map_content)
 {
 	if (solo_reader(global, map_content, "NO") == 1)
-		return (printf("Error\nInvalid map (NO)\n"), true);
+		return (ft_printf(2, "Error\nInvalid map (NO)\n"), true);
 	if (solo_reader(global, map_content, "WE") == 1)
-		return (printf("Error\nInvalid map (WE)\n"), true);
+		return (ft_printf(2, "Error\nInvalid map (WE)\n"), true);
 	if (solo_reader(global, map_content, "EA") == 1)
-		return (printf("Error\nInvalid map (EA)\n"), true);
+		return (ft_printf(2, "Error\nInvalid map (EA)\n"), true);
 	if (solo_reader(global, map_content, "SO") == 1)
-		return (printf("Error\nInvalid map (SO)\n"), true);
+		return (ft_printf(2, "Error\nInvalid map (SO)\n"), true);
 	if (solo_reader(global, map_content, "F") == 1)
-		return (printf("Error\nInvalid map (F)\n"), true);
+		return (ft_printf(2, "Error\nInvalid map (F)\n"), true);
 	if (solo_reader(global, map_content, "C") == 1)
-		return (printf("Error\nInvalid map (C)\n"), true);
+		return (ft_printf(2, "Error\nInvalid map (C)\n"), true);
 	if (bonus_reader(global, map_content, "D") == 1)
-		return (printf("Error\nInvalid map (D)\n"), true);
+		return (ft_printf(2, "Error\nInvalid map (D)\n"), true);
 	return (false);
 }
 
@@ -435,10 +486,11 @@ void	read_map(t_global *global, char *map_content)
 		return (error_exit(global));
 	fd = open(map_content, O_RDONLY);
 	if (fd == -1)
-		return (printf("Error\n"), error_exit(global));
+		return (ft_printf(2, "Error\n"), error_exit(global));
 	line = get_next_line(fd);
 	if (!line)
-		return (printf("Error\nDossier vide"), close(fd), error_exit(global));
+		return (ft_printf(2, "Error\nDossier vide"), close(fd),
+			error_exit(global));
 	while (line)
 	{
 		convert_line(global, line, fd);
@@ -446,13 +498,6 @@ void	read_map(t_global *global, char *map_content)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	// printf("CEILING :%s\n", global->textures->ceiling);
-	// printf("FLOOR : %s\n", global->textures->floor);
-	// printf("START POINT : %d\n", global->textures->start);
-	// printf("NORTH : %s\n", global->textures->north);
-	// printf("SOUTH : %s\n", global->textures->south);
-	// printf("EAST : %s\n", global->textures->east);
-	// printf("WEST : %s\n", global->textures->west);
 }
 
 int	map_start(t_global *global, char *map_content)
@@ -498,7 +543,7 @@ void	map_index2(t_global *global, int *fd)
 	i = 0;
 	line = get_next_line(*fd);
 	if (line == NULL)
-		return (printf("Error\nNO MAP\n"), error_exit(global));
+		return (ft_printf(2, "Error\nNO MAP\n"), error_exit(global));
 	while (line)
 	{
 		add_map(global, line, i);
@@ -735,18 +780,6 @@ void	flood_fill(t_global *global, int x, int y)
 	flood_fill(global, x, y + 1);
 }
 
-// void	affichage_map(t_global *global)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (global->map.fake_map[i])
-// 	{
-// 		printf("%s\n", global->map.fake_map[i]);
-// 		i++;
-// 	}
-// }
-
 int	map_flood(t_global *global)
 {
 	int	x;
@@ -764,7 +797,6 @@ int	map_flood(t_global *global)
 			{
 				found = 1;
 				flood_fill(global, x, y);
-				// affichage_map(global);
 				return (global->map.wopen);
 			}
 			x++;
@@ -774,66 +806,6 @@ int	map_flood(t_global *global)
 	if (!found)
 		return (1);
 	return (global->map.wopen);
-}
-
-bool	check_if_alpha(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a'
-				&& str[i] <= 'b'))
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-bool	rgb_checker(char *str)
-{
-	int	i;
-	int	max;
-	int	vir;
-
-	vir = 0;
-	i = 0;
-	max = ft_atoi(str);
-	printf("max : %d\n", max);
-	while (ft_isdigit(str[i]) || str[i] == ' ' || str[i] == ',')
-	{
-		if (max < 0 || max > 255)
-			return (true);
-		if (str[i] == ',')
-		{
-			vir++;
-			i++;
-			max = ft_atoi(str + i);
-			printf("new : max : %d\n", max);
-		}
-		i++;
-	}
-	if (vir != 2)
-		return (true);
-	return (check_if_alpha(str));
-}
-
-bool	check_rgb(t_global *global)
-{
-	printf("RGB F : %s\n", global->textures->floor);
-	printf("RGB C : %s\n", global->textures->ceiling);
-	if (rgb_checker(global->textures->floor) == 1)
-	{
-		printf("HERE\n");
-		return (true);
-	}
-	if (rgb_checker(global->textures->ceiling))
-	{
-		printf("C HERE\n");
-		return (true);
-	}
-	return (false);
 }
 
 bool	start_map(t_global *global, char *map_content)
@@ -846,13 +818,11 @@ bool	start_map(t_global *global, char *map_content)
 		return (true);
 	map_index(global, map_content);
 	if (!global->map.mapou)
-		return (printf("Error\nMap\n"), error_exit(global), true);
-	if (check_rgb(global) == 1)
-		return (printf("Error\nRGB\n"), 1);
+		return (ft_printf(2, "Error\nMap\n"), error_exit(global), true);
 	if (map_check(global) == 1)
 		return (error_exit(global), true);
 	if (check_mapline(global->map.mapou) == 1)
-		return (printf("Error\nMap\n"), error_exit(global), true);
+		return (ft_printf(2, "Error\nMap\n"), error_exit(global), true);
 	global->map.height = get_height_map(map_content);
 	if (global->map.height < 0)
 		return (error_exit(global), true);
@@ -861,7 +831,7 @@ bool	start_map(t_global *global, char *map_content)
 	if (build_fake_map(global))
 		return (error_exit(global), true);
 	if (map_flood(global) == 1)
-		return (printf("Error\nMap incorrect"));
+		return (ft_printf(2, "Error\nMap incorrect"));
 	return (false);
 }
 
@@ -881,7 +851,5 @@ t_global	*init_malloc(void)
 	global->map.wopen = 0;
 	global->textures->start = 0;
 	global->textures->end = 0;
-	// global->map.game = malloc(sizeof(t_game));
-	// global->map.tile = malloc(sizeof(t_tile));
 	return (global);
 }
