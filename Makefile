@@ -6,7 +6,7 @@
 #    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/08 14:15:34 by ibrouin-         ###   ########.fr        #
+#    Updated: 2026/05/08 14:37:56 by ibrouin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = cub3D
 CC = cc
-CFLAGS = -Wno-cast-function-type -I./includes -I./libft -g3
+CFLAGS = -Wall -Wextra -Werror -Wno-cast-function-type -I./includes -I./libft -g3
 SRC_DIR = src/
 SRC =	main.c \
 		hook.c \
