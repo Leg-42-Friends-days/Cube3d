@@ -6,18 +6,16 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 15:58:39 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/08 16:01:29 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
-
 
 int	main(int ac, char **av)
 {
 	t_global	*global;
-	
+
 	if (error_gestion(ac, av) == 1)
 		return (1);
 	global = init_malloc();
