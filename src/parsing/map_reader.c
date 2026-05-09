@@ -848,6 +848,7 @@ t_global	*init_malloc(void)
 		return (free(global), exit(1), NULL);
 	ft_bzero(global->textures, sizeof(t_textures));
 	global->map.fake_map = NULL;
+	global->map.mapou = NULL;
 	global->map.wopen = 0;
 	global->textures->start = 0;
 	global->textures->end = 0;
