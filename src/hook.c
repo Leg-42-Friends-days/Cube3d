@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 11:36:58 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/11 11:58:12 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 int	close_window(t_global *global)
 {
 	mlx_destroy_image(global->mlx, global->img.img);
+    mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
+    mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
+    mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
+    mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
 	mlx_destroy_window(global->mlx, global->win);
 	mlx_destroy_display(global->mlx);
-	//free(global->mlx);
-	//free_map(global->map);
+	free(global->mlx);
+	free_all(global);
 	exit (8);
 }
 
@@ -28,10 +32,14 @@ int	close_window_hook(void *param)
 
 	global = (t_global *)param;
 	mlx_destroy_image(global->mlx, global->img.img);
+    mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
+    mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
+    mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
+    mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
 	mlx_destroy_window(global->mlx, global->win);
 	mlx_destroy_display(global->mlx);
-	//free(global->mlx);
-	//free_map(global->map);
+	free(global->mlx);
+	free_all(global);
 	exit (8);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:20:18 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/05 11:53:23 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/11 11:46:14 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_player(t_global *global)
 	map = global->map.mapou;
 	while(i < global->map.height)
 	{
-		while (j < global->map.width)
+		while (map[i][j] != '\0')
 		{
 			if (is_dir(map[i][j], &(global->raycast_data)))
 			{
