@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 14:15:47 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/11 10:57:53 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ typedef struct s_hook
     int     right;
     int     up;
     int     down;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
 }   t_hook;
 
 typedef struct s_img
@@ -60,6 +64,10 @@ typedef struct s_global
 # define RIGHT 65363
 # define UP 65362
 # define DOWN 65364
+# define W 119
+# define A 97
+# define S 115
+# define D 100
 
 void    create_map(t_map *map, char *str);
 

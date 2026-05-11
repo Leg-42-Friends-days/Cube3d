@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:48:19 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/08 14:27:24 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/11 11:37:22 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,36 @@ int	rotate(int keycode, t_global *global)
 	return (0);
 }
 
+int	crab_walk(int keycode, t_global *global)
+{
+	double			move_speed;
+	t_raycast_data	*data;
+
+	data = &(global->raycast_data);
+	move_speed = 0.1;
+	if (keycode == A)
+	{
+		if (collision_detection(&(global->raycast_data), &(global->map), 3))
+			return (1);
+		data->player.x += -data->dir.y * move_speed;
+		data->player.y += data->dir.x * move_speed;
+	}
+	if (keycode == D)
+	{
+		if (collision_detection(&(global->raycast_data), &(global->map), 4))
+			return (1);
+		data->player.x += data->dir.y * move_speed;
+		data->player.y += -data->dir.x * move_speed;
+	}
+	mlx_destroy_image(global->mlx, global->img.img);
+	global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	global->img.addr = mlx_get_data_addr(global->img.img, &global->img.bits_per_pixel,
+			&global->img.line_length, &global->img.endian);
+	go_though_all_rays(&(global->raycast_data), &(global->map), global);
+	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
+	return (0);
+}
+
 int	walk(int keycode, t_global *global)
 {
 	double			move_speed;
@@ -64,16 +94,16 @@ int	walk(int keycode, t_global *global)
 
 	data = &(global->raycast_data);
 	move_speed = 0.1;
-	if (keycode == UP)
+	if (keycode == W)
 	{
-		if (collision_detection(&(global->raycast_data), &(global->map)))
+		if (collision_detection(&(global->raycast_data), &(global->map), 1))
 			return (1);
 		data->player.x += data->dir.x * move_speed;
 		data->player.y += data->dir.y * move_speed;
 	}
-	if (keycode == DOWN)
+	if (keycode == S)
 	{
-		if (collision_detection_back(&(global->raycast_data), &(global->map)))
+		if (collision_detection(&(global->raycast_data), &(global->map), 2))
 			return (1);
 		data->player.x -= data->dir.x * move_speed;
 		data->player.y -= data->dir.y * move_speed;
