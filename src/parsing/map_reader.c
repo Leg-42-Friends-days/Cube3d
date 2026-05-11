@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/11 16:51:24 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/11 18:06:00 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ bool	rgb_checker(char *str)
 		if (str[i] == ',')
 		{
 			vir++;
-			i++;
-			max = ft_atoi(str + i);
+			max = ft_atoi(str + i + 1);
 		}
 		i++;
 	}
