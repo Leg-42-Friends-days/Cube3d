@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 16:35:58 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:31:26 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,9 +443,10 @@ bool	bonus_reader(t_global *global, char *map_content, char *str)
 	int		n;
 	char	*line;
 
-	(void)global;
 	n = 0;
 	fd = open(map_content, O_RDONLY);
+	if (fd == -1)
+		return (true);
 	line = get_next_line(fd);
 	if (!line)
 		return (true);
@@ -549,7 +550,8 @@ void	map_index2(t_global *global, int *fd)
 	i = 0;
 	line = get_next_line(*fd);
 	if (line == NULL)
-		return (ft_printf(2, "Error\nNO MAP\n"), error_exit(global));
+		return (ft_printf(2, "Error\nNO MAP\n"), close(*fd),
+			error_exit(global));
 	while (line)
 	{
 		add_map(global, line, i);
@@ -570,7 +572,7 @@ void	map_index(t_global *global, char *map_content)
 	len = 0;
 	fd = open(map_content, O_RDONLY);
 	if (fd == -1)
-		return (error_exit(global));
+		return (printf("Error\nIncorrect map"), error_exit(global));
 	while (len < global->textures->start)
 	{
 		line = get_next_line(fd);
@@ -623,7 +625,7 @@ bool	error_check(char **str)
 			if (char_check(str[i][j]))
 				j++;
 			// else if (bonus_char_check(str[i][j], global))
-				// j++;
+			// j++;
 			else
 				return (true);
 		}
@@ -826,6 +828,8 @@ bool	start_map(t_global *global, char *map_content)
 	int	map_len;
 
 	map_len = map_start(global, map_content);
+	if (map_len == 0)
+		return (printf("Error\nMap doesnt exist\n"), error_exit(global), true);
 	global->map.mapou = malloc(sizeof(char *) * (map_len + 1));
 	if (!global->map.mapou)
 		return (true);
@@ -844,7 +848,7 @@ bool	start_map(t_global *global, char *map_content)
 	if (build_fake_map(global))
 		return (error_exit(global), true);
 	if (map_flood(global) == 1)
-		return (ft_printf(2, "Error\nMap incorrect"));
+		return (ft_printf(2, "Error\nMap incorrect\n"), true);
 	return (false);
 }
 
