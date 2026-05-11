@@ -6,32 +6,32 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:20:18 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 11:46:14 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:19:09 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3d.h"
+#include "../cub3d.h"
 
 int	is_dir(char cara, t_raycast_data *data)
 {
-	if(cara == 'N' || cara == 'S' || cara == 'E' || cara == 'W')
+	if (cara == 'N' || cara == 'S' || cara == 'E' || cara == 'W')
 	{
 		data->dir_player = cara;
 		return (1);
-	}	
+	}
 	return (0);
 }
 
 void	init_player(t_global *global)
 {
 	char	**map;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
 	map = global->map.mapou;
-	while(i < global->map.height)
+	while (i < global->map.height)
 	{
 		while (map[i][j] != '\0')
 		{
@@ -98,15 +98,6 @@ void	init_plane(t_raycast_data *data)
 	}
 }
 
-void	raycast_init_data(t_raycast_data *data)
-{
-	data->screen_height = SCREEN_HEIGHT;
-	data->screen_width = SCREEN_WIDTH;
-	init_dir(data);
-	init_plane(data);
-	data->hit = 0;
-}
-
 void	init_raycasting(t_raycast_data *data)
 {
 	data->mapx = data->player.x;
@@ -120,7 +111,8 @@ void	init_raycasting(t_raycast_data *data)
 	else
 	{
 		data->step.x = 1;
-		data->side_dist.x = (data->mapx + 1 - data->player.x) * data->delta_dist.x;
+		data->side_dist.x = (data->mapx + 1 - data->player.x)
+			* data->delta_dist.x;
 	}
 	if (data->ray_dir.y < 0)
 	{
@@ -130,6 +122,7 @@ void	init_raycasting(t_raycast_data *data)
 	else
 	{
 		data->step.y = 1;
-		data->side_dist.y = (data->mapy + 1 - data->player.y) * data->delta_dist.y;
+		data->side_dist.y = (data->mapy + 1 - data->player.y)
+			* data->delta_dist.y;
 	}
 }

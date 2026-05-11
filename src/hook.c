@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 11:58:12 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:38:15 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	key_hook(void *param)
     //    global->img.img, 0, 0);
     return (0);
 }
+
 int press_on(int keycode, void *param)
 {
     t_global *global;
