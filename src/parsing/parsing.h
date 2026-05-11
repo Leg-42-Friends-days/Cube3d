@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/11 16:50:52 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:56:51 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void					free_texture(t_global *global);
 void					add_map(t_global *global, char *line, int index);
 void					map_index(t_global *global, char *map_content);
 int						map_start(t_global *global, char *map_content);
-void					convert_line3(t_global *global, char *line, int fd);
-void					convert_line2(t_global *global, char *line, int fd);
 void					convert_line(t_global *global, char *line, int fd);
+void					convert_line2(t_global *global, char *line, int fd);
+void					convert_line3(t_global *global, char *line, int fd);
 void					convert_line4(t_global *global, char *line, int fd);
 void					initiate_stock(t_global *global);
 void					read_map(t_global *global, char *map_content);
