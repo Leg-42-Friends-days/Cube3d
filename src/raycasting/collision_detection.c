@@ -6,11 +6,11 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 14:28:09 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 15:58:59 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:41:07 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3d.h"
+#include "../cub3d.h"
 
 int	is_a_wall(t_raycast_data *data, t_map *map, double raydirx, double raydiry)
 {
@@ -35,7 +35,7 @@ int	collision_detection(t_raycast_data *data, t_map *map, int direction)
 	double	camerax;
 	double	raydirx;
 	double	raydiry;
-	
+
 	x = 0;
 	w = data->screen_width;
 	while (x < w)
@@ -56,13 +56,13 @@ int	collision_detection(t_raycast_data *data, t_map *map, int direction)
 	return (0);
 }
 
-int is_a_wall_back(t_raycast_data *data, t_map *map, double raydirx, double raydiry)
+int	is_a_wall_back(t_raycast_data *data, t_map *map, double rx, double ry)
 {
-	double  playerxx;
-	double  playeryy;
+	double	playerxx;
+	double	playeryy;
 
-	playerxx = data->player.x + -(raydirx * 0.2);
-	playeryy = data->player.y + -(raydiry * 0.2);
+	playerxx = data->player.x + -(rx * 0.2);
+	playeryy = data->player.y + -(ry * 0.2);
 	if (playerxx >= map->width || playerxx < 0)
 		return (1);
 	if (playeryy >= map->height || playeryy < 0)
@@ -72,13 +72,13 @@ int is_a_wall_back(t_raycast_data *data, t_map *map, double raydirx, double rayd
 	return (0);
 }
 
-int	is_a_wall_left(t_raycast_data *data, t_map *map, double raydirx, double raydiry)
+int	is_a_wall_left(t_raycast_data *data, t_map *map, double rx, double ry)
 {
-	double  playerxx;
-	double  playeryy;
+	double	playerxx;
+	double	playeryy;
 
-	playerxx = data->player.x + -(raydiry * 0.2);
-	playeryy = data->player.y + (raydirx * 0.2);
+	playerxx = data->player.x + -(ry * 0.2);
+	playeryy = data->player.y + (rx * 0.2);
 	if (playerxx >= map->width || playerxx < 0)
 		return (1);
 	if (playeryy >= map->height || playeryy < 0)
@@ -87,13 +87,14 @@ int	is_a_wall_left(t_raycast_data *data, t_map *map, double raydirx, double rayd
 		return (1);
 	return (0);
 }
-int	is_a_wall_right(t_raycast_data *data, t_map *map, double raydirx, double raydiry)
-{
-	double  playerxx;
-	double  playeryy;
 
-	playerxx = data->player.x + (raydiry * 0.2);
-	playeryy = data->player.y + -(raydirx * 0.2);
+int	is_a_wall_right(t_raycast_data *data, t_map *map, double rx, double ry)
+{
+	double	playerxx;
+	double	playeryy;
+
+	playerxx = data->player.x + (ry * 0.2);
+	playeryy = data->player.y + -(rx * 0.2);
 	if (playerxx >= map->width || playerxx < 0)
 		return (1);
 	if (playeryy >= map->height || playeryy < 0)
