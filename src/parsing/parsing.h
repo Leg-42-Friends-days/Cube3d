@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 16:35:08 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:50:52 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ char					*rgb_map(char *str);
 bool					nothing_slash(char *line);
 int						error_gestion(int ac, char **av);
 bool					stock_checker(t_global *global);
-bool					char_check(char ch);
+bool					char_check(char ch, t_global *global);
 bool					direction_check(char ch);
-bool					error_check(char **str);
+bool					error_check(char **str, t_global *global);
 bool					map_check(t_global *global);
 int						get_height_map(char *map);
 int						get_width_map(char **mapou);
@@ -78,7 +78,7 @@ void					initiate_stock(t_global *global);
 void					read_map(t_global *global, char *map_content);
 void					free_all(t_global *global);
 void					error_exit(t_global *global);
-bool					line_check(char *str);
+bool					line_check(char *str, t_global *global);
 bool					check_if_alpha(char *str);
 bool					rgb_checker(char *str);
 bool					check_rgb(char *str);

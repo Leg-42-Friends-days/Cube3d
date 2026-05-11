@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/11 16:32:52 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:51:24 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,14 +189,14 @@ bool	stock_checker(t_global *global)
 	return (false);
 }
 
-bool	line_check(char *str)
+bool	line_check(char *str, t_global *global)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (char_check(str[i]) == 0)
+		if (char_check(str[i], global) == 0)
 			return (true);
 		i++;
 	}
@@ -292,7 +292,7 @@ void	convert_line4(t_global *global, char *line, int fd)
 	}
 	else
 	{
-		if (line_check(line))
+		if (line_check(line, global))
 			return (ft_printf(2, "Error\nMap invalid\n"), free(line), close(fd),
 				error_exit(global));
 		if (nothing_slash(line) == 1)
@@ -366,6 +366,7 @@ void	convert_line(t_global *global, char *line, int fd)
 	else if (ft_strncmp(is_space(line), "D", 1) == 0)
 	{
 		global->textures->stock[6] = 1;
+		global->textures->bonus[0] = 1;
 		global->textures->door = texture_map(is_space(line) + 1);
 		if (!global->textures->door)
 			return (ft_printf(2, "Error\nTexture (D)\n"), free(line), close(fd),
@@ -583,10 +584,12 @@ void	map_index(t_global *global, char *map_content)
 	close(fd);
 }
 
-bool	char_check(char ch)
+bool	char_check(char ch, t_global *global)
 {
 	if (ch == ' ' || ch == '\n' || ch == '1' || ch == '0' || ch == 'N'
-		|| ch == 'S' || ch == 'E' || ch == 'W' || ch == 'D')
+		|| ch == 'S' || ch == 'E' || ch == 'W')
+		return (true);
+	else if (global->textures->bonus[0] == 1 && ch == 'D')
 		return (true);
 	else
 		return (false);
@@ -607,7 +610,7 @@ bool	direction_check(char ch)
 // 	return (false);
 // }
 
-bool	error_check(char **str)
+bool	error_check(char **str, t_global *global)
 {
 	int	i;
 	int	j;
@@ -622,7 +625,7 @@ bool	error_check(char **str)
 		{
 			if (direction_check(str[i][j]))
 				cpt++;
-			if (char_check(str[i][j]))
+			if (char_check(str[i][j], global))
 				j++;
 			// else if (bonus_char_check(str[i][j], global))
 				// j++;
@@ -643,7 +646,7 @@ bool	map_check(t_global *global)
 	i = 0;
 	while (global->map.mapou[i])
 	{
-		if (error_check(global->map.mapou) == 1)
+		if (error_check(global->map.mapou, global) == 1)
 			return (true);
 		i++;
 	}
