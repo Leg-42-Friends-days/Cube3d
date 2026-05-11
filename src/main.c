@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/08 14:19:19 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/11 11:59:15 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int ac, char **av)
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
 	mlx_hook(global->win, 3, 1L << 1, (int (*)())press_off, (void *)global);
-	//mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
+	mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
 	mlx_loop_hook(global->mlx, (int (*)())key_hook, (void *)global);
 	//mlx_key_hook(global->win, key_hook, (void *)global);
 	//mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
