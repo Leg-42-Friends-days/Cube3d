@@ -373,6 +373,16 @@ void	convert_line(t_global *global, char *line, int fd)
 				error_exit(global));
 		global->textures->start++;
 	}
+	else if (ft_strncmp(is_space(line), "S", 1) == 0)
+	{
+		global->textures->stock[6] = 1;
+		global->textures->bonus[1] = 1;
+		global->textures->door = texture_map(is_space(line) + 1);
+		if (!global->textures->door)
+			return (ft_printf(2, "Error\nTexture (S)\n"), free(line), close(fd),
+				error_exit(global));
+		global->textures->start++;
+	}
 	else
 		convert_line2(global, line, fd);
 }
@@ -387,10 +397,8 @@ void	initiate_stock(t_global *global)
 	global->textures->stock[5] = 0;
 	global->textures->stock[6] = 1;
 	global->textures->stock[7] = 1;
-	global->textures->stock[8] = 1;
 	global->textures->bonus[0] = 0;
 	global->textures->bonus[1] = 0;
-	global->textures->bonus[2] = 0;
 }
 
 int	added_name(char *line, char *str)
@@ -435,6 +443,11 @@ void	add_bonus_map(t_global *global, char *str)
 	{
 		global->textures->stock[6] = 0;
 		global->textures->bonus[0] = 1;
+	}
+	if (ft_strncmp(str, "S", 1) == 0)
+	{
+		global->textures->stock[7] = 0;
+		global->textures->bonus[1] = 1;
 	}
 }
 
@@ -481,6 +494,8 @@ bool	read_unique(t_global *global, char *map_content)
 		return (ft_printf(2, "Error\nInvalid map (C)\n"), true);
 	if (bonus_reader(global, map_content, "D") == 1)
 		return (ft_printf(2, "Error\nInvalid map (D)\n"), true);
+	if (bonus_reader(global, map_content, "S") == 1)
+		return (ft_printf(2, "Error\nInvalid map (S)\n"), true);
 	return (false);
 }
 
@@ -590,6 +605,8 @@ bool	char_check(char ch, t_global *global)
 		|| ch == 'S' || ch == 'E' || ch == 'W')
 		return (true);
 	else if (global->textures->bonus[0] == 1 && ch == 'D')
+		return (true);
+	else if (global->textures->bonus[1] == 1 && ch == 'S')
 		return (true);
 	else
 		return (false);
