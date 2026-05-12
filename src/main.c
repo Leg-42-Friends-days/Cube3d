@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/12 12:01:11 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:19:27 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,16 +174,8 @@ int	dessin(t_global *global)
 }
 
 
-int	main(int ac, char **av)
+void	add_tile(t_global *global)
 {
-	t_global	*global;
-
-	if (error_gestion(ac, av) == 1)
-		return (1);
-	global = init_malloc();
-	read_map(global, av[1]);
-	if (start_map(global, av[1]) == 1)
-		return (free_all(global), 1);
 	global->img.tile = malloc(sizeof(t_tile));
 	global->img.tile->height = (SCREEN_HEIGHT / 3) / global->map.height;
 	global->img.tile->width = (SCREEN_WIDTH / 3) / global->map.width;
@@ -194,6 +186,20 @@ int	main(int ac, char **av)
 		global->img.tile->width = global->img.tile->height;
 	else
 		global->img.tile->height = global->img.tile->width;
+}
+
+int	main(int ac, char **av)
+{
+	t_global	*global;
+
+	if (error_gestion(ac, av) == 1)
+		return (1);
+	global = init_malloc();
+	read_map(global, av[1]);
+	if (start_map(global, av[1]) == 1)
+		return (free_all(global), 1);
+	add_tile(global);
+
 	global->mlx = mlx_init();
 	if (!global->mlx)
 		exit(1);
