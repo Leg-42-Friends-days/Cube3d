@@ -3,48 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/11 10:57:53 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/12 11:26:42 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 # include "parsing/parsing.h"
 # include "raycasting/raycasting.h"
-# include "../libft/libft.h"
+# include <fcntl.h>
+# include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <stdbool.h>
 # include <unistd.h>
-# include <math.h>
-# include <fcntl.h>
-# include "parsing/parsing.h"
+
+typedef struct s_tile
+{
+	int				width;
+	int				height;
+}					t_tile;
 
 typedef struct s_hook
 {
-    int     left;
-    int     right;
-    int     up;
-    int     down;
-	int		w;
-	int		a;
-	int		s;
-	int		d;
-}   t_hook;
+	int				left;
+	int				right;
+	int				up;
+	int				down;
+	int				w;
+	int				a;
+	int				s;
+	int				d;
+}					t_hook;
 
 typedef struct s_img
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_img;
+	int				x;
+	int				y;
+	int				offset;
+	char			*dst;
+
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	t_tile			*tile;
+}					t_img;
 
 typedef struct s_global
 {
@@ -55,7 +66,7 @@ typedef struct s_global
 	t_map			map;
 	t_raycast_data	raycast_data;
 	t_hook			hook;
-}				t_global;
+}					t_global;
 
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 900
@@ -69,16 +80,16 @@ typedef struct s_global
 # define S 115
 # define D 100
 
-void    create_map(t_map *map, char *str);
+void				create_map(t_map *map, char *str);
 
 // HOOK.c
-int	close_window(t_global *global);
-int	key_hook(void *param);
-int	close_window_hook(void *param);
-int press_on(int keycode, void *param);
-int press_off(int keycode, void *param);
+int					close_window(t_global *global);
+int					key_hook(void *param);
+int					close_window_hook(void *param);
+int					press_on(int keycode, void *param);
+int					press_off(int keycode, void *param);
 
-//LOAD_TEXTURES.C
-void    load_all_textures(t_global *global);
+// LOAD_TEXTURES.C
+void				load_all_textures(t_global *global);
 
 #endif
