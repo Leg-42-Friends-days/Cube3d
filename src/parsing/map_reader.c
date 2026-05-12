@@ -377,8 +377,8 @@ void	convert_line(t_global *global, char *line, int fd)
 	{
 		global->textures->stock[6] = 1;
 		global->textures->bonus[1] = 1;
-		global->textures->door = texture_map(is_space(line) + 1);
-		if (!global->textures->door)
+		global->textures->sprite = texture_map(is_space(line) + 1);
+		if (!global->textures->sprite)
 			return (ft_printf(2, "Error\nTexture (S)\n"), free(line), close(fd),
 				error_exit(global));
 		global->textures->start++;
@@ -566,7 +566,7 @@ void	map_index2(t_global *global, int *fd)
 	i = 0;
 	line = get_next_line(*fd);
 	if (line == NULL)
-		return (ft_printf(2, "Error\nNO MAP\n"), close(*fd),
+		return (ft_printf(2, "Error\nThere is no map\n"), close(*fd),
 			error_exit(global));
 	while (line)
 	{

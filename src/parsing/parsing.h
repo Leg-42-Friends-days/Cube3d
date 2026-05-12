@@ -27,6 +27,7 @@ typedef struct s_textures
 	char				*floor;
 	char				*ceiling;
 	char				*door;
+	char				*sprite;
 	int					stock[8];
 	int					bonus[3];
 	int					start;
