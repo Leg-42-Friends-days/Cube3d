@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/11 18:06:00 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/12 12:00:48 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,8 @@ void	free_all(t_global *global)
 		return ;
 	free_texture(global);
 	free_map(global);
+	if (global->img.tile)
+		free(global->img.tile);
 	free(global);
 }
 
