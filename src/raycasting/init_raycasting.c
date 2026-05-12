@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:20:18 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 16:19:09 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:19:09 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void	init_player(t_global *global)
 
 void	init_dir(t_raycast_data *data)
 {
-	if (data->dir_player == 'N')
+	if (data->dir_player == 'S')
 	{
 		data->dir.x = 0;
 		data->dir.y = 1;
 	}
-	if (data->dir_player == 'S')
+	if (data->dir_player == 'N')
 	{
 		data->dir.x = 0;
 		data->dir.y = -1;
