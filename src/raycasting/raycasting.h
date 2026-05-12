@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 16:52:51 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:05:43 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,27 @@ typedef struct s_print
 
 typedef struct s_raycast_data
 {
-	int				screen_height;
-	double			screen_width;
-	t_coordinates	dir;
-	t_coordinates	plane;
-	t_coordinates	player;
-	char			dir_player;
-	t_coordinates	ray_dir;
-	int				mapx;
-	int				mapy;
-	t_coordinates	side_dist;
-	t_coordinates	delta_dist;
-	t_coordinates	step;
-	double			perp_wall_dist;
-	int				hit;
-	int				side;
-	t_xpm			north;
-	t_xpm			west;
-	t_xpm			east;
-	t_xpm			south;
-	t_print			print;
+	int					screen_height;
+	double				screen_width;
+	t_coordinates		dir;
+	t_coordinates		plane;
+	t_coordinates		player;
+	char				dir_player;
+	t_coordinates		ray_dir;
+	int					mapx;
+	int					mapy;
+	t_coordinates		side_dist;
+	t_coordinates		delta_dist;
+	t_coordinates		step;
+	double				perp_wall_dist;
+	int					hit;
+	int					side;
+	t_xpm				north;
+	t_xpm				west;
+	t_xpm				east;
+	t_xpm				south;
+	t_print				print;
+	double				perp_wall_buffer[SCREEN_WIDTH];
 }				t_raycast_data;
 
 typedef struct s_global	t_global;
