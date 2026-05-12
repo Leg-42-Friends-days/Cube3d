@@ -58,5 +58,4 @@ void	refresh_image(t_global *global)
 			&global->img.endian);
 	go_though_all_rays(&(global->raycast_data), &(global->map), global);
 	dessin(global);
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 }

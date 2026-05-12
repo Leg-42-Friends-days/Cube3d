@@ -35,7 +35,6 @@ int	image_initiator_1(t_global *global, int x_map, int y_map)
 		global->img.y++;
 		y++;
 	}
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	return (0);
 }
 
@@ -62,7 +61,6 @@ int	image_initiator_p(t_global *global, int x_map, int y_map)
 		global->img.y++;
 		y++;
 	}
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	return (0);
 }
 
@@ -89,7 +87,6 @@ int	image_initiator_0(t_global *global, int x_map, int y_map)
 		global->img.y++;
 		y++;
 	}
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	return (0);
 }
 
@@ -170,6 +167,7 @@ int	dessin(t_global *global)
 	show_1(global);
 	show_p(global);
 	show_0(global);
+	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	return (0);
 }
 
@@ -210,7 +208,6 @@ int	main(int ac, char **av)
 			&global->img.line_length, &global->img.endian);
 	raycasting(global);
 	dessin(global);
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
 	mlx_hook(global->win, 3, 1L << 1, (int (*)())press_off, (void *)global);
 	mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
