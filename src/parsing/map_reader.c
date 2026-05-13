@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/13 17:59:24 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/13 18:24:29 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,17 @@ void	error_exit(t_global *global)
 	exit(1);
 }
 
+void	convert_line5(t_global *global, char *line, int fd)
+{
+	if (line_check(line, global))
+		return (ft_printf(2, "Error\nMap invalid\n"), free(line), close(fd),
+			error_exit(global));
+	if (nothing_slash(line) == 1)
+		global->textures->end++;
+	else
+		global->textures->start++;
+}
+
 void	convert_line4(t_global *global, char *line, int fd)
 {
 	if (ft_strncmp(is_space(line), "WE", 2) == 0)
@@ -290,16 +301,18 @@ void	convert_line4(t_global *global, char *line, int fd)
 				close(fd), error_exit(global));
 		global->textures->start++;
 	}
-	else
+	else if (ft_strncmp(is_space(line), "B", 1) == 0)
 	{
-		if (line_check(line, global))
-			return (ft_printf(2, "Error\nMap invalid\n"), free(line), close(fd),
+		global->textures->stock[7] = 1;
+		global->textures->bonus[1] = 1;
+		global->textures->sprite = texture_map(is_space(line) + 2);
+		if (!global->textures->sprite)
+			return (ft_printf(2, "Error\nTexture (B)\n"), free(line), close(fd),
 				error_exit(global));
-		if (nothing_slash(line) == 1)
-			global->textures->end++;
-		else
-			global->textures->start++;
+		global->textures->start++;
 	}
+	else
+		convert_line5(global, line, fd);
 }
 
 void	convert_line3(t_global *global, char *line, int fd)
@@ -370,16 +383,6 @@ void	convert_line(t_global *global, char *line, int fd)
 		global->textures->door = texture_map(is_space(line) + 1);
 		if (!global->textures->door)
 			return (ft_printf(2, "Error\nTexture (D)\n"), free(line), close(fd),
-				error_exit(global));
-		global->textures->start++;
-	}
-	else if (ft_strncmp(is_space(line), "B", 1) == 0)
-	{
-		global->textures->stock[7] = 1;
-		global->textures->bonus[1] = 1;
-		global->textures->sprite = texture_map(is_space(line) + 2);
-		if (!global->textures->sprite)
-			return (ft_printf(2, "Error\nTexture (B)\n"), free(line), close(fd),
 				error_exit(global));
 		global->textures->start++;
 	}
@@ -634,10 +637,7 @@ bool	error_check(char **str, t_global *global)
 		while (str[i][j])
 		{
 			if (str[i][j] == 'B')
-			{
 				global->textures->beer++;
-				printf("beer : %d\n", global->textures->beer);
-			}
 			if (direction_check(str[i][j]))
 				cpt++;
 			if (char_check(str[i][j], global))
