@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/12 14:39:09 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/13 15:23:01 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "parsing/parsing.h"
 # include "raycasting/raycasting.h"
+# include "minimap/minimap.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
@@ -81,7 +82,6 @@ typedef struct s_global
 # define D 100
 
 void				create_map(t_map *map, char *str);
-int					dessin(t_global *global);
 
 // HOOK.c
 int					close_window(t_global *global);

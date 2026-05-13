@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
+#    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/11 16:23:12 by ibrouin-         ###   ########.fr        #
+#    Updated: 2026/05/13 15:22:49 by mickzhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC =	main.c \
 		hook.c \
 		load_textures.c \
 		parsing/map_reader.c \
+		minimap/minimap.c \
 		raycasting/raycasting.c \
 		raycasting/init_raycasting.c \
 		raycasting/print_wall.c \
