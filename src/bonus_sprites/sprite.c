@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:24 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 11:59:00 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/13 15:02:30 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,30 @@ int	sprite_camera_position(t_sprite *sprite, t_raycast_data *data)
 	return (0);
 }
 
+void	draw_y(sprite)
+{
+	int	current;
+
+	current = sprite->draw_start.y;
+	while (current < sprite->draw_end.y)
+	{
+		current ++;
+	}
+}
+
+void	draw_sprite(t_sprite *sprite, t_raycast_data *data)
+{
+	int	current;
+
+	current = sprite->draw_start.x;
+	while (current < sprite->draw_end.x)
+	{
+		if (current >= 0 && current < SCREEN_WIDTH && sprite->camera.y < data->perp_wall_buffer[current])
+			draw_y(sprite, data);
+		current ++;
+	}
+}
+
 void	sprite(t_global *global)
 {
 	init_sprite(global);
@@ -58,6 +82,7 @@ void	sprite(t_global *global)
 		return ;
 	sprite_in_persp(&(global->sprite));
 	sprite_what_to_draw(&(global->sprite));
+	draw_sprite(&(global->sprite, &(global->raycast_data)));
 }
 
 
