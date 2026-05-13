@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/12 16:05:43 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/13 09:59:21 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_raycast_data
 	t_xpm				east;
 	t_xpm				south;
 	t_print				print;
-	double				perp_wall_buffer[SCREEN_WIDTH];
+	//double				perp_wall_buffer[SCREEN_WIDTH];
 }				t_raycast_data;
 
 typedef struct s_global	t_global;
