@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/13 15:12:25 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/13 17:59:24 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -620,8 +620,6 @@ bool	direction_check(char ch)
 		return (false);
 }
 
-
-
 bool	error_check(char **str, t_global *global)
 {
 	int	i;
@@ -635,6 +633,11 @@ bool	error_check(char **str, t_global *global)
 		j = 0;
 		while (str[i][j])
 		{
+			if (str[i][j] == 'B')
+			{
+				global->textures->beer++;
+				printf("beer : %d\n", global->textures->beer);
+			}
 			if (direction_check(str[i][j]))
 				cpt++;
 			if (char_check(str[i][j], global))
@@ -651,15 +654,8 @@ bool	error_check(char **str, t_global *global)
 
 bool	map_check(t_global *global)
 {
-	int	i;
-
-	i = 0;
-	while (global->map.mapou[i])
-	{
-		if (error_check(global->map.mapou, global) == 1)
-			return (true);
-		i++;
-	}
+	if (error_check(global->map.mapou, global) == 1)
+		return (true);
 	return (false);
 }
 
@@ -858,7 +854,7 @@ bool	start_map(t_global *global, char *map_content)
 		return (error_exit(global), true);
 	global->map.height -= global->textures->start;
 	global->map.width = get_width_map(global->map.mapou);
-	if (build_fake_map(global))	
+	if (build_fake_map(global))
 		return (error_exit(global), true);
 	if (map_flood(global) == 1)
 		return (ft_printf(2, "Error\nMap incorrect\n"), true);
@@ -882,5 +878,6 @@ t_global	*init_malloc(void)
 	global->map.wopen = 0;
 	global->textures->start = 0;
 	global->textures->end = 0;
+	global->textures->beer = 0;
 	return (global);
 }
