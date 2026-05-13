@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/11 16:51:24 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/13 11:59:45 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,7 +375,7 @@ void	convert_line(t_global *global, char *line, int fd)
 	}
 	else if (ft_strncmp(is_space(line), "S", 1) == 0)
 	{
-		global->textures->stock[6] = 1;
+		global->textures->stock[7] = 1;
 		global->textures->bonus[1] = 1;
 		global->textures->sprite = texture_map(is_space(line) + 1);
 		if (!global->textures->sprite)

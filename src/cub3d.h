@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/11 10:57:53 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/13 10:59:25 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "parsing/parsing.h"
 # include "raycasting/raycasting.h"
+# include "bonus_sprites/sprite.h"
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -55,6 +56,7 @@ typedef struct s_global
 	t_map			map;
 	t_raycast_data	raycast_data;
 	t_hook			hook;
+	t_sprite		sprite;
 }				t_global;
 
 # define SCREEN_WIDTH 1200

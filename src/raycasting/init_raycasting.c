@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:20:18 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/12 14:51:34 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/13 10:42:59 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	init_player(t_global *global)
 		j = 0;
 		i++;
 	}
-	global->raycast_data.mapx = global->raycast_data.player.x;
-	global->raycast_data.mapy = global->raycast_data.player.y;
 }
 
 void	init_dir(t_raycast_data *data)

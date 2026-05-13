@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   init_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 11:37:36 by ibrouin-         ###   ########.fr       */
+/*   Created: 2026/05/13 10:35:44 by ibrouin-          #+#    #+#             */
+/*   Updated: 2026/05/13 10:46:05 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_H
-# define SPRITE_H
+#include "../cub3d.h"
 
-# include "../cub3d.h"
-
-typedef struct s_sprite
+void	init_sprite(t_global *global)
 {
-	t_coordinates	sprite;
-	t_coordinates	relative_sprite;
-	t_coordinates	camera;
-	int				sprite_screen_x;
-	int				sprite_height;
-	int				sprite_width;
-	t_coordinates	draw_start;
-	t_coordinates	draw_end;
-}				t_sprite;
+	char	**map;
+	int		i;
+	int		j;
 
-typedef struct s_global	t_global;
-
-void	sprite(t_global *global);
-void	init_sprite(t_global *global);
-
-#endif
+	i = 0;
+	j = 0;
+	map = global->map.mapou;
+	while (i < global->map.height)
+	{
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'S')
+			{
+				global->sprite.sprite.y = i;
+				global->sprite.sprite.x = j;
+				return ;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
