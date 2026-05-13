@@ -6,11 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/05/13 11:59:45 by ibrouin-         ###   ########.fr       */
-=======
-/*   Updated: 2026/05/13 17:59:24 by mickzhan         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2026/05/13 18:13:18 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +233,8 @@ void	free_texture(t_global *global)
 			free(global->textures->east);
 		if (global->textures->door)
 			free(global->textures->door);
+		if (global->textures->sprite)
+			free(global->textures->sprite);
 		free(global->textures);
 	}
 }

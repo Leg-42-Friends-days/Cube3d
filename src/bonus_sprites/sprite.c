@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:24 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 15:02:30 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/13 18:21:44 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ int	sprite_camera_position(t_sprite *sprite, t_raycast_data *data)
 	return (0);
 }
 
-void	draw_y(sprite)
+void	draw_y(t_sprite *sprite, t_raycast_data *data)
 {
 	int	current;
 
+	(void)data;
 	current = sprite->draw_start.y;
 	while (current < sprite->draw_end.y)
 	{
@@ -82,7 +83,7 @@ void	sprite(t_global *global)
 		return ;
 	sprite_in_persp(&(global->sprite));
 	sprite_what_to_draw(&(global->sprite));
-	draw_sprite(&(global->sprite, &(global->raycast_data)));
+	draw_sprite(&(global->sprite), &(global->raycast_data));
 }
 
 
