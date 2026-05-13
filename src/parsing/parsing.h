@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/11 16:56:51 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/13 18:23:44 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ typedef struct s_textures
 	char				*floor;
 	char				*ceiling;
 	char				*door;
-	int					stock[9];
+	char				*sprite;
+	int					beer;
+	int					stock[8];
 	int					bonus[3];
 	int					start;
 	int					end;
@@ -74,6 +76,7 @@ void					convert_line(t_global *global, char *line, int fd);
 void					convert_line2(t_global *global, char *line, int fd);
 void					convert_line3(t_global *global, char *line, int fd);
 void					convert_line4(t_global *global, char *line, int fd);
+void					convert_line5(t_global *global, char *line, int fd);
 void					initiate_stock(t_global *global);
 void					read_map(t_global *global, char *map_content);
 void					free_all(t_global *global);
