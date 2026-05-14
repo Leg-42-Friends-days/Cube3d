@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:23:06 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/05 14:35:45 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/14 14:31:49 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void    load_all_textures(t_global *global)
     load_texture(global, &(global->raycast_data.east), global->textures->east);
     load_texture(global, &(global->raycast_data.west), global->textures->west);
     load_texture(global, &(global->raycast_data.south), global->textures->south);
+    load_texture(global, &(global->sprite.texture), global->textures->sprite);
 }

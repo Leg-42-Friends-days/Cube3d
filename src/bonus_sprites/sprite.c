@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:24 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 18:21:44 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/14 14:52:08 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,39 @@ int	sprite_camera_position(t_sprite *sprite, t_raycast_data *data)
 	return (0);
 }
 
-void	draw_y(t_sprite *sprite, t_raycast_data *data)
+void	draw_y(t_sprite *sprite, t_global *global, int x)
 {
-	int	current;
+	int		current;
+	int		color;
+	double	tex_pos_y;
 
-	(void)data;
 	current = sprite->draw_start.y;
 	while (current < sprite->draw_end.y)
 	{
+		tex_pos_y = (double)(current - sprite->draw_start.y) / sprite->sprite_height;
+		sprite->tex_y = (int)(tex_pos_y * sprite->texture.height);
+		color = *(int *)sprite->texture.data + (sprite->tex_y * sprite->texture.line_len
+				+ sprite->tex_x * (sprite->texture.bpp / 8));
+		if ((color & 0x00FFFFFF) != 0)
+			put_pixel(global, x, current, color);
 		current ++;
 	}
 }
 
-void	draw_sprite(t_sprite *sprite, t_raycast_data *data)
+void	draw_sprite(t_global *global, t_sprite *sprite, t_raycast_data *data)
 {
-	int	current;
+	int		current;
+	double	tex_pos_x;
 
 	current = sprite->draw_start.x;
 	while (current < sprite->draw_end.x)
 	{
 		if (current >= 0 && current < SCREEN_WIDTH && sprite->camera.y < data->perp_wall_buffer[current])
-			draw_y(sprite, data);
+		{
+			tex_pos_x = (double)(current - sprite->draw_start.x) / sprite->sprite_width;
+			sprite->tex_x = (int)(tex_pos_x * sprite->texture.width);
+			draw_y(sprite, global, current);
+		}
 		current ++;
 	}
 }
@@ -83,7 +95,7 @@ void	sprite(t_global *global)
 		return ;
 	sprite_in_persp(&(global->sprite));
 	sprite_what_to_draw(&(global->sprite));
-	draw_sprite(&(global->sprite), &(global->raycast_data));
+	draw_sprite(global, &(global->sprite), &(global->raycast_data));
 }
 
 
@@ -138,3 +150,19 @@ void	sprite(t_global *global)
 		stripe++;
 	}
 } */
+/* 
+int	get_pixel_color(t_texture *texture, int x, int y)
+{
+	char	*dst;
+
+	if (!texture || !texture->addr)
+		return (0);
+	if (x < 0 || x >= texture->width
+		|| y < 0 || y >= texture->height)
+		return (0);
+	dst = texture->addr
+		+ (y * texture->line_length
+		+ x * (texture->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+} */
+ 

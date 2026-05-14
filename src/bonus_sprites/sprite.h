@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 11:37:36 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/14 14:43:36 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef struct s_sprite
 	int				sprite_width;
 	t_coordinates	draw_start;
 	t_coordinates	draw_end;
+	t_xpm			texture;
+	int				tex_x;
+	int				tex_y;
 }				t_sprite;
 
 typedef struct s_global	t_global;

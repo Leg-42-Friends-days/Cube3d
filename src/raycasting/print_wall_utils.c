@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 16:22:08 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 16:52:30 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/14 14:56:54 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ void	refresh_image(t_global *global)
 			&global->img.bits_per_pixel, &global->img.line_length,
 			&global->img.endian);
 	go_though_all_rays(&(global->raycast_data), &(global->map), global);
+	sprite(global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 }

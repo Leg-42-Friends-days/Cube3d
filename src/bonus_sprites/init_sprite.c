@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:35:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 10:46:05 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/14 14:51:08 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_sprite(t_global *global)
 	{
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] == 'S')
+			if (map[i][j] == 'B')
 			{
 				global->sprite.sprite.y = i;
 				global->sprite.sprite.x = j;
