@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/14 14:56:31 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/14 16:14:19 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	close_window(t_global *global)
     mlx_destroy_image(global->mlx, global->sprite.texture.img_ptr);
 	mlx_destroy_window(global->mlx, global->win);
 	mlx_destroy_display(global->mlx);
+    free(global->raycast_data.perp_wall_buffer);
 	free(global->mlx);
 	free_all(global);
 	exit (8);
@@ -40,6 +41,7 @@ int	close_window_hook(void *param)
     mlx_destroy_image(global->mlx, global->sprite.texture.img_ptr);
 	mlx_destroy_window(global->mlx, global->win);
 	mlx_destroy_display(global->mlx);
+    free(global->raycast_data.perp_wall_buffer);
 	free(global->mlx);
 	free_all(global);
 	exit (8);
