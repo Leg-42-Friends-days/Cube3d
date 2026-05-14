@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/13 10:59:25 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/14 16:58:21 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_global
 	t_map			map;
 	t_raycast_data	raycast_data;
 	t_hook			hook;
-	t_sprite		sprite;
+	t_sprite		*sprite;
 }				t_global;
 
 # define SCREEN_WIDTH 1200
@@ -82,5 +82,6 @@ int press_off(int keycode, void *param);
 
 //LOAD_TEXTURES.C
 void    load_all_textures(t_global *global);
+void    load_texture(t_global *global, t_xpm *tex, char *path);
 
 #endif

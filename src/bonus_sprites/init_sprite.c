@@ -6,34 +6,31 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:35:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/14 14:51:08 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/14 17:08:10 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_sprite(t_global *global)
+void	init_sprite(t_global *global, t_sprite *sprite, int x, int y)
 {
 	char	**map;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
+	load_texture(global, &(sprite->texture), global->textures->sprite);
 	map = global->map.mapou;
-	while (i < global->map.height)
+	while (y < global->map.height)
 	{
-		while (map[i][j] != '\0')
+		while (map[y][x] != '\0')
 		{
-			if (map[i][j] == 'B')
+			if (map[y][x] == 'B')
 			{
-				global->sprite.sprite.y = i;
-				global->sprite.sprite.x = j;
+				sprite->sprite.y = y;
+				sprite->sprite.x = x;
 				return ;
 			}
-			j++;
+			x++;
 		}
-		j = 0;
-		i++;
+		x = 0;
+		y++;
 	}
 }
