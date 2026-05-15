@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 15:20:14 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/13 15:20:35 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/15 14:39:07 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,32 +105,8 @@ int	show_1(t_global *global)
 		x = 0;
 		while (x < row)
 		{
-			if (global->map.mapou[y][x] == '1')
+			if (global->map.fake_map[y][x] == '1')
 				image_initiator_1(global, x, y);
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
-
-int	show_p(t_global *global)
-{
-	int	row;
-	int	col;
-	int	x;
-	int	y;
-
-	y = 0;
-	row = global->map.width;
-	col = global->map.height;
-	while (y < col)
-	{
-		x = 0;
-		while (x < row)
-		{
-			if (direction_check(global->map.mapou[y][x]) == 1)
-				image_initiator_p(global, x, y);
 			x++;
 		}
 		y++;
@@ -153,7 +129,9 @@ int	show_0(t_global *global)
 		x = 0;
 		while (x < row)
 		{
-			if (global->map.mapou[y][x] == '0')
+			if (global->map.fake_map[y][x] == 'x'
+				|| direction_check(global->map.fake_map[y][x])
+				|| global->map.fake_map[y][x] == '0')
 				image_initiator_0(global, x, y);
 			x++;
 		}
@@ -165,12 +143,12 @@ int	show_0(t_global *global)
 int	dessin(t_global *global)
 {
 	show_1(global);
-	show_p(global);
 	show_0(global);
+	image_initiator_p(global, global->raycast_data.player.x,
+		global->raycast_data.player.y);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	return (0);
 }
-
 
 void	add_tile(t_global *global)
 {

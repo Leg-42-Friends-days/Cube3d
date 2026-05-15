@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/13 18:25:25 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/15 14:22:00 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,8 @@ void	free_texture(t_global *global)
 			free(global->textures->east);
 		if (global->textures->door)
 			free(global->textures->door);
+		if (global->textures->sprite)
+			free(global->textures->sprite);
 		free(global->textures);
 	}
 }
