@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 15:23:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/13 15:23:06 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/15 14:47:50 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int						image_initiator_p(t_global *global, int x_map,
 int						image_initiator_0(t_global *global, int x_map,
 							int y_map);
 int						show_1(t_global *global);
-int						show_p(t_global *global);
 int						show_0(t_global *global);
 int						dessin(t_global *global);
 void					add_tile(t_global *global);

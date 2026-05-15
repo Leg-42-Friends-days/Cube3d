@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 15:20:14 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 14:39:07 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/15 14:48:39 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	image_initiator_1(t_global *global, int x_map, int y_map)
 			global->img.offset = (global->img.y * global->img.line_length
 					+ global->img.x * (global->img.bits_per_pixel / 8));
 			global->img.dst = global->img.addr + global->img.offset;
-			*(unsigned int *)global->img.dst = 0x00FF00;
+			*(unsigned int *)global->img.dst = 0x666666;
 			global->img.x++;
 			x++;
 		}
@@ -54,7 +54,7 @@ int	image_initiator_p(t_global *global, int x_map, int y_map)
 			global->img.offset = (global->img.y * global->img.line_length
 					+ global->img.x * (global->img.bits_per_pixel / 8));
 			global->img.dst = global->img.addr + global->img.offset;
-			*(unsigned int *)global->img.dst = 0x0000FF;
+			*(unsigned int *)global->img.dst = 0xFF0000;
 			global->img.x++;
 			x++;
 		}
@@ -80,7 +80,7 @@ int	image_initiator_0(t_global *global, int x_map, int y_map)
 			global->img.offset = (global->img.y * global->img.line_length
 					+ global->img.x * (global->img.bits_per_pixel / 8));
 			global->img.dst = global->img.addr + global->img.offset;
-			*(unsigned int *)global->img.dst = 0xFF0000;
+			*(unsigned int *)global->img.dst = 0x222222;
 			global->img.x++;
 			x++;
 		}
@@ -138,28 +138,4 @@ int	show_0(t_global *global)
 		y++;
 	}
 	return (0);
-}
-
-int	dessin(t_global *global)
-{
-	show_1(global);
-	show_0(global);
-	image_initiator_p(global, global->raycast_data.player.x,
-		global->raycast_data.player.y);
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
-	return (0);
-}
-
-void	add_tile(t_global *global)
-{
-	global->img.tile = malloc(sizeof(t_tile));
-	global->img.tile->height = (SCREEN_HEIGHT / 3) / global->map.height;
-	global->img.tile->width = (SCREEN_WIDTH / 3) / global->map.width;
-	global->img.x = 0;
-	global->img.y = 0;
-	global->img.dst = NULL;
-	if (global->img.tile->height < global->img.tile->width)
-		global->img.tile->width = global->img.tile->height;
-	else
-		global->img.tile->height = global->img.tile->width;
 }

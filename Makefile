@@ -6,7 +6,7 @@
 #    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/13 15:22:49 by mickzhan         ###   ########.fr        #
+#    Updated: 2026/05/15 14:49:00 by mickzhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC =	main.c \
 		load_textures.c \
 		parsing/map_reader.c \
 		minimap/minimap.c \
+		minimap_utils.c \
 		raycasting/raycasting.c \
 		raycasting/init_raycasting.c \
 		raycasting/print_wall.c \
