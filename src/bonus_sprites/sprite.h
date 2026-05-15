@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/14 16:53:02 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/15 16:05:04 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_sprite
 {
 	t_coordinates	sprite;
 	t_coordinates	relative_sprite;
+	double			relative_dist;
 	t_coordinates	camera;
 	int				sprite_screen_x;
 	int				sprite_height;
