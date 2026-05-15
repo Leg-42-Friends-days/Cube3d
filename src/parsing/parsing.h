@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/13 18:23:44 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/15 14:57:53 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ bool					stock_checker(t_global *global);
 bool					char_check(char ch, t_global *global);
 bool					direction_check(char ch);
 bool					error_check(char **str, t_global *global);
-bool					map_check(t_global *global);
 int						get_height_map(char *map);
 int						get_width_map(char **mapou);
 bool					check_mapline(char **map);

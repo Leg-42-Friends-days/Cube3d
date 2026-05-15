@@ -6,11 +6,11 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 14:48:16 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 14:48:42 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/15 15:04:40 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../cub3d.h>
+#include "../cub3d.h"
 
 int	dessin(t_global *global)
 {

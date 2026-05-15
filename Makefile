@@ -6,7 +6,7 @@
 #    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/15 14:49:00 by mickzhan         ###   ########.fr        #
+#    Updated: 2026/05/15 15:21:08 by mickzhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,21 @@ SRC_DIR = src/
 SRC =	main.c \
 		hook.c \
 		load_textures.c \
-		parsing/map_reader.c \
+		parsing/map_read.c \
+		parsing/map_start.c \
+		parsing/error_utils.c \
+		parsing/error_utils2.c \
+		parsing/free_parsing.c \
+		parsing/texture_read.c \
+		parsing/rgb_fonction.c \
+		parsing/flood_fill_cub.c \
+		parsing/texture_copy.c \
+		parsing/parsing_utils.c \
+		parsing/parsing_utils2.c \
+		parsing/init_parser.c \
+		parsing/bonus_parsing.c \
 		minimap/minimap.c \
-		minimap_utils.c \
+		minimap/minimap_utils.c \
 		raycasting/raycasting.c \
 		raycasting/init_raycasting.c \
 		raycasting/print_wall.c \
