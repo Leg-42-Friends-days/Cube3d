@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/14 16:58:21 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 14:46:26 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_hook
 	int		a;
 	int		s;
 	int		d;
+	int		o;
+	int		f;
 }   t_hook;
 
 typedef struct s_img
@@ -57,6 +59,7 @@ typedef struct s_global
 	t_raycast_data	raycast_data;
 	t_hook			hook;
 	t_sprite		*sprite;
+	t_door			door;
 }				t_global;
 
 # define SCREEN_WIDTH 1200
@@ -70,6 +73,8 @@ typedef struct s_global
 # define A 97
 # define S 115
 # define D 100
+# define O 111
+# define F 102
 
 void    create_map(t_map *map, char *str);
 

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 10:30:52 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 14:18:29 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,13 @@ void	dda(t_raycast_data *data, t_map *map)
 			data->mapy += data->step.y;
 			data->side = 1;
 		}
-		/* if ((int)data->mapx < 0 || (int)data->mapx >= map->height
-            || (int)data->mapy < 0 || (int)data->mapy >= map->width)
-        {
-            data->hit = 1;
-            break ;
-        } */
 		if (map->mapou[data->mapy][data->mapx] == '1')
 		{
 			data->hit = 1;
+		}
+		if (map->mapou[data->mapy][data->mapx] == 'D')
+		{
+			data->hit = 2;
 		}
 	}
 }

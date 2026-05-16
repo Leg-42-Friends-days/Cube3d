@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/15 16:05:04 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 14:48:08 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,10 @@ typedef struct s_global	t_global;
 
 void	sprite(t_global *global);
 void	init_sprite(t_global *global, t_sprite *sprite, int x, int y);
+
+// DOOR.C
+void    init_door(t_global *global);
+void    open_the_door(t_global *global);
+void    close_the_door(t_global *global);
 
 #endif

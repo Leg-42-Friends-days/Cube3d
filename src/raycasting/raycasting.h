@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 10:24:08 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 13:20:44 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ typedef struct s_coordinates
 	double	x;
 	double	y;
 }				t_coordinates;
+
+typedef struct s_door
+{
+	t_xpm	texture;
+}				t_door;
 
 typedef struct s_print
 {
@@ -90,7 +95,7 @@ void	print_line(t_global *global, t_raycast_data *data, int x);
 
 // PRINT_WALL_UTILS.c
 int		color_in_hexa(char *color);
-t_xpm	which_wall(t_raycast_data *data);
+t_xpm	which_wall(t_raycast_data *data, t_global *global);
 void	refresh_image(t_global *global);
 
 // WALK.c

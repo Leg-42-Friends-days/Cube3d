@@ -3,7 +3,7 @@ SO ./texture/wall_shadow.xpm
 WE ./texture/wall_shadow.xpm
 EA  ./texture/wall_light.xpm
 
-D ./texture/wall_light.xpm
+D ./texture/door2.xpm
 B ./texture/wall_light.xpm
 
 F 139,69,19

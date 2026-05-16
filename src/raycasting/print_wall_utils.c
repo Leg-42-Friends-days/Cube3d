@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 16:22:08 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/14 14:56:54 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 14:38:44 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ int	color_in_hexa(char *color)
 	return ((r << 16) | (g << 8) | b);
 }
 
-t_xpm	which_wall(t_raycast_data *data)
+t_xpm	which_wall(t_raycast_data *data, t_global *global)
 {
+	if (data->hit == 2)
+		return (global->door.texture);
+	if (global->map.mapou[data->mapy][data->mapx -1] == 'O' && data->side == 0)
+		return (global->door.texture);
 	if (data->side == 0)
 	{
 		if (data->ray_dir.x > 0)
