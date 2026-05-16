@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 13:20:44 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 18:49:44 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int		crab_walk(int keycode, t_global *global);
 
 // COLLISION_DETECTION.c
 int		collision_detection(t_raycast_data *data, t_map *map, int direction);
+int		is_a_wall(t_raycast_data *data, t_map *map, double rx, double ry);
 int		is_a_wall_back(t_raycast_data *data, t_map *map, double rx, double ry);
 int		is_a_wall_left(t_raycast_data *data, t_map *map, double rx, double ry);
 int		is_a_wall_right(t_raycast_data *data, t_map *map, double rx, double ry);
