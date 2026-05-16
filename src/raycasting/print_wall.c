@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 10:45:04 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 16:34:27 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 17:42:44 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	print_line(t_global *global, t_raycast_data *data, int x)
 	int		color;
 	t_xpm	wall;
 
-	wall = which_wall(data);
+	wall = which_wall(data, global);
 	data->print.step = (double)wall.height / data->print.line_height;
 	data->print.tex_pos = (data->print.draw_start - SCREEN_HEIGHT / 2
 			+ data->print.line_height / 2) * data->print.step;

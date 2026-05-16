@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/15 15:24:35 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/16 18:59:35 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,17 @@ int	close_window(t_global *global)
 	mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
 	mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
 	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
+	if (global->textures->beer > 0)
+	{
+		mlx_destroy_image(global->mlx, global->sprite->texture.img_ptr);
+	}
+	if (global->textures->door)
+	{
+		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
+	}
 	mlx_destroy_window(global->mlx, global->win);
 	mlx_destroy_display(global->mlx);
+	free(global->raycast_data.perp_wall_buffer);
 	free(global->mlx);
 	free_all(global);
 	exit(8);
@@ -36,8 +45,17 @@ int	close_window_hook(void *param)
 	mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
 	mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
 	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
+	if (global->textures->beer)
+	{
+		mlx_destroy_image(global->mlx, global->sprite->texture.img_ptr);
+	}
+	if (global->textures->door)
+	{
+		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
+	}
 	mlx_destroy_window(global->mlx, global->win);
 	mlx_destroy_display(global->mlx);
+	free(global->raycast_data.perp_wall_buffer);
 	free(global->mlx);
 	free_all(global);
 	exit(8);
@@ -52,9 +70,9 @@ int	key_hook(void *param)
 		rotate(LEFT, global);
 	if (global->hook.right)
 		rotate(RIGHT, global);
-	// if (global->hook.up)
-	//     walk(UP, global);
-	// if (global->hook.down)
+	//if (global->hook.up)
+   //     walk(UP, global);
+	//if (global->hook.down)
 	//    walk(DOWN, global);
 	if (global->hook.w)
 		walk(W, global);
@@ -64,8 +82,12 @@ int	key_hook(void *param)
 		walk(S, global);
 	if (global->hook.d)
 		crab_walk(D, global);
-	// raycasting(global);
-	// mlx_put_image_to_window(global->mlx, global->win,
+	if (global->hook.o)
+		open_the_door(global);
+	if (global->hook.f)
+		close_the_door(global);
+	//raycasting(global);
+	//mlx_put_image_to_window(global->mlx, global->win,
 	//    global->img.img, 0, 0);
 	return (0);
 }
@@ -93,6 +115,10 @@ int	press_on(int keycode, void *param)
 		global->hook.s = 1;
 	if (keycode == D)
 		global->hook.d = 1;
+	if (keycode == O)
+		global->hook.o = 1;
+	if (keycode == F)
+		global->hook.f = 1;
 	return (0);
 }
 
@@ -117,5 +143,9 @@ int	press_off(int keycode, void *param)
 		global->hook.s = 0;
 	if (keycode == D)
 		global->hook.d = 0;
+	if (keycode == O)
+		global->hook.o = 0;
+	if (keycode == F)
+		global->hook.f = 0;
 	return (0);
 }

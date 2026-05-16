@@ -1,9 +1,9 @@
-NO ./texture/moulinette.xpm
+NO ./texture/wall_light.xpm
 SO ./texture/wall_shadow.xpm
 WE ./texture/wall_shadow.xpm
 EA  ./texture/wall_light.xpm
 
-D ./texture/wall_light.xpm
+D ./texture/door2.xpm
 B ./texture/wall_light.xpm
 
 F 139,69,19
@@ -62,7 +62,7 @@ C 56,56,56
                          1000000000001                      
                          1000000000001                      
                          1000000000001                      
-                         1000000000001                      
+                         111111D111111                      
                          1000000000001                      
                          100000N000001                      
                          1000000000001                      

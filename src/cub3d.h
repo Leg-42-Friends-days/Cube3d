@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/13 15:23:01 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/16 18:58:14 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
+# include "bonus_sprites/sprite.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -33,15 +35,17 @@ typedef struct s_tile
 
 typedef struct s_hook
 {
-	int				left;
-	int				right;
-	int				up;
-	int				down;
-	int				w;
-	int				a;
-	int				s;
-	int				d;
-}					t_hook;
+    int     left;
+    int     right;
+    int     up;
+    int     down;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		o;
+	int		f;
+}   t_hook;
 
 typedef struct s_img
 {
@@ -67,7 +71,9 @@ typedef struct s_global
 	t_map			map;
 	t_raycast_data	raycast_data;
 	t_hook			hook;
-}					t_global;
+	t_sprite		*sprite;
+	t_door			door;
+}				t_global;
 
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 900
@@ -80,6 +86,8 @@ typedef struct s_global
 # define A 97
 # define S 115
 # define D 100
+# define O 111
+# define F 102
 
 void				create_map(t_map *map, char *str);
 
@@ -90,7 +98,8 @@ int					close_window_hook(void *param);
 int					press_on(int keycode, void *param);
 int					press_off(int keycode, void *param);
 
-// LOAD_TEXTURES.C
-void				load_all_textures(t_global *global);
+//LOAD_TEXTURES.C
+void    load_all_textures(t_global *global);
+void    load_texture(t_global *global, t_xpm *tex, char *path);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:20:18 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/12 14:51:34 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 19:05:52 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	init_player(t_global *global)
 		j = 0;
 		i++;
 	}
-	global->raycast_data.mapx = global->raycast_data.player.x;
-	global->raycast_data.mapy = global->raycast_data.player.y;
 }
 
 void	init_dir(t_raycast_data *data)
@@ -76,12 +74,12 @@ void	init_dir(t_raycast_data *data)
 
 void	init_plane(t_raycast_data *data)
 {
-	if (data->dir_player == 'S')
+	if (data->dir_player == 'N')
 	{
 		data->plane.x = 0.66;
 		data->plane.y = 0;
 	}
-	if (data->dir_player == 'N')
+	if (data->dir_player == 'S')
 	{
 		data->plane.x = -0.66;
 		data->plane.y = 0;
@@ -89,12 +87,12 @@ void	init_plane(t_raycast_data *data)
 	if (data->dir_player == 'E')
 	{
 		data->plane.x = 0;
-		data->plane.y = -0.66;
+		data->plane.y = 0.66;
 	}
 	if (data->dir_player == 'W')
 	{
 		data->plane.x = 0;
-		data->plane.y = 0.66;
+		data->plane.y = -0.66;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/12 15:57:10 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 14:48:08 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,30 @@
 
 # include "../cub3d.h"
 
+typedef struct s_sprite
+{
+	t_coordinates	sprite;
+	t_coordinates	relative_sprite;
+	double			relative_dist;
+	t_coordinates	camera;
+	int				sprite_screen_x;
+	int				sprite_height;
+	int				sprite_width;
+	t_coordinates	draw_start;
+	t_coordinates	draw_end;
+	t_xpm			texture;
+	int				tex_x;
+	int				tex_y;
+}				t_sprite;
 
+typedef struct s_global	t_global;
 
+void	sprite(t_global *global);
+void	init_sprite(t_global *global, t_sprite *sprite, int x, int y);
+
+// DOOR.C
+void    init_door(t_global *global);
+void    open_the_door(t_global *global);
+void    close_the_door(t_global *global);
 
 #endif

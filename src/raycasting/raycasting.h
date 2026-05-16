@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/13 09:59:21 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 18:49:44 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ typedef struct s_coordinates
 	double	x;
 	double	y;
 }				t_coordinates;
+
+typedef struct s_door
+{
+	t_xpm	texture;
+}				t_door;
 
 typedef struct s_print
 {
@@ -66,7 +71,7 @@ typedef struct s_raycast_data
 	t_xpm				east;
 	t_xpm				south;
 	t_print				print;
-	//double				perp_wall_buffer[SCREEN_WIDTH];
+	double				*perp_wall_buffer;
 }				t_raycast_data;
 
 typedef struct s_global	t_global;
@@ -90,7 +95,7 @@ void	print_line(t_global *global, t_raycast_data *data, int x);
 
 // PRINT_WALL_UTILS.c
 int		color_in_hexa(char *color);
-t_xpm	which_wall(t_raycast_data *data);
+t_xpm	which_wall(t_raycast_data *data, t_global *global);
 void	refresh_image(t_global *global);
 
 // WALK.c
@@ -100,6 +105,7 @@ int		crab_walk(int keycode, t_global *global);
 
 // COLLISION_DETECTION.c
 int		collision_detection(t_raycast_data *data, t_map *map, int direction);
+int		is_a_wall(t_raycast_data *data, t_map *map, double rx, double ry);
 int		is_a_wall_back(t_raycast_data *data, t_map *map, double rx, double ry);
 int		is_a_wall_left(t_raycast_data *data, t_map *map, double rx, double ry);
 int		is_a_wall_right(t_raycast_data *data, t_map *map, double rx, double ry);

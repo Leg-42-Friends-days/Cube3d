@@ -6,19 +6,19 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:48:19 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/11 16:53:13 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/16 19:08:46 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	right_rotation(t_raycast_data *data)
+void	left_rotation(t_raycast_data *data)
 {
 	double	old_dir_x;
 	double	rot_speed;
 	double	old_plane_x;
 
-	rot_speed = 0.2;
+	rot_speed = 0.05;
 	old_dir_x = data->dir.x;
 	old_plane_x = data->plane.x;
 	data->dir.x = data->dir.x * cos(-rot_speed) - data->dir.y * sin(-rot_speed);
@@ -29,7 +29,7 @@ void	right_rotation(t_raycast_data *data)
 		* cos(-rot_speed);
 }
 
-void	left_rotation(t_raycast_data *data)
+void	right_rotation(t_raycast_data *data)
 {
 	double	old_dir_x;
 	double	rot_speed;
@@ -63,14 +63,14 @@ int	crab_walk(int keycode, t_global *global)
 
 	data = &(global->raycast_data);
 	move_speed = 0.1;
-	if (keycode == A)
+	if (keycode == D)
 	{
 		if (collision_detection(&(global->raycast_data), &(global->map), 3))
 			return (1);
 		data->player.x += -data->dir.y * move_speed;
 		data->player.y += data->dir.x * move_speed;
 	}
-	if (keycode == D)
+	if (keycode == A)
 	{
 		if (collision_detection(&(global->raycast_data), &(global->map), 4))
 			return (1);
