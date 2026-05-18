@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 15:16:31 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:11:33 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ bool	start_map(t_global *global, char *map_content)
 	if (build_true_map(global))
 		return (error_exit(global), true);
 	if (map_flood(global) == 1)
-		return (ft_printf(2, "Error\nMap incorrect HAHA\n"), true);
+		return (ft_printf(2, "Error\nMap is open\n"), true);
 	return (false);
 }
