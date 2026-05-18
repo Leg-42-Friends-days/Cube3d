@@ -6,11 +6,20 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:57:49 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 15:20:50 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:16:31 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	map_width_height(t_global *global, char *map_content)
+{
+	global->map.height = get_height_map(map_content);
+	if (global->map.height < 0)
+		return (error_exit(global));
+	global->map.height -= global->textures->start;
+	global->map.width = get_width_map(global->map.mapou);
+}
 
 bool	start_map(t_global *global, char *map_content)
 {
@@ -29,14 +38,12 @@ bool	start_map(t_global *global, char *map_content)
 		return (printf("Error\nInvalid map\n"), error_exit(global), true);
 	if (check_mapline(global->map.mapou) == 1)
 		return (ft_printf(2, "Error\nMap\n"), error_exit(global), true);
-	global->map.height = get_height_map(map_content);
-	if (global->map.height < 0)
-		return (error_exit(global), true);
-	global->map.height -= global->textures->start;
-	global->map.width = get_width_map(global->map.mapou);
+	map_width_height(global, map_content);
 	if (build_fake_map(global))
 		return (error_exit(global), true);
+	if (build_true_map(global))
+		return (error_exit(global), true);
 	if (map_flood(global) == 1)
-		return (ft_printf(2, "Error\nMap incorrect\n"), true);
+		return (ft_printf(2, "Error\nMap incorrect HAHA\n"), true);
 	return (false);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
+#    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/16 18:57:08 by ibrouin-         ###   ########.fr        #
+#    Updated: 2026/05/18 15:15:03 by mickzhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC =	main.c \
 		parsing/error_utils.c \
 		parsing/error_utils2.c \
 		parsing/free_parsing.c \
+		parsing/free_map.c \
 		parsing/texture_read.c \
 		parsing/rgb_fonction.c \
 		parsing/flood_fill_cub.c \
@@ -34,6 +35,7 @@ SRC =	main.c \
 		parsing/bonus_parsing.c \
 		minimap/minimap.c \
 		minimap/minimap_utils.c \
+		minimap/minimap_doors.c \
 		raycasting/raycasting.c \
 		raycasting/init_raycasting.c \
 		raycasting/print_wall.c \

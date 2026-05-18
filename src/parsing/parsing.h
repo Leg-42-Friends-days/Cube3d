@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:25:31 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 14:57:53 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 14:58:58 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ typedef struct s_map
 {
 	char				**mapou;
 	char				**fake_map;
+	char				**true_map;
 	int					width;
 	int					height;
 	int					wopen;
 	int					limite;
-
 }						t_map;
 
 int						map_cub(char *str);
@@ -93,5 +93,7 @@ bool					bonus_reader(t_global *global, char *map_content,
 							char *str);
 bool					read_unique(t_global *global, char *map_content);
 void					map_index2(t_global *global, int *fd);
+bool					build_true_map(t_global *global);
+void					free_true_map(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 14:59:42 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 15:03:21 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:13:40 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 
 void	free_all(t_global *global)
 {
+	int	i;
+
+	i = 0;
 	if (!global)
 		return ;
 	free_texture(global);
 	free_map(global);
 	if (global->img.tile)
 		free(global->img.tile);
+	if (global->map.true_map)
+	{
+		while (global->map.true_map[i])
+		{
+			free(global->map.true_map[i]);
+			i++;
+		}
+		free(global->map.true_map);
+	}
 	free(global);
 }
 
@@ -54,46 +66,4 @@ void	free_texture(t_global *global)
 			free(global->textures->sprite);
 		free(global->textures);
 	}
-}
-
-void	free_map(t_global *global)
-{
-	int	i;
-
-	i = 0;
-	if (global->map.mapou)
-	{
-		while (global->map.mapou[i])
-		{
-			free(global->map.mapou[i]);
-			i++;
-		}
-		free(global->map.mapou);
-	}
-	i = 0;
-	if (global->map.fake_map)
-	{
-		while (global->map.fake_map[i])
-		{
-			free(global->map.fake_map[i]);
-			i++;
-		}
-		free(global->map.fake_map);
-	}
-}
-
-void	free_fake_map(t_map *map)
-{
-	int	i;
-
-	if (!map || !map->fake_map)
-		return ;
-	i = 0;
-	while (map->fake_map[i])
-	{
-		free(map->fake_map[i]);
-		i++;
-	}
-	free(map->fake_map);
-	map->fake_map = NULL;
 }

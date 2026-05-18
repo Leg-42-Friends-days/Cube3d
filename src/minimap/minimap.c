@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 15:20:14 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 14:48:39 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:12:33 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	show_1(t_global *global)
 		x = 0;
 		while (x < row)
 		{
-			if (global->map.fake_map[y][x] == '1')
+			if (global->map.true_map[y][x] == '1')
 				image_initiator_1(global, x, y);
 			x++;
 		}
@@ -129,9 +129,9 @@ int	show_0(t_global *global)
 		x = 0;
 		while (x < row)
 		{
-			if (global->map.fake_map[y][x] == 'x'
-				|| direction_check(global->map.fake_map[y][x])
-				|| global->map.fake_map[y][x] == '0')
+			if (global->map.true_map[y][x] == 'x'
+				|| direction_check(global->map.true_map[y][x])
+				|| global->map.true_map[y][x] == '0')
 				image_initiator_0(global, x, y);
 			x++;
 		}
