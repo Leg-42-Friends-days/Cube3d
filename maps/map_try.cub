@@ -10,7 +10,7 @@ WE                                           ./texture/skibidi_tentafruits.xpm
 SO                       ./texture/baby.xpm
 
                                                 F 220,10,1
-C 225,30,255   
+C   255,,255
 
 D  ./texture/skibidi_tentafruits.xpm
 
