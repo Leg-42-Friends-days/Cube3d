@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 18:49:44 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:02:37 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	refresh_image(t_global *global);
 int		rotate(int keycode, t_global *global);
 int		walk(int keycode, t_global *global);
 int		crab_walk(int keycode, t_global *global);
+void	left_rotation(t_raycast_data *data);
+void	right_rotation(t_raycast_data *data);
 
 // COLLISION_DETECTION.c
 int		collision_detection(t_raycast_data *data, t_map *map, int direction);
