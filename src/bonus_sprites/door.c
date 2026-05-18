@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 13:15:06 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 18:19:29 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:20:25 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void    init_door(t_global *global)
 {
-    load_texture(global, &(global->door.texture), global->textures->door);
+	if (global->textures->bonus[0] == 1)
+    	load_texture(global, &(global->door.texture), global->textures->door);
 }
 
 void    open_the_door(t_global *global)
