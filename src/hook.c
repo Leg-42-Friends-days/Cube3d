@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 18:59:35 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:16:23 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	key_hook(void *param)
 	t_global	*global;
 
 	global = (t_global *)param;
+	//mlx_hook(global->win, 6, 1L << 6, (int (*)())mouse_move, (void *)global);
 	if (global->hook.left)
 		rotate(LEFT, global);
 	if (global->hook.right)

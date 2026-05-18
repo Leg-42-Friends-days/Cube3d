@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 16:09:19 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:17:38 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ int	mouse_move(int x, int y, t_global *global)
 	int			delta_x;
 
 	(void)y;
+	(void) global;
 	delta_x = x - memo_x;
 	if (delta_x > 0)
-		left_rotation(&(global->raycast_data));
-	else if (delta_x < 0)
 		right_rotation(&(global->raycast_data));
+	else if (delta_x < 0)
+		left_rotation(&(global->raycast_data));
 	memo_x = x;
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
+	refresh_image(global);
 	return (0);
 }
 

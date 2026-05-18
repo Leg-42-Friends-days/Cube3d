@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/16 18:58:14 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:13:13 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_global
 # define F 102
 
 void				create_map(t_map *map, char *str);
+int					mouse_move(int x, int y, t_global *global);
 
 // HOOK.c
 int					close_window(t_global *global);
