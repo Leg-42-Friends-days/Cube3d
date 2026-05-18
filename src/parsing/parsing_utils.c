@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:09:37 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 15:10:19 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:14:01 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	map_index(t_global *global, char *map_content)
 	len = 0;
 	fd = open(map_content, O_RDONLY);
 	if (fd == -1)
-		return (printf("Error\nIncorrect map"), error_exit(global));
+		return (ft_printf(2, "Error\nIncorrect map"), error_exit(global));
 	while (len < global->textures->start)
 	{
 		line = get_next_line(fd);
