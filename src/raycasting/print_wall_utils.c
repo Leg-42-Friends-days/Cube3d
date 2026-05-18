@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 16:22:08 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 19:00:46 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:46:52 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,15 @@ t_xpm	which_wall(t_raycast_data *data, t_global *global)
 
 void	refresh_image(t_global *global)
 {
-	mlx_destroy_image(global->mlx, global->img.img);
-	global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	global->img.addr = mlx_get_data_addr(global->img.img,
-			&global->img.bits_per_pixel, &global->img.line_length,
-			&global->img.endian);
+	//mlx_destroy_image(global->mlx, global->img.img);
+	//global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	//global->img.addr = mlx_get_data_addr(global->img.img,
+	//		&global->img.bits_per_pixel, &global->img.line_length,
+	//		&global->img.endian);
+	ft_memset(global->img.addr, 0, SCREEN_HEIGHT * global->img.line_length);
 	go_though_all_rays(&(global->raycast_data), &(global->map), global);
 	dessin(global);
-	sprite(global);
+	if (global->textures->beer > 0)
+		sprite_2(global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 }

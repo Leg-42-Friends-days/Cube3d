@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:24 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/15 16:06:56 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:50:39 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,20 @@ double	relative_distance(t_sprite *sprite, t_raycast_data *data)
 	return ((x * x) + (y * y));
 }
 
+void	sprite_2(t_global *global)
+{
+	int	i;
+
+	i = 0;
+	while (i < global->textures->beer)
+	{
+		global->sprite[i].relative_dist = relative_distance(&(global->sprite[i]), &(global->raycast_data));
+		i++;
+	}
+	put_in_order(global);
+	print_in_order(global);
+}
+
 void	sprite(t_global *global)
 {
 	int	i;
@@ -163,10 +177,7 @@ void	sprite(t_global *global)
 		init_sprite(global, &(global->sprite[i]), x, y);
 		x = global->sprite[i].sprite.x + 1;
 		y = global->sprite[i].sprite.y;
-		global->sprite[i].relative_dist = relative_distance(&(global->sprite[i]), &(global->raycast_data));
-		//printf("i = %d %f\n", i, global->sprite[i].relative_dist);
 		i++;
 	}
-	put_in_order(global);
-	print_in_order(global);
+	sprite_2(global);
 }

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 18:59:35 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:35:40 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,11 @@ int	key_hook(void *param)
 		walk(S, global);
 	if (global->hook.d)
 		crab_walk(D, global);
-	if (global->hook.o)
+	/* if (global->hook.o)
 		open_the_door(global);
 	if (global->hook.f)
-		close_the_door(global);
-	//raycasting(global);
-	//mlx_put_image_to_window(global->mlx, global->win,
-	//    global->img.img, 0, 0);
+		close_the_door(global); */
+	//refresh_image(global);
 	return (0);
 }
 
