@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 14:53:27 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 15:03:30 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:03:58 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,26 @@
 
 void	convert_line5(t_global *global, char *line, int fd)
 {
-	if (line_check(line, global))
-		return (ft_printf(2, "Error\nMap invalid\n"), free(line), close(fd),
-			error_exit(global));
-	if (nothing_slash(line) == 1)
-		global->textures->end++;
-	else
+	if (ft_strncmp(is_space(line), "R", 1) == 0)
+	{
+		global->textures->stock[8] = 1;
+		global->textures->bonus[2] = 1;
+		global->textures->sprite2 = texture_map(is_space(line) + 1);
+		if (!global->textures->sprite2)
+			return (ft_printf(2, "Error\nTexture (R)\n"), free(line), close(fd),
+				error_exit(global));
 		global->textures->start++;
+	}
+	else
+	{
+		if (line_check(line, global))
+			return (ft_printf(2, "Error\nMap invalid\n"), free(line), close(fd),
+				error_exit(global));
+		if (nothing_slash(line) == 1)
+			global->textures->end++;
+		else
+			global->textures->start++;
+	}
 }
 
 void	convert_line4(t_global *global, char *line, int fd)
@@ -38,7 +51,7 @@ void	convert_line4(t_global *global, char *line, int fd)
 	{
 		global->textures->stock[7] = 1;
 		global->textures->bonus[1] = 1;
-		global->textures->sprite = texture_map(is_space(line) + 2);
+		global->textures->sprite = texture_map(is_space(line) + 1);
 		if (!global->textures->sprite)
 			return (ft_printf(2, "Error\nTexture (B)\n"), free(line), close(fd),
 				error_exit(global));

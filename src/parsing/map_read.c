@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:17:51 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 15:18:23 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:59:40 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ bool	read_unique(t_global *global, char *map_content)
 		return (ft_printf(2, "Error\nInvalid map (D)\n"), true);
 	if (bonus_reader(global, map_content, "B") == 1)
 		return (ft_printf(2, "Error\nInvalid map (B)\n"), true);
+	if (bonus_reader(global, map_content, "R") == 1)
+		return (ft_printf(2, "Error\nInvalid map (R)\n"), true);
 	return (false);
 }
 

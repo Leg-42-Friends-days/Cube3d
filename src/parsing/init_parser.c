@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:11:48 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/15 15:21:42 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:53:47 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	initiate_stock(t_global *global)
 	global->textures->stock[5] = 0;
 	global->textures->stock[6] = 1;
 	global->textures->stock[7] = 1;
+	global->textures->stock[8] = 1;
 	global->textures->bonus[0] = 0;
 	global->textures->bonus[1] = 0;
+	global->textures->bonus[2] = 0;
 }
 
 t_global	*init_malloc(void)

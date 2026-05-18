@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:16:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 15:16:36 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:00:25 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ void	add_bonus_map(t_global *global, char *str)
 		global->textures->stock[7] = 0;
 		global->textures->bonus[1] = 1;
 	}
+	else if (ft_strncmp(str, "R", 1) == 0)
+	{
+		global->textures->stock[8] = 0;
+		global->textures->bonus[2] = 1;
+	}
 }
 
-bool	bonus_reader(t_global *global, char *map_content, char *str)
+bool		bonus_reader(t_global *global, char *map_content, char *str)
 {
 	int		fd;
 	int		n;
