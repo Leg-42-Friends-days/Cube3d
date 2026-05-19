@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:16:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/19 17:22:45 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:24:48 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_bonus_map(t_global *global, char *str)
 	}
 }
 
-bool		bonus_reader(t_global *global, char *map_content, char *str)
+bool	bonus_reader(t_global *global, char *map_content, char *str)
 {
 	int		fd;
 	int		n;

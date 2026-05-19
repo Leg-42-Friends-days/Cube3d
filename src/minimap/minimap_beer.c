@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_doors.c                                    :+:      :+:    :+:   */
+/*   minimap_beer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/18 15:12:19 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/19 18:23:25 by mickzhan         ###   ########.fr       */
+/*   Created: 2026/05/19 18:22:31 by mickzhan          #+#    #+#             */
+/*   Updated: 2026/05/19 18:24:21 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	image_initiator_d(t_global *global, int x_map, int y_map)
+int	image_initiator_b(t_global *global, int x_map, int y_map)
 {
 	int	x;
 	int	y;
@@ -28,7 +28,7 @@ int	image_initiator_d(t_global *global, int x_map, int y_map)
 			global->img.offset = (global->img.y * global->img.line_length
 					+ global->img.x * (global->img.bits_per_pixel / 8));
 			global->img.dst = global->img.addr + global->img.offset;
-			*(unsigned int *)global->img.dst = 0xFFD700;
+			*(unsigned int *)global->img.dst = 0x0F3D2E;
 			global->img.x++;
 			x++;
 		}
@@ -38,7 +38,7 @@ int	image_initiator_d(t_global *global, int x_map, int y_map)
 	return (0);
 }
 
-int	show_d(t_global *global)
+int	show_b(t_global *global)
 {
 	int	x;
 	int	y;
@@ -49,8 +49,8 @@ int	show_d(t_global *global)
 		x = 0;
 		while (global->map.mapou[y][x])
 		{
-			if (global->map.mapou[y][x] == 'D')
-				image_initiator_d(global, x, y);
+			if (global->map.mapou[y][x] == 'B')
+				image_initiator_b(global, x, y);
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 14:48:16 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 15:46:02 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:19:28 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	dessin(t_global *global)
 {
 	show_1(global);
 	show_0(global);
+	show_b(global);
 	show_d(global);
 	image_initiator_p(global, global->raycast_data.player.x,
 		global->raycast_data.player.y);

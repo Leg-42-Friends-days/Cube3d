@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
+#    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/19 14:11:01 by ibrouin-         ###   ########.fr        #
+#    Updated: 2026/05/19 18:22:56 by mickzhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC =	main.c \
 		minimap/minimap.c \
 		minimap/minimap_utils.c \
 		minimap/minimap_doors.c \
+		minimap/minimap_beer.c \
 		raycasting/raycasting.c \
 		raycasting/init_raycasting.c \
 		raycasting/print_wall.c \
