@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deform_raycasting.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/05/19 15:32:30 by ibrouin-         ###   ########.fr       */
-=======
-/*   Updated: 2026/05/19 14:59:45 by mickzhan         ###   ########.fr       */
->>>>>>> refs/remotes/origin/main
+/*   Updated: 2026/05/19 15:35:45 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +67,8 @@ void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 	while (x < w)
 	{
 		camerax = 2 * x / (double)w - 1;
-<<<<<<< HEAD
 		data->ray_dir.x = data->dir.x + global->drunk.deform_plane.x * camerax;
 		data->ray_dir.y = data->dir.y + global->drunk.deform_plane.y * camerax;
-=======
-		data->ray_dir.x = data->dir.x + data->plane.x * camerax;
-		data->ray_dir.y = data->dir.y + data->plane.y * camerax;
->>>>>>> refs/remotes/origin/main
 		data->delta_dist.x = sqrt(1 + (data->ray_dir.y * data->ray_dir.y)
 				/ (data->ray_dir.x * data->ray_dir.x));
 		data->delta_dist.y = sqrt(1 + (data->ray_dir.x * data->ray_dir.x)

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/05/19 15:08:56 by ibrouin-         ###   ########.fr       */
-=======
-/*   Updated: 2026/05/19 14:58:39 by mickzhan         ###   ########.fr       */
->>>>>>> refs/remotes/origin/main
+/*   Updated: 2026/05/19 15:35:19 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +20,7 @@ typedef	struct s_drunk
 	int				drunk;
 	long			last_update;
 	long			frame_delay;
-<<<<<<< HEAD
 	t_coordinates	deform_plane;
-=======
->>>>>>> refs/remotes/origin/main
 }			t_drunk;
 
 typedef	struct s_anim
