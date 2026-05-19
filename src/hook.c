@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 14:10:09 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 15:25:17 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	close_window(t_global *global)
 	{
 		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
 	}
-	if (global->textures->door)
+	if (global->textures->bonus[0] == 1)
 	{
 		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
 	}
@@ -49,7 +49,7 @@ int	close_window_hook(void *param)
 	{
 		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
 	}
-	if (global->textures->door)
+	if (global->textures->bonus[0] == 1)
 	{
 		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
 	}

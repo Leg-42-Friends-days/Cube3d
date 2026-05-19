@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 15:12:19 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 15:12:38 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 15:09:05 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,16 @@ int	image_initiator_d(t_global *global, int x_map, int y_map)
 
 int	show_d(t_global *global)
 {
-	int	row;
-	int	col;
 	int	x;
 	int	y;
 
 	y = 0;
-	row = global->map.width;
-	col = global->map.height;
-	while (y < col)
+	while (global->map.mapou[y])
 	{
 		x = 0;
-		while (x < row)
+		while (global->map.mapou[y][x])
 		{
-			if (global->map.true_map[y][x] == 'D')
+			if (global->map.mapou[y][x] == 'D')
 				image_initiator_d(global, x, y);
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:16:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 15:16:36 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 15:16:34 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,5 @@ bool	bonus_reader(t_global *global, char *map_content, char *str)
 		return (true);
 	if (n == 1)
 		add_bonus_map(global, str);
-	return (false);
-}
-
-bool	build_true_map(t_global *global)
-{
-	int	i;
-
-	global->map.true_map = malloc(sizeof(char *) * (global->map.height + 1));
-	if (!global->map.true_map)
-		return (true);
-	i = 0;
-	while (i <= global->map.height)
-	{
-		global->map.true_map[i] = NULL;
-		i++;
-	}
-	i = 0;
-	while (i < global->map.height)
-	{
-		global->map.true_map[i] = reformat_line(global->map.mapou[i],
-				global->map.width);
-		if (!global->map.true_map[i])
-			return (free_true_map(&global->map), true);
-		i++;
-	}
 	return (false);
 }

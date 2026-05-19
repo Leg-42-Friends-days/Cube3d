@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_wall_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 16:22:08 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 14:28:34 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 15:23:05 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_xpm	wall_is_a_door(t_raycast_data *data, t_global *global)
 
 int	check_door(t_global *global, int orientation, t_raycast_data *data)
 {
+	if (global->textures->bonus[0] != 1)
+		return (0);
 	if (orientation == 1)
 	{
 		if (data->mapx > 0)
