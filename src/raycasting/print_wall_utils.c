@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_wall_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 16:22:08 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 19:00:46 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 15:23:05 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_xpm	wall_is_a_door(t_raycast_data *data, t_global *global)
 
 int	check_door(t_global *global, int orientation, t_raycast_data *data)
 {
+	if (global->textures->bonus[0] != 1)
+		return (0);
 	if (orientation == 1)
 	{
 		if (data->mapx > 0)
@@ -106,13 +108,26 @@ t_xpm	which_wall(t_raycast_data *data, t_global *global)
 
 void	refresh_image(t_global *global)
 {
-	mlx_destroy_image(global->mlx, global->img.img);
-	global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	global->img.addr = mlx_get_data_addr(global->img.img,
-			&global->img.bits_per_pixel, &global->img.line_length,
-			&global->img.endian);
 	go_though_all_rays(&(global->raycast_data), &(global->map), global);
 	dessin(global);
-	sprite(global);
+	if (global->textures->beer > 0)
+	{
+		animation(global, global->sprite, get_time());
+		sprite_2(global);
+	}
+	drunk_or_not_drunk(global, get_time());
+	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
+}
+
+void	refresh_drunk_image(t_global *global)
+{
+	deform_rays(&(global->raycast_data), &(global->map), global);
+	dessin(global);
+	if (global->textures->beer > 0)
+	{
+		animation(global, global->sprite, get_time());
+		sprite_2(global);
+	}
+	drunk_or_not_drunk(global, get_time());
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 }

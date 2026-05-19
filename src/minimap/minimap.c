@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 15:20:14 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 15:12:33 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 15:16:01 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,16 @@ int	image_initiator_0(t_global *global, int x_map, int y_map)
 
 int	show_1(t_global *global)
 {
-	int	row;
-	int	col;
 	int	x;
 	int	y;
 
 	y = 0;
-	row = global->map.width;
-	col = global->map.height;
-	while (y < col)
+	while (global->map.mapou[y])
 	{
 		x = 0;
-		while (x < row)
+		while (global->map.mapou[y][x])
 		{
-			if (global->map.true_map[y][x] == '1')
+			if (global->map.mapou[y][x] == '1')
 				image_initiator_1(global, x, y);
 			x++;
 		}
@@ -116,22 +112,19 @@ int	show_1(t_global *global)
 
 int	show_0(t_global *global)
 {
-	int	row;
-	int	col;
 	int	x;
 	int	y;
 
 	y = 0;
-	row = global->map.width;
-	col = global->map.height;
-	while (y < col)
+	while (global->map.mapou[y])
 	{
 		x = 0;
-		while (x < row)
+		while (global->map.mapou[y][x])
 		{
-			if (global->map.true_map[y][x] == 'x'
-				|| direction_check(global->map.true_map[y][x])
-				|| global->map.true_map[y][x] == '0')
+			if (global->map.mapou[y][x] == 'x'
+				|| direction_check(global->map.mapou[y][x])
+				|| global->map.mapou[y][x] == '0'
+				|| global->map.mapou[y][x] == 'O')
 				image_initiator_0(global, x, y);
 			x++;
 		}

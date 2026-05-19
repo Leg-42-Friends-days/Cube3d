@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:48:19 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 19:08:46 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:24:43 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	rotate(int keycode, t_global *global)
 		left_rotation(&(global->raycast_data));
 	if (keycode == RIGHT)
 		right_rotation(&(global->raycast_data));
-	refresh_image(global);
 	return (0);
 }
 
@@ -77,7 +76,6 @@ int	crab_walk(int keycode, t_global *global)
 		data->player.x += data->dir.y * move_speed;
 		data->player.y += -data->dir.x * move_speed;
 	}
-	refresh_image(global);
 	return (0);
 }
 
@@ -102,6 +100,5 @@ int	walk(int keycode, t_global *global)
 		data->player.x -= data->dir.x * move_speed;
 		data->player.y -= data->dir.y * move_speed;
 	}
-	refresh_image(global);
 	return (0);
 }

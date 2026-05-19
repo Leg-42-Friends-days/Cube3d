@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 14:59:42 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 16:57:03 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 17:22:54 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,12 @@
 
 void	free_all(t_global *global)
 {
-	int	i;
-
-	i = 0;
 	if (!global)
 		return ;
 	free_texture(global);
 	free_map(global);
 	if (global->img.tile)
 		free(global->img.tile);
-	if (global->map.true_map)
-	{
-		while (global->map.true_map[i])
-		{
-			free(global->map.true_map[i]);
-			i++;
-		}
-		free(global->map.true_map);
-	}
 	free(global);
 }
 

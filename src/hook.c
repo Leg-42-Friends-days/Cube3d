@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/18 16:16:23 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 17:21:26 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	close_window(t_global *global)
 	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
 	if (global->textures->beer > 0)
 	{
-		mlx_destroy_image(global->mlx, global->sprite->texture.img_ptr);
+		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
 	}
-	if (global->textures->door)
+	if (global->textures->bonus[0] == 1)
 	{
 		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
 	}
@@ -47,9 +47,9 @@ int	close_window_hook(void *param)
 	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
 	if (global->textures->beer)
 	{
-		mlx_destroy_image(global->mlx, global->sprite->texture.img_ptr);
+		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
 	}
-	if (global->textures->door)
+	if (global->textures->bonus[0] == 1)
 	{
 		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
 	}
@@ -83,13 +83,16 @@ int	key_hook(void *param)
 		walk(S, global);
 	if (global->hook.d)
 		crab_walk(D, global);
-	if (global->hook.o)
+	if (global->hook.e)
 		open_the_door(global);
 	if (global->hook.f)
 		close_the_door(global);
-	//raycasting(global);
-	//mlx_put_image_to_window(global->mlx, global->win,
-	//    global->img.img, 0, 0);
+	if (global->hook.t)
+		drink_beer(global);
+	if (global->drunk.drunk == 0)
+		refresh_image(global);
+	if (global->drunk.drunk == 1)
+		refresh_drunk_image(global);
 	return (0);
 }
 
@@ -116,10 +119,12 @@ int	press_on(int keycode, void *param)
 		global->hook.s = 1;
 	if (keycode == D)
 		global->hook.d = 1;
-	if (keycode == O)
-		global->hook.o = 1;
+	if (keycode == E)
+		global->hook.e = 1;
 	if (keycode == F)
 		global->hook.f = 1;
+	if (keycode == T)
+		global->hook.t = 1;
 	return (0);
 }
 
@@ -144,9 +149,11 @@ int	press_off(int keycode, void *param)
 		global->hook.s = 0;
 	if (keycode == D)
 		global->hook.d = 0;
-	if (keycode == O)
-		global->hook.o = 0;
+	if (keycode == E)
+		global->hook.e = 0;
 	if (keycode == F)
 		global->hook.f = 0;
+	if (keycode == T)
+		global->hook.t = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:24 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/15 16:06:56 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 10:54:42 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	draw_y(t_sprite *sprite, t_global *global, int x)
 	{
 		tex_pos_y = (double)(current - sprite->draw_start.y)
 			/ sprite->sprite_height;
-		sprite->tex_y = (int)(tex_pos_y * sprite->texture.height);
-		dst = sprite->texture.data
-			+ (sprite->tex_y * sprite->texture.line_len
-			+ sprite->tex_x * (sprite->texture.bpp / 8));
+		sprite->tex_y = (int)(tex_pos_y * sprite->anim.frame[sprite->anim.current_frame].height);
+		dst = sprite->anim.frame[sprite->anim.current_frame].data
+			+ (sprite->tex_y * sprite->anim.frame[sprite->anim.current_frame].line_len
+			+ sprite->tex_x * (sprite->anim.frame[sprite->anim.current_frame].bpp / 8));
 		color = *(unsigned int *)dst;
 		if ((color & 0x00FFFFFF) != 0)
 			put_pixel(global, x, current, color);
@@ -91,7 +91,7 @@ void	draw_sprite(t_global *global, t_sprite *sprite, t_raycast_data *data)
 		if (current >= 0 && current < SCREEN_WIDTH && sprite->camera.y < data->perp_wall_buffer[current])
 		{
 			tex_pos_x = (double)(current - sprite->draw_start.x) / sprite->sprite_width;
-			sprite->tex_x = (int)(tex_pos_x * sprite->texture.width);
+			sprite->tex_x = (int)(tex_pos_x * sprite->anim.frame[sprite->anim.current_frame].width);
 			draw_y(sprite, global, current);
 		}
 		current ++;
@@ -149,6 +149,20 @@ double	relative_distance(t_sprite *sprite, t_raycast_data *data)
 	return ((x * x) + (y * y));
 }
 
+void	sprite_2(t_global *global)
+{
+	int	i;
+
+	i = 0;
+	while (i < global->textures->beer)
+	{
+		global->sprite[i].relative_dist = relative_distance(&(global->sprite[i]), &(global->raycast_data));
+		i++;
+	}
+	put_in_order(global);
+	print_in_order(global);
+}
+
 void	sprite(t_global *global)
 {
 	int	i;
@@ -163,10 +177,7 @@ void	sprite(t_global *global)
 		init_sprite(global, &(global->sprite[i]), x, y);
 		x = global->sprite[i].sprite.x + 1;
 		y = global->sprite[i].sprite.y;
-		global->sprite[i].relative_dist = relative_distance(&(global->sprite[i]), &(global->raycast_data));
-		//printf("i = %d %f\n", i, global->sprite[i].relative_dist);
 		i++;
 	}
-	put_in_order(global);
-	print_in_order(global);
+	sprite_2(global);
 }
