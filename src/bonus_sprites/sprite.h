@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 11:16:49 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:52:08 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	sprite(t_global *global);
 void	init_sprite(t_global *global, t_sprite *sprite, int x, int y);
 void	sprite_2(t_global *global);
 void    animation(t_global *global, t_sprite *sprite, long current_time);
+void	drink_beer(t_global *global);
+void	re_init_sprite(t_global *global);
 
 // DOOR.C
 void    init_door(t_global *global);

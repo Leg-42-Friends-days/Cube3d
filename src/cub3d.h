@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/19 10:53:16 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:56:41 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_hook
 	int		d;
 	int		e;
 	int		f;
+	int		t;
 }   t_hook;
 
 typedef struct s_img
@@ -54,7 +55,6 @@ typedef struct s_img
 	int				y;
 	int				offset;
 	char			*dst;
-
 	void			*img;
 	char			*addr;
 	int				bits_per_pixel;
@@ -62,6 +62,13 @@ typedef struct s_img
 	int				endian;
 	t_tile			*tile;
 }					t_img;
+
+typedef	strust s_drunk
+{
+	int		drunk;
+	long	last_update;
+	long	frame_delay;
+}
 
 typedef struct s_global
 {
@@ -74,6 +81,7 @@ typedef struct s_global
 	t_hook			hook;
 	t_sprite		*sprite;
 	t_door			door;
+	t_drunk			drunk;
 }				t_global;
 
 # define SCREEN_WIDTH 1200
@@ -89,6 +97,7 @@ typedef struct s_global
 # define D 100
 # define E 101
 # define F 102
+# define T 116
 
 void				create_map(t_map *map, char *str);
 long	get_time(void);

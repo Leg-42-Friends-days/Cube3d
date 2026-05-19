@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 11:25:47 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:44:17 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	key_hook(void *param)
 		open_the_door(global);
 	if (global->hook.f)
 		close_the_door(global);
+	if (global->hook.t)
+		drink_beer(global);
 	refresh_image(global);
 	return (0);
 }
@@ -117,6 +119,8 @@ int	press_on(int keycode, void *param)
 		global->hook.e = 1;
 	if (keycode == F)
 		global->hook.f = 1;
+	if (keycode == T)
+		global->hook.t = 1;
 	return (0);
 }
 
@@ -145,5 +149,7 @@ int	press_off(int keycode, void *param)
 		global->hook.e = 0;
 	if (keycode == F)
 		global->hook.f = 0;
+	if (keycode == T)
+		global->hook.t = 0;
 	return (0);
 }

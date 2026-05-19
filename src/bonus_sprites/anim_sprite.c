@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 10:36:02 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 11:16:44 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 12:01:30 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,35 @@ void    animation(t_global *global, t_sprite *sprite, long current_time)
 		}
 		i++;
 	}
+}
+
+void	drunk_or_not_drunk(t_global *global, long current_time)
+{
+	if (current_time - global->drunk.last_update >= global->drunk.frame_delay)
+	{
+		
+	}
+}
+
+void	drink_beer(t_global *global)
+{
+	double	playerxx;
+	double	playeryy;
+
+	playerxx = global->raycast_data.player.x + (global->raycast_data.dir.x * 0.8);
+	playeryy = global->raycast_data.player.y + (global->raycast_data.dir.y * 0.8);
+	if (playerxx >= global->map.width || playerxx < 0)
+		return ;
+	if (playeryy >= global->map.height || playeryy < 0)
+		return ;
+	if (global->map.mapou[(int)playeryy][(int)playerxx])
+	{
+		if (global->map.mapou[(int)playeryy][(int)playerxx] == 'B')
+		{
+			printf("beeeeeer\n");
+			global->map.mapou[(int)playeryy][(int)playerxx] = '0';
+			re_init_sprite(global);
+		}
+	}
+	refresh_image(global);
 }

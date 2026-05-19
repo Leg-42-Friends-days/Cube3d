@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:35:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 11:07:23 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:52:54 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,30 @@ void	init_sprite(t_global *global, t_sprite *sprite, int x, int y)
 		x = 0;
 		y++;
 	}
+}
+
+void	re_init_sprite(t_global *global)
+{
+	int	i;
+	int	x;
+	int	y;
+
+	i = 0;
+	x = 0;
+	y = 0;
+	while (i < global->textures->beer)
+	{
+		global->sprite[i].sprite.y = 0;
+		global->sprite[i].sprite.x = 0;
+		i++;
+	}
+	i = 0;
+	while (i < global->textures->beer)
+	{
+		init_sprite(global, &(global->sprite[i]), x, y);
+		x = global->sprite[i].sprite.x + 1;
+		y = global->sprite[i].sprite.y;
+		i++;
+	}
+	sprite_2(global);
 }
