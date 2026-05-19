@@ -15,7 +15,9 @@
 int	mouse_move(int x, int y, t_global *global)
 {
 	static int	memo_x = SCREEN_WIDTH / 2;
+	static long	fps_refresh = 0;
 	int			delta_x;
+	long		now;
 
 	(void)y;
 	delta_x = x - memo_x;
@@ -24,7 +26,12 @@ int	mouse_move(int x, int y, t_global *global)
 	else if (delta_x < 0)
 		left_rotation(&(global->raycast_data));
 	memo_x = x;
-	refresh_image(global);
+	now = get_time();
+	if (now - fps_refresh >= 33)
+	{
+		refresh_image(global);
+		fps_refresh = now;
+	}
 	return (0);
 }
 
