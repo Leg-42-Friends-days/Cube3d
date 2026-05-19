@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/18 16:04:16 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:16:49 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef	struct s_anim
 	int		frame_count;
 	int		current_frame;
 	long	last_update;
-	int		frame_delay;
+	long	frame_delay;
 }			t_anim;
 
 typedef struct s_sprite
@@ -47,6 +47,7 @@ typedef struct s_global	t_global;
 void	sprite(t_global *global);
 void	init_sprite(t_global *global, t_sprite *sprite, int x, int y);
 void	sprite_2(t_global *global);
+void    animation(t_global *global, t_sprite *sprite, long current_time);
 
 // DOOR.C
 void    init_door(t_global *global);

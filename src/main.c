@@ -6,11 +6,19 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 15:35:46 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:16:56 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+long	get_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000L + tv.tv_usec / 1000);
+}
 
 int	main(int ac, char **av)
 {
@@ -39,6 +47,7 @@ int	main(int ac, char **av)
 	{
 		global->sprite = malloc(sizeof(t_sprite) * global->textures->beer);
 		sprite(global);
+		animation(global, global->sprite, get_time());
 	}
 	//dessin(global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);

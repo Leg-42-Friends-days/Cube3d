@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:24 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/18 16:05:30 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 10:54:42 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	draw_y(t_sprite *sprite, t_global *global, int x)
 	{
 		tex_pos_y = (double)(current - sprite->draw_start.y)
 			/ sprite->sprite_height;
-		sprite->tex_y = (int)(tex_pos_y * sprite->anim.frame[0].height);
-		dst = sprite->anim.frame[0].data
-			+ (sprite->tex_y * sprite->anim.frame[0].line_len
-			+ sprite->tex_x * (sprite->anim.frame[0].bpp / 8));
+		sprite->tex_y = (int)(tex_pos_y * sprite->anim.frame[sprite->anim.current_frame].height);
+		dst = sprite->anim.frame[sprite->anim.current_frame].data
+			+ (sprite->tex_y * sprite->anim.frame[sprite->anim.current_frame].line_len
+			+ sprite->tex_x * (sprite->anim.frame[sprite->anim.current_frame].bpp / 8));
 		color = *(unsigned int *)dst;
 		if ((color & 0x00FFFFFF) != 0)
 			put_pixel(global, x, current, color);
@@ -91,7 +91,7 @@ void	draw_sprite(t_global *global, t_sprite *sprite, t_raycast_data *data)
 		if (current >= 0 && current < SCREEN_WIDTH && sprite->camera.y < data->perp_wall_buffer[current])
 		{
 			tex_pos_x = (double)(current - sprite->draw_start.x) / sprite->sprite_width;
-			sprite->tex_x = (int)(tex_pos_x * sprite->anim.frame[0].width);
+			sprite->tex_x = (int)(tex_pos_x * sprite->anim.frame[sprite->anim.current_frame].width);
 			draw_y(sprite, global, current);
 		}
 		current ++;

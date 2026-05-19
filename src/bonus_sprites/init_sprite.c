@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:35:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/18 16:04:23 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:07:23 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	load_textures_frames(t_global *global, t_sprite *sprite)
 	i = 0;
 	while (i < sprite->anim.frame_count)
 	{
+		if (i == 1)
+		{
+			load_texture(global, &(sprite->anim.frame[i]), "./texture/wall_light.xpm");
+			return ;
+		}
 		load_texture(global, &(sprite->anim.frame[i]), global->textures->sprite);
 		i++;
 	}
@@ -28,7 +33,9 @@ void	init_sprite(t_global *global, t_sprite *sprite, int x, int y)
 {
 	char	**map;
 
-	sprite->anim.frame_count = 1;
+	sprite->anim.frame_count = 2;
+	sprite->anim.frame_delay = 100;
+	sprite->anim.current_frame = 0;
 	load_textures_frames(global, sprite);
 	map = global->map.mapou;
 	while (y < global->map.height)

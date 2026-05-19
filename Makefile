@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
+#    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/18 15:15:03 by mickzhan         ###   ########.fr        #
+#    Updated: 2026/05/19 10:34:16 by ibrouin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ SRC =	main.c \
 		raycasting/collision_detection.c \
 		bonus_sprites/sprite.c \
 		bonus_sprites/init_sprite.c \
-		bonus_sprites/door.c
+		bonus_sprites/door.c \
+		bonus_sprites/anim_sprite.c
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))

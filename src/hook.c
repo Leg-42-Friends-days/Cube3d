@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/18 15:35:40 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:25:47 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	close_window(t_global *global)
 	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
 	if (global->textures->beer > 0)
 	{
-		mlx_destroy_image(global->mlx, global->sprite->texture.img_ptr);
+		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
 	}
 	if (global->textures->door)
 	{
@@ -47,7 +47,7 @@ int	close_window_hook(void *param)
 	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
 	if (global->textures->beer)
 	{
-		mlx_destroy_image(global->mlx, global->sprite->texture.img_ptr);
+		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
 	}
 	if (global->textures->door)
 	{
@@ -82,11 +82,11 @@ int	key_hook(void *param)
 		walk(S, global);
 	if (global->hook.d)
 		crab_walk(D, global);
-	/* if (global->hook.o)
+	if (global->hook.e)
 		open_the_door(global);
 	if (global->hook.f)
-		close_the_door(global); */
-	//refresh_image(global);
+		close_the_door(global);
+	refresh_image(global);
 	return (0);
 }
 
@@ -113,8 +113,8 @@ int	press_on(int keycode, void *param)
 		global->hook.s = 1;
 	if (keycode == D)
 		global->hook.d = 1;
-	if (keycode == O)
-		global->hook.o = 1;
+	if (keycode == E)
+		global->hook.e = 1;
 	if (keycode == F)
 		global->hook.f = 1;
 	return (0);
@@ -141,8 +141,8 @@ int	press_off(int keycode, void *param)
 		global->hook.s = 0;
 	if (keycode == D)
 		global->hook.d = 0;
-	if (keycode == O)
-		global->hook.o = 0;
+	if (keycode == E)
+		global->hook.e = 0;
 	if (keycode == F)
 		global->hook.f = 0;
 	return (0);

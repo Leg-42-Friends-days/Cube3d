@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/16 18:58:14 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 10:53:16 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 typedef struct s_tile
 {
@@ -43,7 +44,7 @@ typedef struct s_hook
 	int		a;
 	int		s;
 	int		d;
-	int		o;
+	int		e;
 	int		f;
 }   t_hook;
 
@@ -86,10 +87,11 @@ typedef struct s_global
 # define A 97
 # define S 115
 # define D 100
-# define O 111
+# define E 101
 # define F 102
 
 void				create_map(t_map *map, char *str);
+long	get_time(void);
 
 // HOOK.c
 int					close_window(t_global *global);
