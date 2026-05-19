@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 10:36:02 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 14:07:06 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:42:00 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	drunk_or_not_drunk(t_global *global, long current_time)
 	if (current_time - global->drunk.last_update >= global->drunk.frame_delay)
 	{
 		global->drunk.last_update = current_time;
+		printf("c'est fini\n");
+		//global->drunk.deform_plane.x = global->raycast_data.plane.x;
+		//global->drunk.deform_plane.y = global->raycast_data.plane.y;
 		global->drunk.drunk = 0;
 	}
 }
@@ -56,6 +59,10 @@ void	drink_beer(t_global *global)
 	{
 		if (global->map.mapou[(int)playeryy][(int)playerxx] == 'B')
 		{
+			printf("j'ai bu \n");
+			//global->drunk.deform_plane.x = global->raycast_data.plane.x;
+			//global->drunk.deform_plane.y = global->raycast_data.plane.y;
+			change_fov(global);
 			global->drunk.drunk = 1;
 			global->map.mapou[(int)playeryy][(int)playerxx] = '0';
 			re_init_sprite(global);

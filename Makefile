@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+         #
+#    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/19 18:22:56 by mickzhan         ###   ########.fr        #
+#    Updated: 2026/05/19 19:16:54 by ibrouin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC =	main.c \
 		bonus_sprites/init_sprite.c \
 		bonus_sprites/door.c \
 		bonus_sprites/anim_sprite.c \
-		raycasting/deform_raycasting.c
+		raycasting/deform_raycasting.c \
+		raycasting/deform_print_wall.c
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))

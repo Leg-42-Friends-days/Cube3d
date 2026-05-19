@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:35:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 11:52:54 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:09:12 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	load_textures_frames(t_global *global, t_sprite *sprite)
 	{
 		if (i == 1)
 		{
-			load_texture(global, &(sprite->anim.frame[i]), "./texture/wall_light.xpm");
+			load_texture(global, &(sprite->anim.frame[i]), "./texture/beer4.xpm");
 			return ;
 		}
 		load_texture(global, &(sprite->anim.frame[i]), global->textures->sprite);

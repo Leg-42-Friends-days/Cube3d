@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 17:24:04 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 19:16:40 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,16 @@ void					init_dir(t_raycast_data *data);
 void					init_plane(t_raycast_data *data);
 
 // PRINT_WALL.c
-void					print_wall(t_raycast_data *data, t_global *global,
-							int x);
-void					put_pixel(t_global *global, int x, int y, int color);
-void					print_line(t_global *global, t_raycast_data *data,
-							int x);
+void	print_wall(t_raycast_data *data, t_global *global, int x);
+void	put_pixel(t_global *global, int x, int y, int color);
+void	print_line(t_global *global, t_raycast_data *data, int x);
+void	calcul_image_sens(t_raycast_data *data, double *wall_x);
+
+// DEFORM_PRINT_WALL.c
+void	deform_print_wall(t_raycast_data *data, t_global *global, int x);
+void	deform_print_floor(t_global *global, int x, int current);
+void	deform_print_line(t_global *global, t_raycast_data *data, int x);
+void	change_fov(t_global *global);
 
 // PRINT_WALL_UTILS.c
 int						color_in_hexa(char *color);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/19 18:12:51 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 19:16:46 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,17 @@ int	main(int ac, char **av)
 		sprite(global);
 		animation(global, global->sprite, get_time());
 	}
+	global->drunk.deform_plane.x = global->raycast_data.plane.x;
+	global->drunk.deform_plane.y = global->raycast_data.plane.y;
 	global->drunk.drunk = 0;
+<<<<<<< HEAD
 	global->drunk.frame_delay = 50000;
 	// dessin(global);
 	// mlx_mouse_hide(global->mlx, global->win);
+=======
+	global->drunk.frame_delay = 20000;
+	//dessin(global);
+>>>>>>> a98b1d9 (fin de journee)
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
 	mlx_hook(global->win, 3, 1L << 1, (int (*)())press_off, (void *)global);

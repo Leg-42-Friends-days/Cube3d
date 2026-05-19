@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 15:35:45 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:38:09 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,17 @@ void	calculate_deform_wall_dist(t_raycast_data *data)
 
 void	change_fov(t_global *global)
 {
-	global->drunk.deform_plane.x = global->drunk.deform_plane.x * 1.3;
-	global->drunk.deform_plane.y = global->drunk.deform_plane.y * 1.3;
+	double	rot_speed;
+	double	old_plane_x;
+
+	rot_speed = 0.3;
+	old_plane_x = global->drunk.deform_plane.x;
+	global->drunk.deform_plane.x *= 1.2;
+	global->drunk.deform_plane.y *= 1.2;
+	global->drunk.deform_plane.x = global->drunk.deform_plane.x * cos(rot_speed) - global->drunk.deform_plane.y
+		* sin(rot_speed);
+	global->drunk.deform_plane.y = old_plane_x * sin(rot_speed) + global->drunk.deform_plane.y
+		* cos(rot_speed);
 }
 
 void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
@@ -61,9 +70,10 @@ void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 
 	x = 0;
 	w = data->screen_width;
+	printf("refresh\n");
 	global->drunk.deform_plane.x = data->plane.x;
 	global->drunk.deform_plane.y = data->plane.y;
-	change_fov(global);
+	//change_fov(global);
 	while (x < w)
 	{
 		camerax = 2 * x / (double)w - 1;
@@ -77,7 +87,7 @@ void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 		deform_dda(data, map);
 		calculate_deform_wall_dist(data);
 		data->perp_wall_buffer[x] = data->perp_wall_dist;
-		print_wall(data, global, x);
+		deform_print_wall(data, global, x);
 		x ++;
 	}
 }
