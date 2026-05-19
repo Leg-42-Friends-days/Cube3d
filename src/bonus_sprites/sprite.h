@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 14:40:58 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 15:08:56 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef	struct s_drunk
 	int				drunk;
 	long			last_update;
 	long			frame_delay;
-	t_coordinate	deform_plane;
+	t_coordinates	deform_plane;
 }			t_drunk;
 
 typedef	struct s_anim

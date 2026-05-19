@@ -6,21 +6,11 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 14:46:47 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 15:18:36 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	deform_raycast_init_data(t_raycast_data *data)
-{
-	data->screen_height = SCREEN_HEIGHT;
-	data->screen_width = SCREEN_WIDTH;
-	init_dir(data);
-	init_plane(data);
-	data->hit = 0;
-	data->perp_wall_buffer = malloc(sizeof(double *) * SCREEN_WIDTH);
-}
 
 void	deform_dda(t_raycast_data *data, t_map *map)
 {
@@ -57,10 +47,11 @@ void	calculate_deform_wall_dist(t_raycast_data *data)
 		data->perp_wall_dist = data->side_dist.y - data->delta_dist.y;
 }
 
-/* void	change_fov(t_raycast_data *data)
+void	change_fov(t_global *global)
 {
-
-} */
+	global->drunk.deform_plane.x = global->drunk.deform_plane.x * 1.3;
+	global->drunk.deform_plane.y = global->drunk.deform_plane.y * 1.3;
+}
 
 void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 {
@@ -70,12 +61,14 @@ void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 
 	x = 0;
 	w = data->screen_width;
-	//change_fov()
+	global->drunk.deform_plane.x = data->plane.x;
+	global->drunk.deform_plane.y = data->plane.y;
+	change_fov(global);
 	while (x < w)
 	{
 		camerax = 2 * x / (double)w - 1;
 		data->ray_dir.x = data->dir.x + global->drunk.deform_plane.x * camerax;
-		data->ray_dir.y = data->dir.y + global->plane.y * camerax;
+		data->ray_dir.y = data->dir.y + global->drunk.deform_plane.y * camerax;
 		data->delta_dist.x = sqrt(1 + (data->ray_dir.y * data->ray_dir.y)
 				/ (data->ray_dir.x * data->ray_dir.x));
 		data->delta_dist.y = sqrt(1 + (data->ray_dir.x * data->ray_dir.x)
