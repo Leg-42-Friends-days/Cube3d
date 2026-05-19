@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/19 17:30:42 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:12:51 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	mouse_move(int x, int y, t_global *global)
 	int			delta_x;
 
 	(void)y;
-	(void)global;
 	delta_x = x - memo_x;
 	if (delta_x > 0)
 		right_rotation(&(global->raycast_data));
@@ -70,6 +69,7 @@ int	main(int ac, char **av)
 	global->drunk.drunk = 0;
 	global->drunk.frame_delay = 50000;
 	// dessin(global);
+	// mlx_mouse_hide(global->mlx, global->win);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
 	mlx_hook(global->win, 3, 1L << 1, (int (*)())press_off, (void *)global);
