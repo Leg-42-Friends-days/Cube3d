@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 18:49:44 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:08:27 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ void	go_though_all_rays(t_raycast_data *data, t_map *map, t_global *global);
 void	calculate_perp_wall_dist(t_raycast_data *data);
 void	raycast_init_data(t_raycast_data *data);
 
+// DEFORM_RAYCASTING.c
+void	deform_rays(t_raycast_data *data, t_map *map, t_global *global);
+
 // INIT_RAYCASTING.C
 void	init_player(t_global *global);
 void	init_raycasting(t_raycast_data *data);
@@ -97,6 +100,7 @@ void	print_line(t_global *global, t_raycast_data *data, int x);
 int		color_in_hexa(char *color);
 t_xpm	which_wall(t_raycast_data *data, t_global *global);
 void	refresh_image(t_global *global);
+void	refresh_drunk_image(t_global *global);
 
 // WALK.c
 int		rotate(int keycode, t_global *global);

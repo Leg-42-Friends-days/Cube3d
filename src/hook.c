@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 11:44:17 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:10:09 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ int	key_hook(void *param)
 		close_the_door(global);
 	if (global->hook.t)
 		drink_beer(global);
-	refresh_image(global);
+	if (global->drunk.drunk == 0)
+		refresh_image(global);
+	if (global->drunk.drunk == 1)
+		refresh_drunk_image(global);
 	return (0);
 }
 

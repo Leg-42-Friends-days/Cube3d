@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 11:41:54 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:46:47 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,15 @@ void	deform_dda(t_raycast_data *data, t_map *map)
 void	calculate_deform_wall_dist(t_raycast_data *data)
 {
 	if (data->side == 0)
-		data->perp_wall_dist = (data->mapx - data->player.x
-				+ (1 - data->step.x) / 2) / data->ray_dir.x;
+		data->perp_wall_dist = data->side_dist.x - data->delta_dist.x;
 	else
-		data->perp_wall_dist = (data->mapy - data->player.y
-				+ (1 - data->step.y) / 2) / data->ray_dir.y;
+		data->perp_wall_dist = data->side_dist.y - data->delta_dist.y;
 }
+
+/* void	change_fov(t_raycast_data *data)
+{
+
+} */
 
 void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 {
@@ -67,17 +70,18 @@ void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 
 	x = 0;
 	w = data->screen_width;
+	//change_fov()
 	while (x < w)
 	{
 		camerax = 2 * x / (double)w - 1;
-		data->ray_dir.x = data->dir.x + data->plane.x * camerax;
-		data->ray_dir.y = data->dir.y + data->plane.y * camerax;
+		data->ray_dir.x = data->dir.x + global->drunk.deform_plane.x * camerax;
+		data->ray_dir.y = data->dir.y + global->plane.y * camerax;
 		data->delta_dist.x = sqrt(1 + (data->ray_dir.y * data->ray_dir.y)
 				/ (data->ray_dir.x * data->ray_dir.x));
 		data->delta_dist.y = sqrt(1 + (data->ray_dir.x * data->ray_dir.x)
 				/ (data->ray_dir.y * data->ray_dir.y));
 		init_raycasting(data);
-		dda(data, map);
+		deform_dda(data, map);
 		calculate_deform_wall_dist(data);
 		data->perp_wall_buffer[x] = data->perp_wall_dist;
 		print_wall(data, global, x);

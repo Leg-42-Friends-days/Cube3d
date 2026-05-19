@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 11:52:08 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:40:58 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define SPRITE_H
 
 # include "../cub3d.h"
+
+typedef	struct s_drunk
+{
+	int				drunk;
+	long			last_update;
+	long			frame_delay;
+	t_coordinate	deform_plane;
+}			t_drunk;
 
 typedef	struct s_anim
 {
@@ -50,6 +58,7 @@ void	sprite_2(t_global *global);
 void    animation(t_global *global, t_sprite *sprite, long current_time);
 void	drink_beer(t_global *global);
 void	re_init_sprite(t_global *global);
+void	drunk_or_not_drunk(t_global *global, long current_time);
 
 // DOOR.C
 void    init_door(t_global *global);

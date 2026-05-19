@@ -6,7 +6,7 @@
 #    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/19 10:34:16 by ibrouin-         ###   ########.fr        #
+#    Updated: 2026/05/19 14:11:01 by ibrouin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC =	main.c \
 		bonus_sprites/sprite.c \
 		bonus_sprites/init_sprite.c \
 		bonus_sprites/door.c \
-		bonus_sprites/anim_sprite.c
+		bonus_sprites/anim_sprite.c \
+		raycasting/deform_raycasting.c
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
