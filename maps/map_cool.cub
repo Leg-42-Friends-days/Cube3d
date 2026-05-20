@@ -5,7 +5,8 @@ WE ./texture/wall_shadow.xpm
 EA  ./texture/wall_light.xpm
 
 D ./texture/door2.xpm
-B ./texture/beer4.xpm
+B ./texture/beer4_2.xpm
+R ./texture/beer4.xpm
 F 85,60,40
 
 
