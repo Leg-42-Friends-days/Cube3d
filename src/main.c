@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/19 18:12:51 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:55:52 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int ac, char **av)
 			&global->img.bits_per_pixel, &global->img.line_length,
 			&global->img.endian);
 	raycasting(global);
-	dessin(global);
+	//dessin(global);
 	if (global->textures->beer > 0)
 	{
 		global->sprite = malloc(sizeof(t_sprite) * global->textures->beer);
