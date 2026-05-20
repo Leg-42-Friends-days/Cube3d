@@ -6,7 +6,11 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/05/20 14:59:13 by mickzhan         ###   ########.fr       */
+=======
+/*   Updated: 2026/05/20 15:22:21 by ibrouin-         ###   ########.fr       */
+>>>>>>> Iona
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +76,8 @@ int	main(int ac, char **av)
 		sprite(global);
 		animation(global, global->sprite, get_time());
 	}
-	global->drunk.drunk = 0;
-	global->drunk.frame_delay = 50000;
-	// mlx_mouse_hide(global->mlx, global->win);
+	init_drunk(global, get_time());
+	//dessin(global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
 	mlx_hook(global->win, 3, 1L << 1, (int (*)())press_off, (void *)global);

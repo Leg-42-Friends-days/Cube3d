@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 10:36:02 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 12:13:13 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 15:39:07 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ void	drunk_or_not_drunk(t_global *global, long current_time)
 {
 	if (current_time - global->drunk.last_update >= global->drunk.frame_delay)
 	{
-		global->drunk.last_update = current_time;
 		global->drunk.drunk = 0;
-		init_drunk(global);
+		init_drunk(global, current_time);
 	}
 }
 
-void	drink_beer(t_global *global)
+void	drink_beer(t_global *global, long current_time)
 {
 	double	playerxx;
 	double	playeryy;
@@ -57,22 +56,28 @@ void	drink_beer(t_global *global)
 	{
 		if (global->map.mapou[(int)playeryy][(int)playerxx] == 'B')
 		{
+			if (global->drunk.drunk == 0)
+				global->drunk.last_update = current_time;
+			else
+				global->drunk.frame_delay += DRUNK_TIME;
 			global->drunk.rot += 0.2;
 			global->drunk.color_speed += 1;
 			global->drunk.drunk = 1;
 			global->drunk.double_vision += 0.5;
+			global->drunk.last_update = current_time;
 			global->map.mapou[(int)playeryy][(int)playerxx] = '0';
 			re_init_sprite(global);
 		}
 	}
 }
 
-void	init_drunk(t_global *global)
+void	init_drunk(t_global *global, long current_time)
 {
+	global->drunk.last_update = current_time;
 	global->drunk.deform_plane.x = global->raycast_data.plane.x;
 	global->drunk.deform_plane.y = global->raycast_data.plane.y;
 	global->drunk.drunk = 0;
-	global->drunk.frame_delay = 20000;
+	global->drunk.frame_delay = DRUNK_TIME;
 	global->drunk.double_vision = 0;
 	global->drunk.filter = 10;
 	global->drunk.rot = 0;
