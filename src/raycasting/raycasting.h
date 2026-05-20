@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 19:16:40 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:28:49 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void					go_though_all_rays(t_raycast_data *data, t_map *map,
 							t_global *global);
 void					calculate_perp_wall_dist(t_raycast_data *data);
 void					raycast_init_data(t_raycast_data *data);
+void					dda(t_raycast_data *data, t_map *map);
 
 // DEFORM_RAYCASTING.c
 void					deform_rays(t_raycast_data *data, t_map *map,

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 10:36:02 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 18:42:00 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:13:13 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ void	drunk_or_not_drunk(t_global *global, long current_time)
 	if (current_time - global->drunk.last_update >= global->drunk.frame_delay)
 	{
 		global->drunk.last_update = current_time;
-		printf("c'est fini\n");
-		//global->drunk.deform_plane.x = global->raycast_data.plane.x;
-		//global->drunk.deform_plane.y = global->raycast_data.plane.y;
 		global->drunk.drunk = 0;
+		init_drunk(global);
 	}
 }
 
@@ -59,14 +57,25 @@ void	drink_beer(t_global *global)
 	{
 		if (global->map.mapou[(int)playeryy][(int)playerxx] == 'B')
 		{
-			printf("j'ai bu \n");
-			//global->drunk.deform_plane.x = global->raycast_data.plane.x;
-			//global->drunk.deform_plane.y = global->raycast_data.plane.y;
-			change_fov(global);
+			global->drunk.rot += 0.2;
+			global->drunk.color_speed += 1;
 			global->drunk.drunk = 1;
+			global->drunk.double_vision += 0.5;
 			global->map.mapou[(int)playeryy][(int)playerxx] = '0';
 			re_init_sprite(global);
 		}
 	}
-	refresh_image(global);
 }
+
+void	init_drunk(t_global *global)
+{
+	global->drunk.deform_plane.x = global->raycast_data.plane.x;
+	global->drunk.deform_plane.y = global->raycast_data.plane.y;
+	global->drunk.drunk = 0;
+	global->drunk.frame_delay = 20000;
+	global->drunk.double_vision = 0;
+	global->drunk.filter = 10;
+	global->drunk.rot = 0;
+	global->drunk.color_speed = 0;
+}
+

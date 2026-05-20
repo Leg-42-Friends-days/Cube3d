@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 17:26:45 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:11:11 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ typedef struct s_drunk
 	long				last_update;
 	long				frame_delay;
 	t_coordinates		deform_plane;
+	double				double_vision;
+	int					filter;
+	double				rot;
+	int					color_speed;
 }						t_drunk;
 
 typedef struct s_anim
@@ -61,6 +65,7 @@ void					animation(t_global *global, t_sprite *sprite,
 void					drink_beer(t_global *global);
 void					re_init_sprite(t_global *global);
 void					drunk_or_not_drunk(t_global *global, long current_time);
+void	init_drunk(t_global *global);
 
 // DOOR.C
 void					init_door(t_global *global);

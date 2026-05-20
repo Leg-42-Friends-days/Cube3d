@@ -6,13 +6,13 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 10:45:04 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 18:13:20 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:15:02 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	filtre_color_in_hexa(char *color)
+int	filtre_color_in_hexa(char *color, t_global *global)
 {
 	int	r;
 	int	g;
@@ -26,7 +26,7 @@ int	filtre_color_in_hexa(char *color)
 	while (*color != ',')
 		color ++;
 	color ++;
-	b = ft_atoi(color) + 10;
+	b = ft_atoi(color) + global->drunk.filter;
 	return ((r << 16) | (g << 8) | b);
 }
 
@@ -48,7 +48,7 @@ void	deform_print_floor(t_global *global, int x, int current)
 {
 	while (current < SCREEN_HEIGHT)
 	{
-		put_pixel(global, x, current, filtre_color_in_hexa(global->textures->floor));
+		put_pixel(global, x, current, filtre_color_in_hexa(global->textures->floor, global));
 		current ++;
 	}
 }
@@ -66,7 +66,7 @@ void	deform_print_line(t_global *global, t_raycast_data *data, int x)
 	current = 0;
 	while (current < data->print.draw_start)
 	{
-		put_pixel(global, x, current, filtre_color_in_hexa(global->textures->ceiling));
+		put_pixel(global, x, current, filtre_color_in_hexa(global->textures->ceiling, global));
 		current ++;
 	}
 	while (current < data->print.draw_end)
@@ -75,9 +75,8 @@ void	deform_print_line(t_global *global, t_raycast_data *data, int x)
 		data->print.tex_pos += data->print.step;
 		color = *(int *)(wall.data
 				+ data->print.tex_y * wall.line_len
-				+ data->print.tex_x * (wall.bpp / 8)) + 10;
-		current = current + 1;
-		//x = x + current;
+				+ data->print.tex_x * (wall.bpp / 8)) + global->drunk.filter;
+		current = current + global->drunk.double_vision;
 		put_pixel(global, x, current, color);
 		current++;
 	}
