@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/20 12:14:30 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/20 14:57:41 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	main(int ac, char **av)
 			&global->img.bits_per_pixel, &global->img.line_length,
 			&global->img.endian);
 	raycasting(global);
-	//dessin(global);
 	if (global->textures->beer > 0)
 	{
 		global->sprite = malloc(sizeof(t_sprite) * global->textures->beer);
@@ -75,7 +74,6 @@ int	main(int ac, char **av)
 	}
 	global->drunk.drunk = 0;
 	global->drunk.frame_delay = 50000;
-	// dessin(global);
 	// mlx_mouse_hide(global->mlx, global->win);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
