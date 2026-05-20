@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 10:36:02 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 15:39:07 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 16:17:15 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,42 @@ void	init_drunk(t_global *global, long current_time)
 	global->drunk.color_speed = 0;
 }
 
+/* void	free_all_sprite(t_global *global, int j)
+{
+	int	i;
+
+	i = 0;
+	while(i < global->textures->beer)
+	{
+		mlx_destroy_image(global->mlx, global->sprite[i].anim.frame[j].img_ptr);
+		i++;
+	}
+}
+
+int	close_window(t_global *global)
+{
+	mlx_destroy_image(global->mlx, global->img.img);
+	mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
+	mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
+	mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
+	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
+	if (global->textures->bonus[2] == 1)
+	{
+		free_all_sprite(global, 1);
+	}
+	if (global->textures->bonus[1] == 1)
+	{
+		free_all_sprite(global, 0);
+		free(global->sprite);
+	}
+	if (global->textures->bonus[0] == 1)
+	{
+		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
+	}
+	mlx_destroy_window(global->mlx, global->win);
+	mlx_destroy_display(global->mlx);
+	free(global->raycast_data.perp_wall_buffer);
+	free(global->mlx);
+	free_all(global);
+	exit(0);
+} */

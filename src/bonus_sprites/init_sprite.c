@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:35:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 18:09:12 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 16:20:01 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	load_textures_frames(t_global *global, t_sprite *sprite)
 	{
 		if (i == 1)
 		{
-			load_texture(global, &(sprite->anim.frame[i]), "./texture/beer4.xpm");
+			load_texture(global, &(sprite->anim.frame[i]), global->textures->sprite2);
 			return ;
 		}
 		load_texture(global, &(sprite->anim.frame[i]), global->textures->sprite);
@@ -33,10 +33,38 @@ void	init_sprite(t_global *global, t_sprite *sprite, int x, int y)
 {
 	char	**map;
 
+	sprite->anim.last_update = get_time();
 	sprite->anim.frame_count = 2;
 	sprite->anim.frame_delay = 100;
 	sprite->anim.current_frame = 0;
 	load_textures_frames(global, sprite);
+	map = global->map.mapou;
+	while (y < global->map.height)
+	{
+		while (map[y][x] != '\0')
+		{
+			if (map[y][x] == 'B')
+			{
+				sprite->sprite.y = y + 0.5;
+				sprite->sprite.x = x + 0.5;
+				return ;
+			}
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}
+
+void	init_sprite_2(t_global *global, t_sprite *sprite, int x, int y)
+{
+	char	**map;
+
+	sprite->anim.last_update = get_time();
+	sprite->anim.frame_count = 2;
+	sprite->anim.frame_delay = 100;
+	sprite->anim.current_frame = 0;
+	//load_textures_frames(global, sprite);
 	map = global->map.mapou;
 	while (y < global->map.height)
 	{
@@ -73,7 +101,7 @@ void	re_init_sprite(t_global *global)
 	i = 0;
 	while (i < global->textures->beer)
 	{
-		init_sprite(global, &(global->sprite[i]), x, y);
+		init_sprite_2(global, &(global->sprite[i]), x, y);
 		x = global->sprite[i].sprite.x + 1;
 		y = global->sprite[i].sprite.y;
 		i++;

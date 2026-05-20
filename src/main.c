@@ -6,16 +6,37 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/20 15:54:09 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 16:19:21 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	free_malloc_error(t_global *global)
+{
+	mlx_destroy_image(global->mlx, global->img.img);
+	mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
+	mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
+	mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
+	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
+	if (global->textures->bonus[0] == 1)
+	{
+		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
+	}
+	mlx_destroy_window(global->mlx, global->win);
+	mlx_destroy_display(global->mlx);
+	free(global->raycast_data.perp_wall_buffer);
+	free(global->mlx);
+	free_all(global);
+	exit(0);
+}
+
 int	mouse_move(int x, int y, t_global *global)
 {
 	static int	memo_x = SCREEN_WIDTH / 2;
+	static long	fps_refresh = 0;
 	int			delta_x;
+	long		now;
 
 	(void)y;
 	delta_x = x - memo_x;
@@ -24,7 +45,12 @@ int	mouse_move(int x, int y, t_global *global)
 	else if (delta_x < 0)
 		left_rotation(&(global->raycast_data));
 	memo_x = x;
-	refresh_image(global);
+	now = get_time();
+	if (now - fps_refresh >= 5000)
+	{
+		refresh_image(global);
+		fps_refresh = now;
+	}
 	return (0);
 }
 
@@ -59,10 +85,14 @@ int	main(int ac, char **av)
 			&global->img.bits_per_pixel, &global->img.line_length,
 			&global->img.endian);
 	raycasting(global);
-	dessin(global);
-	if (global->textures->beer > 0)
+	if (global->textures->bonus[1] == 1)
 	{
 		global->sprite = malloc(sizeof(t_sprite) * global->textures->beer);
+		if (!global->sprite)
+		{
+			free_malloc_error(global);
+			return (1);
+		}
 		sprite(global);
 		animation(global, global->sprite, get_time());
 	}

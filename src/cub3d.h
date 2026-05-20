@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/20 15:15:51 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 16:13:41 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct s_global
 	t_drunk			drunk;
 }					t_global;
 
-# define SCREEN_WIDTH 1200
-# define SCREEN_HEIGHT 900
+# define SCREEN_WIDTH 500
+# define SCREEN_HEIGHT 500
 # define ESC 65307
 # define LEFT 65361
 # define RIGHT 65363
