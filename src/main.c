@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/19 18:55:52 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:14:30 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	mouse_move(int x, int y, t_global *global)
 		left_rotation(&(global->raycast_data));
 	memo_x = x;
 	now = get_time();
-	if (now - fps_refresh >= 33)
+	if (now - fps_refresh >= 5000)
 	{
 		refresh_image(global);
 		fps_refresh = now;
