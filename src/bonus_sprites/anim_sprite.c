@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 10:36:02 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 15:34:31 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 15:39:07 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	drunk_or_not_drunk(t_global *global, long current_time)
 {
 	if (current_time - global->drunk.last_update >= global->drunk.frame_delay)
 	{
-		//global->drunk.last_update = current_time;
 		global->drunk.drunk = 0;
 		init_drunk(global, current_time);
 	}
