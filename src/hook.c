@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 15:27:20 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 15:45:46 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ int	close_window(t_global *global)
 	mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
 	mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
 	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
-	if (global->textures->beer > 0)
+	if (global->textures->bonus[1] == 1)
 	{
 		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
+	}
+	if (global->textures->bonus[2] == 1)
+	{
+		mlx_destroy_image(global->mlx, global->sprite->anim.frame[1].img_ptr);
 	}
 	if (global->textures->bonus[0] == 1)
 	{
@@ -45,9 +49,13 @@ int	close_window_hook(void *param)
 	mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
 	mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
 	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
-	if (global->textures->beer)
+	if (global->textures->bonus[1] == 1)
 	{
 		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
+	}
+	if (global->textures->bonus[2] == 1)
+	{
+		mlx_destroy_image(global->mlx, global->sprite->anim.frame[1].img_ptr);
 	}
 	if (global->textures->bonus[0] == 1)
 	{

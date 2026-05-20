@@ -6,6 +6,7 @@ EA  ./texture/wall_light.xpm
 
 D ./texture/door2.xpm
 B ./texture/beer4.xpm
+R ./texture/door2.xpm
 F 85,60,40
 
 
