@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_wall_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 16:22:08 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 15:23:05 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:59:50 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,30 +104,4 @@ t_xpm	which_wall(t_raycast_data *data, t_global *global)
 			return (data->north);
 	}
 	return (data->north);
-}
-
-void	refresh_image(t_global *global)
-{
-	go_though_all_rays(&(global->raycast_data), &(global->map), global);
-	dessin(global);
-	if (global->textures->beer > 0)
-	{
-		animation(global, global->sprite, get_time());
-		sprite_2(global);
-	}
-	drunk_or_not_drunk(global, get_time());
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
-}
-
-void	refresh_drunk_image(t_global *global)
-{
-	deform_rays(&(global->raycast_data), &(global->map), global);
-	dessin(global);
-	if (global->textures->beer > 0)
-	{
-		animation(global, global->sprite, get_time());
-		sprite_2(global);
-	}
-	drunk_or_not_drunk(global, get_time());
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 }

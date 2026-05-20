@@ -6,96 +6,44 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 13:51:56 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 16:12:32 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:31:40 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_all_sprite(t_global *global, int j)
+int	mouse_move(int x, int y, t_global *global)
 {
-	int	i;
+	static int	memo_x = SCREEN_WIDTH / 2;
+	static long	fps_refresh = 0;
+	int			delta_x;
+	long		now;
 
-	i = 0;
-	while(i < global->textures->beer)
+	(void)y;
+	delta_x = x - memo_x;
+	if (delta_x > 0)
+		right_rotation(&(global->raycast_data));
+	else if (delta_x < 0)
+		left_rotation(&(global->raycast_data));
+	memo_x = x;
+	now = get_time();
+	if (now - fps_refresh >= 5000)
 	{
-		mlx_destroy_image(global->mlx, global->sprite[i].anim.frame[j].img_ptr);
-		i++;
+		refresh_image(global);
+		fps_refresh = now;
 	}
+	return (0);
 }
 
-int	close_window(t_global *global)
-{
-	mlx_destroy_image(global->mlx, global->img.img);
-	mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
-	mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
-	mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
-	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
-	if (global->textures->bonus[2] == 1)
-	{
-		free_all_sprite(global, 1);
-	}
-	if (global->textures->bonus[1] == 1)
-	{
-		free_all_sprite(global, 0);
-		free(global->sprite);
-	}
-	if (global->textures->bonus[0] == 1)
-	{
-		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
-	}
-	mlx_destroy_window(global->mlx, global->win);
-	mlx_destroy_display(global->mlx);
-	free(global->raycast_data.perp_wall_buffer);
-	free(global->mlx);
-	free_all(global);
-	exit(0);
-}
-
-int	close_window_hook(void *param)
+void	key_hook(void *param)
 {
 	t_global	*global;
 
 	global = (t_global *)param;
-	mlx_destroy_image(global->mlx, global->img.img);
-	mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
-	mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
-	mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
-	mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
-	if (global->textures->bonus[1] == 1)
-	{
-		mlx_destroy_image(global->mlx, global->sprite->anim.frame[0].img_ptr);
-	}
-	if (global->textures->bonus[2] == 1)
-	{
-		mlx_destroy_image(global->mlx, global->sprite->anim.frame[1].img_ptr);
-	}
-	if (global->textures->bonus[0] == 1)
-	{
-		mlx_destroy_image(global->mlx, global->door.texture.img_ptr);
-	}
-	mlx_destroy_window(global->mlx, global->win);
-	mlx_destroy_display(global->mlx);
-	free(global->raycast_data.perp_wall_buffer);
-	free(global->mlx);
-	free_all(global);
-	exit(0);
-}
-
-int	key_hook(void *param)
-{
-	t_global	*global;
-
-	global = (t_global *)param;
-	//mlx_hook(global->win, 6, 1L << 6, (int (*)())mouse_move, (void *)global);
 	if (global->hook.left)
 		rotate(LEFT, global);
 	if (global->hook.right)
 		rotate(RIGHT, global);
-	//if (global->hook.up)
-   //     walk(UP, global);
-	//if (global->hook.down)
-	//    walk(DOWN, global);
 	if (global->hook.w)
 		walk(W, global);
 	if (global->hook.a)
@@ -114,10 +62,17 @@ int	key_hook(void *param)
 		refresh_image(global);
 	if (global->drunk.drunk == 1)
 		refresh_drunk_image(global);
-	return (0);
 }
 
-int	press_on(int keycode, void *param)
+void	press_on_2(int keycode, t_global *global)
+{
+	if (keycode == F)
+		global->hook.f = 1;
+	if (keycode == T)
+		global->hook.t = 1;
+}
+
+void	press_on(int keycode, void *param)
 {
 	t_global	*global;
 
@@ -142,14 +97,10 @@ int	press_on(int keycode, void *param)
 		global->hook.d = 1;
 	if (keycode == E)
 		global->hook.e = 1;
-	if (keycode == F)
-		global->hook.f = 1;
-	if (keycode == T)
-		global->hook.t = 1;
-	return (0);
+	press_on_2(keycode, global);
 }
 
-int	press_off(int keycode, void *param)
+void	press_off(int keycode, void *param)
 {
 	t_global	*global;
 
@@ -176,5 +127,4 @@ int	press_off(int keycode, void *param)
 		global->hook.f = 0;
 	if (keycode == T)
 		global->hook.t = 0;
-	return (0);
 }

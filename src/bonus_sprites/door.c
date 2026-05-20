@@ -3,28 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 13:15:06 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/19 17:22:36 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:34:54 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    init_door(t_global *global)
+void	init_door(t_global *global)
 {
 	if (global->textures->bonus[0] == 1)
-    	load_texture(global, &(global->door.texture), global->textures->door);
+		load_texture(global, &(global->door.texture), global->textures->door);
 }
 
-void    open_the_door(t_global *global)
+void	open_the_door(t_global *global)
 {
 	double	playerxx;
 	double	playeryy;
 
-	playerxx = global->raycast_data.player.x + (global->raycast_data.dir.x * 1.8);
-	playeryy = global->raycast_data.player.y + (global->raycast_data.dir.y * 1.8);
+	playerxx = global->raycast_data.player.x
+		+ (global->raycast_data.dir.x * 1.8);
+	playeryy = global->raycast_data.player.y
+		+ (global->raycast_data.dir.y * 1.8);
 	if (playerxx >= global->map.width || playerxx < 0)
 		return ;
 	if (playeryy >= global->map.height || playeryy < 0)
@@ -37,13 +39,15 @@ void    open_the_door(t_global *global)
 	refresh_image(global);
 }
 
-void    close_the_door(t_global *global)
+void	close_the_door(t_global *global)
 {
-    double	playerxx;
+	double	playerxx;
 	double	playeryy;
 
-	playerxx = global->raycast_data.player.x + (global->raycast_data.dir.x * 1.5);
-	playeryy = global->raycast_data.player.y + (global->raycast_data.dir.y * 1.5);
+	playerxx = global->raycast_data.player.x
+		+ (global->raycast_data.dir.x * 1.5);
+	playeryy = global->raycast_data.player.y
+		+ (global->raycast_data.dir.y * 1.5);
 	if (playerxx >= global->map.width || playerxx < 0)
 		return ;
 	if (playeryy >= global->map.height || playeryy < 0)

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:41:42 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 12:06:07 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:56:00 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,16 @@ void	change_fov(t_global *global)
 {
 	double	old_plane_x;
 
+	global->drunk.deform_plane.x = global->raycast_data.plane.x;
+	global->drunk.deform_plane.y = global->raycast_data.plane.y;
 	old_plane_x = global->drunk.deform_plane.x;
 	global->drunk.deform_plane.x *= 1.3;
 	global->drunk.deform_plane.y *= 1.3;
-	global->drunk.deform_plane.x = global->drunk.deform_plane.x * cos(global->drunk.rot) - global->drunk.deform_plane.y
+	global->drunk.deform_plane.x = global->drunk.deform_plane.x
+		* cos(global->drunk.rot) - global->drunk.deform_plane.y
 		* sin(global->drunk.rot);
-	global->drunk.deform_plane.y = old_plane_x * sin(global->drunk.rot) + global->drunk.deform_plane.y
+	global->drunk.deform_plane.y = old_plane_x
+		* sin(global->drunk.rot) + global->drunk.deform_plane.y
 		* cos(global->drunk.rot);
 	global->drunk.filter += global->drunk.color_speed;
 }
@@ -69,9 +73,6 @@ void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 
 	x = 0;
 	w = data->screen_width;
-
-	global->drunk.deform_plane.x = data->plane.x;
-	global->drunk.deform_plane.y = data->plane.y;
 	change_fov(global);
 	while (x < w)
 	{
@@ -90,4 +91,3 @@ void	deform_rays(t_raycast_data *data, t_map *map, t_global *global)
 		x ++;
 	}
 }
-

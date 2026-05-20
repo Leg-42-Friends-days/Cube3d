@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/20 16:24:48 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:30:22 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,18 @@ typedef struct s_global
 # define T 116
 # define DRUNK_TIME 4000
 
-void				create_map(t_map *map, char *str);
-int					mouse_move(int x, int y, t_global *global);
-long				get_time(void);
+int					free_malloc_error(t_global *global);
 
 // HOOK.c
+void				key_hook(void *param);
+void				press_on(int keycode, void *param);
+void				press_off(int keycode, void *param);
+int					mouse_move(int x, int y, t_global *global);
+
+// HOOK_UTILS.c
 int					close_window(t_global *global);
-int					key_hook(void *param);
 int					close_window_hook(void *param);
-int					press_on(int keycode, void *param);
-int					press_off(int keycode, void *param);
+long				get_time(void);
 
 // LOAD_TEXTURES.C
 void				load_all_textures(t_global *global);

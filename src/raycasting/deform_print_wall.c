@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 10:45:04 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 12:18:04 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:53:40 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,19 @@ void	deform_print_floor(t_global *global, int x, int current)
 {
 	while (current < SCREEN_HEIGHT)
 	{
-		put_pixel(global, x, current, filtre_color_in_hexa(global->textures->floor, global));
+		put_pixel(global, x, current,
+			filtre_color_in_hexa(global->textures->floor, global));
 		current ++;
+	}
+}
+
+void	deform_print_ceiling(t_global *global, int x, int *current)
+{
+	while (*current < global->raycast_data.print.draw_start)
+	{
+		put_pixel(global, x, *current,
+			filtre_color_in_hexa(global->textures->ceiling, global));
+		*current = *current + 1;
 	}
 }
 
@@ -64,11 +75,7 @@ void	deform_print_line(t_global *global, t_raycast_data *data, int x)
 	data->print.tex_pos = (data->print.draw_start - SCREEN_HEIGHT / 2
 			+ data->print.line_height / 2) * data->print.step;
 	current = 0;
-	while (current < data->print.draw_start)
-	{
-		put_pixel(global, x, current, filtre_color_in_hexa(global->textures->ceiling, global));
-		current ++;
-	}
+	deform_print_ceiling(global, x, &current);
 	while (current < data->print.draw_end)
 	{
 		data->print.tex_y = (int)data->print.tex_pos % wall.height;

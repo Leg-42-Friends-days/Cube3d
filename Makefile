@@ -6,7 +6,7 @@
 #    By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/05 13:00:27 by mickzhan          #+#    #+#              #
-#    Updated: 2026/05/19 19:16:54 by ibrouin-         ###   ########.fr        #
+#    Updated: 2026/05/20 18:20:28 by ibrouin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -Wno-cast-function-type -I./includes -I./libft -g
 SRC_DIR = src/
 SRC =	main.c \
 		hook.c \
+		hook_utils.c \
 		load_textures.c \
 		parsing/map_read.c \
 		parsing/map_start.c \
@@ -41,12 +42,14 @@ SRC =	main.c \
 		raycasting/init_raycasting.c \
 		raycasting/print_wall.c \
 		raycasting/print_wall_utils.c \
+		raycasting/refresh_image.c \
 		raycasting/walk.c \
 		raycasting/collision_detection.c \
 		bonus_sprites/sprite.c \
 		bonus_sprites/init_sprite.c \
 		bonus_sprites/door.c \
 		bonus_sprites/anim_sprite.c \
+		bonus_sprites/print_sprite.c \
 		raycasting/deform_raycasting.c \
 		raycasting/deform_print_wall.c
 

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 16:40:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 11:28:49 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:01:33 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,20 @@ typedef struct s_raycast_data
 typedef struct s_global	t_global;
 
 // RAYCASTING.c
-int						raycasting(t_global *global);
-void					go_though_all_rays(t_raycast_data *data, t_map *map,
-							t_global *global);
-void					calculate_perp_wall_dist(t_raycast_data *data);
-void					raycast_init_data(t_raycast_data *data);
-void					dda(t_raycast_data *data, t_map *map);
+int		raycasting(t_global *global);
+void	go_though_all_rays(t_raycast_data *data, t_map *map, t_global *global);
+void	calculate_perp_wall_dist(t_raycast_data *data);
+void	raycast_init_data(t_raycast_data *data);
+void	dda(t_raycast_data *data, t_map *map);
 
 // DEFORM_RAYCASTING.c
-void					deform_rays(t_raycast_data *data, t_map *map,
-							t_global *global);
+void	deform_rays(t_raycast_data *data, t_map *map, t_global *global);
 
 // INIT_RAYCASTING.C
-void					init_player(t_global *global);
-void					init_raycasting(t_raycast_data *data);
-void					init_dir(t_raycast_data *data);
-void					init_plane(t_raycast_data *data);
+void	init_player(t_global *global);
+void	init_raycasting(t_raycast_data *data);
+void	init_dir(t_raycast_data *data);
+void	init_plane(t_raycast_data *data);
 
 // PRINT_WALL.c
 void	print_wall(t_raycast_data *data, t_global *global, int x);
@@ -107,28 +105,25 @@ void	deform_print_line(t_global *global, t_raycast_data *data, int x);
 void	change_fov(t_global *global);
 
 // PRINT_WALL_UTILS.c
-int						color_in_hexa(char *color);
-t_xpm					which_wall(t_raycast_data *data, t_global *global);
-void					refresh_image(t_global *global);
-void					refresh_drunk_image(t_global *global);
+int		color_in_hexa(char *color);
+t_xpm	which_wall(t_raycast_data *data, t_global *global);
+
+//REFRESH_IMAGE.c
+void	refresh_image(t_global *global);
+void	refresh_drunk_image(t_global *global);
 
 // WALK.c
-int						rotate(int keycode, t_global *global);
-int						walk(int keycode, t_global *global);
-int						crab_walk(int keycode, t_global *global);
-void					left_rotation(t_raycast_data *data);
-void					right_rotation(t_raycast_data *data);
+int		rotate(int keycode, t_global *global);
+int		walk(int keycode, t_global *global);
+int		crab_walk(int keycode, t_global *global);
+void	left_rotation(t_raycast_data *data);
+void	right_rotation(t_raycast_data *data);
 
 // COLLISION_DETECTION.c
-int						collision_detection(t_raycast_data *data, t_map *map,
-							int direction);
-int						is_a_wall(t_raycast_data *data, t_map *map, double rx,
-							double ry);
-int						is_a_wall_back(t_raycast_data *data, t_map *map,
-							double rx, double ry);
-int						is_a_wall_left(t_raycast_data *data, t_map *map,
-							double rx, double ry);
-int						is_a_wall_right(t_raycast_data *data, t_map *map,
-							double rx, double ry);
+int		collision_detection(t_raycast_data *data, t_map *map, int direction);
+int		is_a_wall(t_raycast_data *data, t_map *map, double rx, double ry);
+int		is_a_wall_back(t_raycast_data *data, t_map *map, double rx, double ry);
+int		is_a_wall_left(t_raycast_data *data, t_map *map, double rx, double ry);
+int		is_a_wall_right(t_raycast_data *data, t_map *map, double rx, double ry);
 
 #endif

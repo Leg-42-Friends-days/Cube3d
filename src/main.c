@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/20 16:19:21 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:29:45 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,23 @@ int	free_malloc_error(t_global *global)
 	exit(0);
 }
 
-int	mouse_move(int x, int y, t_global *global)
+void	mlx_cub3d_loop(t_global *global)
 {
-	static int	memo_x = SCREEN_WIDTH / 2;
-	static long	fps_refresh = 0;
-	int			delta_x;
-	long		now;
-
-	(void)y;
-	delta_x = x - memo_x;
-	if (delta_x > 0)
-		right_rotation(&(global->raycast_data));
-	else if (delta_x < 0)
-		left_rotation(&(global->raycast_data));
-	memo_x = x;
-	now = get_time();
-	if (now - fps_refresh >= 5000)
-	{
-		refresh_image(global);
-		fps_refresh = now;
-	}
-	return (0);
-}
-
-long	get_time(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000L + tv.tv_usec / 1000);
+	global->win = mlx_new_window(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
+			"cub_3D");
+	global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	global->img.addr = mlx_get_data_addr(global->img.img,
+			&global->img.bits_per_pixel, &global->img.line_length,
+			&global->img.endian);
+	raycasting(global);
+	first_init_sprite(global);
+	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
+	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
+	mlx_hook(global->win, 3, 1L << 1, (int (*)())press_off, (void *)global);
+	mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
+	mlx_hook(global->win, 6, 1L << 6, (int (*)())mouse_move, (void *)global);
+	mlx_loop_hook(global->mlx, (int (*)())key_hook, (void *)global);
+	mlx_loop(global->mlx);
 }
 
 int	main(int ac, char **av)
@@ -78,35 +66,6 @@ int	main(int ac, char **av)
 		exit(1);
 	load_all_textures(global);
 	init_door(global);
-	global->win = mlx_new_window(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
-			"cub_3D");
-	global->img.img = mlx_new_image(global->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	global->img.addr = mlx_get_data_addr(global->img.img,
-			&global->img.bits_per_pixel, &global->img.line_length,
-			&global->img.endian);
-	raycasting(global);
-	if (global->textures->bonus[1] == 1)
-	{
-		global->sprite = malloc(sizeof(t_sprite) * global->textures->beer);
-		if (!global->sprite)
-		{
-			free_malloc_error(global);
-			return (1);
-		}
-		sprite(global);
-		animation(global, global->sprite, get_time());
-	}
-	init_drunk(global, get_time());
-	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
-	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
-	mlx_hook(global->win, 3, 1L << 1, (int (*)())press_off, (void *)global);
-	mlx_hook(global->win, 17, 0, (int (*)())close_window_hook, (void *)global);
-	mlx_hook(global->win, 6, 1L << 6, (int (*)())mouse_move, (void *)global);
-	mlx_loop_hook(global->mlx, (int (*)())key_hook, (void *)global);
-	// mlx_key_hook(global->win, key_hook, (void *)global);
-	// mlx_hook(global->win, 17, 0, (int (*)())close_window_hook,
-	// (void *)global);
-	mlx_loop(global->mlx);
-	free_all(global);
+	mlx_cub3d_loop(global);
 	return (0);
 }

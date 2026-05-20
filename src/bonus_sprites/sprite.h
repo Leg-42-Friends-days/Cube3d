@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 16:18:44 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:29:40 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,33 @@ typedef struct s_sprite
 
 typedef struct s_global	t_global;
 
-void					sprite(t_global *global);
-void					init_sprite(t_global *global, t_sprite *sprite, int x,
-							int y);
-void					sprite_2(t_global *global);
-void					animation(t_global *global, t_sprite *sprite,
-							long current_time);
+//ANIM_SPRITE.c
 void	drink_beer(t_global *global, long current_time);
-void					re_init_sprite(t_global *global);
-void					drunk_or_not_drunk(t_global *global, long current_time);
 void	init_drunk(t_global *global, long current_time);
+void	animation(t_global *global, t_sprite *sprite, long current_time);
+void	drunk_or_not_drunk(t_global *global, long current_time);
+void	init_drunk(t_global *global, long current_time);
+
+//INIT_SPRITE.C
+void	first_init_sprite(t_global *global);
+void	init_sprite(t_global *global, t_sprite *sprite, int x, int y);
+void	re_init_sprite(t_global *global);
 void	load_textures_frames(t_global *global, t_sprite *sprite);
+
+//SPRITE.c
+void	sprite(t_global *global);
+void	sprite_2(t_global *global);
+
+//PRINT_SPRITE.c
+void	sprite_what_to_draw(t_sprite *sprite);
+void	sprite_in_persp(t_sprite *sprite);
+int		sprite_camera_position(t_sprite *sprite, t_raycast_data *data);
+void	draw_y(t_sprite *sprite, t_global *global, int x);
+void	draw_sprite(t_global *global, t_sprite *sprite, t_raycast_data *data);
+
 // DOOR.C
-void					init_door(t_global *global);
-void					open_the_door(t_global *global);
-void					close_the_door(t_global *global);
+void	init_door(t_global *global);
+void	open_the_door(t_global *global);
+void	close_the_door(t_global *global);
 
 #endif
