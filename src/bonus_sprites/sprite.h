@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:56:40 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 12:11:11 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 15:28:10 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,10 @@ void					init_sprite(t_global *global, t_sprite *sprite, int x,
 void					sprite_2(t_global *global);
 void					animation(t_global *global, t_sprite *sprite,
 							long current_time);
-void					drink_beer(t_global *global);
+void	drink_beer(t_global *global, long current_time);
 void					re_init_sprite(t_global *global);
 void					drunk_or_not_drunk(t_global *global, long current_time);
-void	init_drunk(t_global *global);
-
+void	init_drunk(t_global *global, long current_time);
 // DOOR.C
 void					init_door(t_global *global);
 void					open_the_door(t_global *global);

@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:50:04 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/20 11:41:18 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 15:22:21 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int ac, char **av)
 		sprite(global);
 		animation(global, global->sprite, get_time());
 	}
-	init_drunk(global);
+	init_drunk(global, get_time());
 	//dessin(global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.img, 0, 0);
 	mlx_hook(global->win, 2, 1L << 0, (int (*)())press_on, (void *)global);
