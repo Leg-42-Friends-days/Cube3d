@@ -6,7 +6,7 @@
 /*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 10:45:04 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 12:15:02 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:18:04 by ibrouin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,3 @@ void	deform_print_line(t_global *global, t_raycast_data *data, int x)
 	}
 	deform_print_floor(global, x, current);
 }
-
-/* for y:
-    offset = sin(y * 0.05 + time) * 10
-
-    for x:
-        newX = x + offset
-        screen[x][y] = image[newX][y] */
