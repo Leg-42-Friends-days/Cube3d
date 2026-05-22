@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_sprite.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 17:37:32 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 17:42:38 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/22 17:12:20 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	sprite_what_to_draw(t_sprite *sprite)
 	if (sprite->draw_end.y >= SCREEN_HEIGHT)
 		sprite->draw_end.y = SCREEN_HEIGHT - 1;
 	sprite->draw_start.x = -sprite->sprite_width / 2 + sprite->sprite_screen_x;
-	//if (sprite->draw_start.x < 0)
-	//	sprite->draw_start.x = 0;
 	sprite->draw_end.x = sprite->sprite_width / 2 + sprite->sprite_screen_x;
 	if (sprite->draw_end.x >= SCREEN_WIDTH)
 		sprite->draw_end.x = SCREEN_WIDTH - 1;

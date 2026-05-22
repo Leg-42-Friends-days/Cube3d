@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision_detection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 14:28:09 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/16 18:49:36 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/22 16:57:01 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	is_a_wall_back(t_raycast_data *data, t_map *map, double rx, double ry)
 		return (1);
 	if (map->mapou[(int)playeryy][(int)playerxx] == '1')
 		return (1);
+	if (map->mapou[(int)playeryy][(int)playerxx] == 'D')
+		return (1);
 	return (0);
 }
 
@@ -87,6 +89,8 @@ int	is_a_wall_left(t_raycast_data *data, t_map *map, double rx, double ry)
 		return (1);
 	if (map->mapou[(int)playeryy][(int)playerxx] == '1')
 		return (1);
+	if (map->mapou[(int)playeryy][(int)playerxx] == 'D')
+		return (1);
 	return (0);
 }
 
@@ -102,6 +106,8 @@ int	is_a_wall_right(t_raycast_data *data, t_map *map, double rx, double ry)
 	if (playeryy >= map->height || playeryy < 0)
 		return (1);
 	if (map->mapou[(int)playeryy][(int)playerxx] == '1')
+		return (1);
+	if (map->mapou[(int)playeryy][(int)playerxx] == 'D')
 		return (1);
 	return (0);
 }

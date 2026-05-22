@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:23:06 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/22 15:57:18 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/22 17:11:57 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_if_error(t_global *global)
 	mlx_destroy_display(global->mlx);
 	free(global->mlx);
 	free_all(global);
-	exit (1);
+	exit(1);
 }
 
 int	load_texture(t_global *global, t_xpm *tex, char *path)
@@ -37,21 +37,23 @@ int	load_texture(t_global *global, t_xpm *tex, char *path)
 void	load_all_textures(t_global *global)
 {
 	if (load_texture(global, &(global->raycast_data.north),
-		global->textures->north))
+			global->textures->north))
 		free_if_error(global);
-	if (load_texture(global, &(global->raycast_data.east), global->textures->east))
+	if (load_texture(global, &(global->raycast_data.east),
+			global->textures->east))
 	{
 		mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
 		free_if_error(global);
 	}
-	if (load_texture(global, &(global->raycast_data.west), global->textures->west))
+	if (load_texture(global, &(global->raycast_data.west),
+			global->textures->west))
 	{
 		mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
 		mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
 		free_if_error(global);
 	}
 	if (load_texture(global, &(global->raycast_data.south),
-		global->textures->south))
+			global->textures->south))
 	{
 		mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
 		mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);

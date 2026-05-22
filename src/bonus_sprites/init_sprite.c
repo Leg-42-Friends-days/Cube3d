@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:35:44 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/20 18:29:31 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/22 17:11:46 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	first_init_sprite(t_global *global)
 		{
 			free_malloc_error(global);
 			write(2, "malloc error\n", 13);
-			exit (1);
+			exit(1);
 		}
 		sprite(global);
 		animation(global, global->sprite, get_time());
@@ -31,30 +31,20 @@ void	first_init_sprite(t_global *global)
 
 void	load_textures_frames(t_global *global, t_sprite *sprite)
 {
-	int	i;
-
-	i = 0;
-	while (i < sprite->anim.frame_count)
+	if (load_texture(global, &(sprite->anim.frame[1]),
+			global->textures->sprite2))
 	{
-		if (i == 1)
-		{
-			if (load_texture(global, &(sprite->anim.frame[i]),
-				global->textures->sprite2))
-			{
-				mlx_destroy_image(global->mlx, sprite->anim.frame[0].img_ptr);
-				free(global->sprite);
-				free_malloc_error(global);
-				exit (1);
-			}
-		}
-		if (load_texture(global, &(sprite->anim.frame[i]),
+		mlx_destroy_image(global->mlx, sprite->anim.frame[0].img_ptr);
+		free(global->sprite);
+		free_malloc_error(global);
+		exit(1);
+	}
+	if (load_texture(global, &(sprite->anim.frame[0]),
 			global->textures->sprite))
-		{
-			free(global->sprite);
-			free_malloc_error(global);
-				exit (1);
-		}
-		i++;
+	{
+		free(global->sprite);
+		free_malloc_error(global);
+		exit(1);
 	}
 }
 
