@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:23:06 by ibrouin-          #+#    #+#             */
-/*   Updated: 2026/05/22 17:11:57 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/22 17:20:21 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	load_texture(t_global *global, t_xpm *tex, char *path)
 			&tex->height);
 	if (!tex->img_ptr)
 	{
-		perror("Error texture ");
+		perror("Error\nTexture ");
 		return (1);
 	}
 	tex->data = mlx_get_data_addr(tex->img_ptr, &tex->bpp, &tex->line_len,
