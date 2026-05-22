@@ -38,12 +38,22 @@ void	load_textures_frames(t_global *global, t_sprite *sprite)
 	{
 		if (i == 1)
 		{
-			load_texture(global, &(sprite->anim.frame[i]),
-				global->textures->sprite2);
-			return ;
+			if (load_texture(global, &(sprite->anim.frame[i]),
+				global->textures->sprite2))
+			{
+				mlx_destroy_image(global->mlx, sprite->anim.frame[0].img_ptr);
+				free(global->sprite);
+				free_malloc_error(global);
+				exit (1);
+			}
 		}
-		load_texture(global, &(sprite->anim.frame[i]),
-			global->textures->sprite);
+		if (load_texture(global, &(sprite->anim.frame[i]),
+			global->textures->sprite))
+		{
+			free(global->sprite);
+			free_malloc_error(global);
+				exit (1);
+		}
 		i++;
 	}
 }

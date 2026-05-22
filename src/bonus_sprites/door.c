@@ -15,7 +15,16 @@
 void	init_door(t_global *global)
 {
 	if (global->textures->bonus[0] == 1)
-		load_texture(global, &(global->door.texture), global->textures->door);
+	{
+		if (load_texture(global, &(global->door.texture), global->textures->door))
+		{
+		mlx_destroy_image(global->mlx, global->raycast_data.north.img_ptr);
+		mlx_destroy_image(global->mlx, global->raycast_data.east.img_ptr);
+		mlx_destroy_image(global->mlx, global->raycast_data.west.img_ptr);
+		mlx_destroy_image(global->mlx, global->raycast_data.south.img_ptr);
+		free_if_error(global);
+		}
+	}
 }
 
 void	open_the_door(t_global *global)
