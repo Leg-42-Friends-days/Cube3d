@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibrouin- <ibrouin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 15:24:18 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/20 18:30:22 by ibrouin-         ###   ########.fr       */
+/*   Updated: 2026/05/22 15:44:11 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ long				get_time(void);
 
 // LOAD_TEXTURES.C
 void				load_all_textures(t_global *global);
-void				load_texture(t_global *global, t_xpm *tex, char *path);
+int					load_texture(t_global *global, t_xpm *tex, char *path);
 
 #endif
