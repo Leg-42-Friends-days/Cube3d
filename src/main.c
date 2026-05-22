@@ -28,7 +28,7 @@ int	free_malloc_error(t_global *global)
 	free(global->raycast_data.perp_wall_buffer);
 	free(global->mlx);
 	free_all(global);
-	exit(0);
+	return (0);
 }
 
 void	mlx_cub3d_loop(t_global *global)

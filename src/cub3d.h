@@ -108,5 +108,6 @@ long				get_time(void);
 // LOAD_TEXTURES.C
 void				load_all_textures(t_global *global);
 int					load_texture(t_global *global, t_xpm *tex, char *path);
+void				free_if_error(t_global *global);
 
 #endif
