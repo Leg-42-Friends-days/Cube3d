@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:17:51 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 16:59:40 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/22 14:49:05 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	read_map(t_global *global, char *map_content)
 		return (error_exit(global));
 	fd = open(map_content, O_RDONLY);
 	if (fd == -1)
-		return (ft_printf(2, "Error\n"), error_exit(global));
+		return (ft_printf(2, "Error\nOpen\n"), error_exit(global));
 	line = get_next_line(fd);
 	if (!line)
-		return (ft_printf(2, "Error\nDossier vide"), close(fd),
+		return (ft_printf(2, "Error\nDossier vide\n"), close(fd),
 			error_exit(global));
 	while (line)
 	{
@@ -80,6 +80,10 @@ void	read_map(t_global *global, char *map_content)
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (global->textures->bonus[1] || global->textures->bonus[2])
+		if (!global->textures->bonus[1] || !global->textures->bonus[2])
+			return (ft_printf(2, "Error\nBonus sprite\n"), close(fd),
+				error_exit(global));
 	close(fd);
 }
 

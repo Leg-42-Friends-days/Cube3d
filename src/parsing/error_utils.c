@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 14:55:56 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/18 16:53:25 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/22 14:55:37 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ bool	char_check(char ch, t_global *global)
 	else if (global->textures->bonus[0] == 1 && ch == 'D')
 		return (true);
 	else if (global->textures->bonus[1] == 1 && ch == 'B')
-		return (true);
-	else if (global->textures->bonus[2] == 1 && ch == 'R')
 		return (true);
 	else
 		return (false);
