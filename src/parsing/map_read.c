@@ -6,7 +6,7 @@
 /*   By: mickzhan <mickzhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:17:51 by mickzhan          #+#    #+#             */
-/*   Updated: 2026/05/22 14:49:05 by mickzhan         ###   ########.fr       */
+/*   Updated: 2026/05/28 15:36:53 by mickzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ bool	solo_reader(t_global *global, char *map_content, char *str)
 	(void)global;
 	n = 0;
 	fd = open(map_content, O_RDONLY);
+	if (fd == -1)
+		return (ft_printf(2, "Error\nOpen\n"), error_exit(global), true);
 	line = get_next_line(fd);
 	if (!line)
-		return (true);
+		return (ft_printf(2, "Error\nEmpty file\n"), close(fd),
+			error_exit(global), true);
 	while (line)
 	{
 		n += added_name(line, str);
